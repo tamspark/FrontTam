@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-
+import { ChangeEvent, RefObject } from "react";
 export const AppBox = styled.div`
   display: flex;
   align-items: center;
@@ -67,4 +67,49 @@ export const Button = styled.button<ButtonProps>`
     opacity: 0.6;
     filter: saturate(60%);
   }
+`;
+
+interface InputProps {
+  label?: string;
+  id?: string;
+  type?: string;
+  name?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleFocus?: () => void;
+  placeholder?: string;
+  value?: string;
+  inputRef?: RefObject<HTMLInputElement>;
+  pattern?: string;
+  readOnly?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  fontFamily: string;
+  fontWeight: string;
+  bordertoprightradius: string;
+  borderbottomrightradius: string;
+  width: string;
+  height: string;
+  fontSize: string;
+  paddingleft: string;
+  backgroundcolor: string;
+  border: string;
+  borderradius: string;
+}
+export const Input = styled.input<InputProps>`
+  font-family: ${(props) => props.fontFamily || "Space Grotesk, sans-serif"};
+  font-weight: ${(props) => props.fontWeight || 700};
+  border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
+  border-bottom-right-radius: ${(props) =>
+    props.borderbottomrightradius || "20px"};
+  outline: none;
+  box-sizing: border-box;
+  border: ${(props) => props.border || "1px solid black"};
+  width: ${(props) => props.width || "100%"};
+  height: ${(props) => props.height || "100%"};
+  background: ${(props) => props.backgroundcolor || "#FFFFFF"};
+  border-left: "2px solid red";
+  border-radius: ${(props) => props.borderradius || "20px"};
+  font-style: "normal";
+  font-size: ${(props) => props.fontSize || "12px"};
+  padding-left: ${(props) => props.paddingleft};
 `;
