@@ -131,9 +131,9 @@ interface FormProps {
   width?: string;
 }
 export const StyledForm = styled.form<FormProps>`
-  height: ${(props: any) => props.height || "100%"};
-  width: ${(props: any) => props.width || "100%"};
-  /* max-width: 500px; */
+  height: ${(props: any) => props.height || "300px"};
+  width: 60%;
+  max-width: 500px;
   background-color: #f1f7fe;
   position: absolute;
   transform: translate(-50%, -50%);

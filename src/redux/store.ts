@@ -4,17 +4,11 @@ import { configureStore } from "@reduxjs/toolkit";
 
 /* store map to provide to the toolkit provider ctx */
 const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-  },
+  reducer: {},
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
-export type RootState = {
-  auth: AuthState;
-  // Add other slices if you have them
-};
 
 export default store;
 // Infer the `RootState` and `AppDispatch` types from the store itself

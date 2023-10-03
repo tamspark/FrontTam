@@ -5,20 +5,20 @@ import {
   RegisterParagraph,
 } from "./style/Register.style";
 import { Button, Input, StyledForm } from "App/style/App.style";
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "redux/store";
-import { updateFirstName } from "redux/RegisterSlice";
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from "redux/store";
+// import { updateFirstName } from "redux/RegisterSlice";
 const Register: FC<{}> = () => {
-    const dispatch = useDispatch();
-    const { firstName, lastName, email,role, username } = useSelector(
-      (state: RootState) => state.auth
-    );
-    const handleChange = (
-        event: React.ChangeEvent<HTMLInputElement>,
-        field: string
-      ) => {
-        dispatch(updateFirstName({ field, value: event.target.value }));
-      };
+    // const dispatch = useDispatch();
+    // const { firstName, lastName, email,role, username } = useSelector(
+    //   (state: RootState) => state.auth
+    // );
+    // const handleChange = (
+    //     event: React.ChangeEvent<HTMLInputElement>,
+    //     field: string
+    //   ) => {
+    //     dispatch(updateFirstName({ field, value: event.target.value }));
+    //   };
   return (
     <>
       <StyledForm width="300px" height="fit-content">
@@ -39,7 +39,7 @@ const Register: FC<{}> = () => {
             paddingleft="5px"
             padding="0 10px"
             margin=" 25px auto"
-            onChange={(e:any)=> handleChange(e,'firstName')}
+            // onChange={(e:any)=> handleChange(e,'firstName')}
           />
         </LabelInputContentHolder>
 
