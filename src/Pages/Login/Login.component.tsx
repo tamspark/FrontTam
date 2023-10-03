@@ -11,7 +11,7 @@ const Login: FC<{}> = () => {
   };
   return (
     <>
-      <StyledForm  width="300px" height="280px">
+      <StyledForm  height="280px">
         <h1>Login Here!</h1>
         <Input
           placeholder="Username"

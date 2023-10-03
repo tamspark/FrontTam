@@ -21,7 +21,7 @@ const Register: FC<{}> = () => {
     //   };
   return (
     <>
-      <StyledForm width="300px" height="fit-content">
+      <StyledForm  height="fit-content">
         <RegisterParagraph>Register</RegisterParagraph>
         <LabelInputContentHolder>
           <Input
