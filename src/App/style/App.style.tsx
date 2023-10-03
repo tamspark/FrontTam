@@ -149,11 +149,17 @@ export const StyledForm = styled.form<FormProps>`
 
 export const Page = styled.div`
   
+height: 100vh; /* Use viewport height to make it full screen */
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(to bottom, #8A52B5, #D9CEE1);
+`;
 
-height:100%;
-width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const Content = styled.div`
+  
+
+width: 100%;
+text-align: center;
   
 `;
