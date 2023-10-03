@@ -1,19 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
 // slices
 
-
 /* store map to provide to the toolkit provider ctx */
-const store = configureStore(
-    {
-        reducer: {
-        },
-        
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware(
-            { serializableCheck: false }
-        )
-    }
-);
+const store = configureStore({
+  reducer: {},
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
 
 export default store;
 // Infer the `RootState` and `AppDispatch` types from the store itself
