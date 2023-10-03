@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { ChangeEvent, RefObject } from "react";
+
 export const AppBox = styled.div`
   display: flex;
   align-items: center;
@@ -15,54 +16,54 @@ interface ButtonProps {
   fontFamily?: string;
   fontSize?: string;
   fontWeight?: string;
-  onClick: () => void;
+  marginTop?: string;
+  onClick?: () => void;
   disabled?: boolean;
 }
 export const Button = styled.button<ButtonProps>`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-
   align-items: center;
- 
   text-align: center;
-  height: ${(props:any) => props.h || "100%"};
-  width: ${(props:any) => props.w || "100%"};
-  color: ${(props:any) => (props.variant === "primary" ? "snow" : "cyan")};
-  background-color: ${(props:any) =>
-    props.variant === "primary" ? "cyan" : "snow"};
-  border: ${(props:any) =>
-    props.variant === "primary" ? "none" : "1px solid cyan"};
-  border-radius: ${(props:any) => props.borderRadius};
+  height: ${(props: any) => props.h || "100%"};
+  width: ${(props: any) => props.w || "100%"};
+  color: ${(props: any) => (props.variant === "primary" ? "white" : "#3e4684")};
+  background-color: ${(props: any) =>
+    props.variant === "primary" ? "#3e4684" : "snow"};
+  border: ${(props: any) =>
+    props.variant === "primary" ? "none" : "2px solid #3e4684"};
+  border-radius: ${(props: any) => props.borderRadius};
   text-decoration: none;
-  font-family: ${(props:any) => props.fontFamily};
-  font-size: ${(props:any) => props.fontSize};
-  font-weight: ${(props:any) => props.fontWeight};
-  margin-top: 50px;
-  
+  font-family: ${(props: any) => props.fontFamily || "Poppins"};
+  font-size: ${(props: any) => props.fontSize};
+  font-weight: ${(props: any) => props.fontWeight};
+  margin-top: ${(props: any) => props.marginTop};
+  margin: 25px 0px 10px 0;
+
   &:hover:not(:disabled),
   &:active:not(:disabled),
   &:hover {
     outline: 0;
-    color: ${(props:any) =>
+    color: ${(props: any) =>
       props.variant === "primary"
-        ? "snow"
+        ? "#3e4684"
         : props.variant === "third"
-        ? "cyan"
-        : "black"};
-    background: ${(props:any) =>
+        ? "white"
+        : "2px solid #3e4684"};
+    background: ${(props: any) =>
       props.variant === "primary"
-        ? "linear-gradient(rgb(0 184 122/100%) 0 0);"
+        ? "white"
         : props.variant === "third"
-        ? "snow"
+        ? "black"
         : "white"};
-    border: ${(props:any) =>
+    border: ${(props: any) =>
       props.variant === "primary"
-        ? "none"
+        ? "2px solid #3e4684"
         : props.variant === "third"
-        ? "2px solid cyan"
-        : "1px solid black"};
-    border-radius: ${(props:any) => props.borderRadius};
+        ? "2px solid black"
+        : "1px solid #3e4684"};
+    border-radius: ${(props: any) => props.borderRadius};
     cursor: pointer;
   }
 
@@ -86,50 +87,54 @@ interface InputProps {
   readOnly?: boolean;
   required?: boolean;
   disabled?: boolean;
-  fontFamily: string;
-  fontWeight: string;
-  bordertoprightradius: string;
-  borderbottomrightradius: string;
-  width: string;
-  height: string;
-  fontSize: string;
-  paddingleft: string;
-  backgroundcolor: string;
-  border: string;
-  borderradius: string;
-  padding:string;
+  fontFamily?: string;
+  fontWeight?: string;
+  bordertoprightradius?: string;
+  borderbottomrightradius?: string;
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  paddingleft?: string;
+  backgroundcolor?: string;
+  border?: string;
+  borderradius?: string;
+  padding?: string;
+  margin?: string;
 }
 export const Input = styled.input<InputProps>`
-  
-  font-family: ${(props:any) => props.fontFamily || "Space Grotesk, sans-serif"};
-  font-weight: ${(props:any) => props.fontWeight || 700};
-  border-top-right-radius: ${(props:any) => props.bordertoprightradius || "20px"};
-  border-bottom-right-radius: ${(props:any) =>
+  font-family: ${(props: any) => props.fontFamily || "Poppins"};
+  font-weight: ${(props: any) => props.fontWeight || 700};
+  border-top-right-radius: ${(props: any) =>
+    props.bordertoprightradius || "20px"};
+  border-bottom-right-radius: ${(props: any) =>
     props.borderbottomrightradius || "20px"};
   outline: none;
+  box-shadow: 0 0 2em #e6e9f9;
   box-sizing: border-box;
-  border: ${(props:any) => props.border || "1px solid black"};
-  width: ${(props:any) => props.width || "100%"};
-  height: ${(props:any) => props.height || "100%"};
-  background: ${(props:any) => props.backgroundcolor || "#FFFFFF"};
+  border: ${(props: any) => props.border};
+  width: ${(props: any) => props.width || "100%"};
+  height: ${(props: any) => props.height || "100%"};
+  background: ${(props: any) => props.backgroundcolor || "#FFFFFF"};
   border-left: "2px solid red";
-  border-radius: ${(props:any) => props.borderradius || "20px"};
+  border-radius: ${(props: any) => props.borderradius || "20px"};
   font-style: "normal";
-  font-size: ${(props:any) => props.fontSize || "12px"};
-  padding-left: ${(props:any) => props.paddingleft};
-  padding:${(props:any) => props.padding};
+  font-size: ${(props: any) => props.fontSize || "12px"};
+  padding-left: ${(props: any) => props.paddingleft};
+  padding: ${(props: any) => props.padding};
   margin-top: 12px;
   display: block;
+  margin: ${(props: any) => props.margin};
 `;
 
-interface FormProps{
-  height: string;
+interface FormProps {
+  height?: string;
+  width?: string;
 }
 export const StyledForm = styled.form<FormProps>`
-height: ${(props:any) => props.height || "300px"};
-  width: 60%;
-  max-width:500px;
-  background-color: rgba(255, 255, 255, 0.13);
+  height: ${(props: any) => props.height || "100%"};
+  width: ${(props: any) => props.width || "100%"};
+  /* max-width: 500px; */
+  background-color: #f1f7fe;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -137,11 +142,12 @@ height: ${(props:any) => props.height || "300px"};
   border-radius: 10px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.01);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
-  font-family: "Poppins",sans-serif;
-  color:#000000;
+  box-shadow: 0 0 2em #e6e9f9;
+  padding: 0px 30px 20px 30px;
+  font-family: "Poppins";
+  color: #000000;
   letter-spacing: 0.5px;
   outline: none;
   border: none;
+  border-radius: 30px;
 `;

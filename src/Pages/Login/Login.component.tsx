@@ -11,52 +11,52 @@ const Login: FC<{}> = () => {
   };
   return (
     <>
-    <StyledForm height="280px">
-      <h1>Login Here!</h1>
-      <Input
-        placeholder="Username"
-        type="text"
-        fontFamily="sanf-serif"
-        fontSize="12px"
-        fontWeight="700"
-        borderbottomrightradius="20px"
-        bordertoprightradius="20px"
-        border="1px solid black"
-        width="100%"
-        height="40px"
-        backgroundcolor="#FFFFFF"
-        borderradius="10px"
-        paddingleft="5px"
-        padding="0 10px"
-      ></Input>
-      <Input
-        placeholder="Password"
-        type="password"
-        fontFamily="sanf-serif"
-        fontSize="12px"
-        fontWeight="700"
-        borderbottomrightradius="20px"
-        bordertoprightradius="20px"
-        border="1px solid black"
-        width="100%"
-        height="40px"
-        backgroundcolor="#FFFFFF"
-        borderradius="10px"
-        paddingleft="5px"
-        padding="0 10px"
-      ></Input>
-      <Button
-        h="40px"
-        w="100%"
-        variant="primary"
-        onClick={handleClick}
-        borderRadius="5px"
-        fontFamily="sanf-sarif"
-        fontSize="18px"
-        fontWeight="700"
-      >
-        Submit
-      </Button>
+      <StyledForm  width="300px" height="280px">
+        <h1>Login Here!</h1>
+        <Input
+          placeholder="Username"
+          type="text"
+          fontFamily="sanf-serif"
+          fontSize="12px"
+          fontWeight="700"
+          borderbottomrightradius="20px"
+          bordertoprightradius="20px"
+          border="1px solid black"
+          width="100%"
+          height="40px"
+          backgroundcolor="#FFFFFF"
+          borderradius="10px"
+          paddingleft="5px"
+          padding="0 10px"
+        ></Input>
+        <Input
+          placeholder="Password"
+          type="password"
+          fontFamily="sanf-serif"
+          fontSize="12px"
+          fontWeight="700"
+          borderbottomrightradius="20px"
+          bordertoprightradius="20px"
+          border="1px solid black"
+          width="100%"
+          height="40px"
+          backgroundcolor="#FFFFFF"
+          borderradius="10px"
+          paddingleft="5px"
+          padding="0 10px"
+        ></Input>
+        <Button
+          h="40px"
+          w="100%"
+          variant="primary"
+          onClick={handleClick}
+          borderRadius="5px"
+          fontFamily="Poppins"
+          fontSize="17px"
+         
+        >
+          Submit
+        </Button>
       </StyledForm>
     </>
   );
