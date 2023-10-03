@@ -41,6 +41,7 @@ export const Button = styled.button<ButtonProps>`
   margin-top: ${(props: any) => props.marginTop};
   margin: 25px 0px 10px 0;
 
+
   &:hover:not(:disabled),
   &:active:not(:disabled),
   &:hover {
@@ -51,6 +52,7 @@ export const Button = styled.button<ButtonProps>`
         : props.variant === "third"
         ? "white"
         : "2px solid #3e4684"};
+
     background: ${(props: any) =>
       props.variant === "primary"
         ? "white"
@@ -63,6 +65,7 @@ export const Button = styled.button<ButtonProps>`
         : props.variant === "third"
         ? "2px solid black"
         : "1px solid #3e4684"};
+
     border-radius: ${(props: any) => props.borderRadius};
     cursor: pointer;
   }
@@ -128,7 +131,6 @@ export const Input = styled.input<InputProps>`
 
 interface FormProps {
   height?: string;
-  width?: string;
 }
 export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
@@ -151,3 +153,22 @@ export const StyledForm = styled.form<FormProps>`
   border: none;
   border-radius: 30px;
 `;
+
+
+export const Page = styled.div`
+  
+height: 100vh; /* Use viewport height to make it full screen */
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(to bottom, #8A52B5, #D9CEE1);
+`;
+
+export const Content = styled.div`
+  
+
+width: 100%;
+text-align: center;
+  
+`;
+
