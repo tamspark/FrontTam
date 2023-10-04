@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 
 //style
 import {
@@ -9,7 +9,9 @@ import { Button, Input, StyledForm } from "App/style/App.style";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { AppDispatch } from "redux/store";
+import { registerUser } from "redux/Auth/Register/RegisterSlice";
+// import { RootState } from "redux/store";
 // import {
 //   updateFirstName,
 //   updateLastName,
@@ -19,13 +21,13 @@ import { RootState } from "redux/store";
 // } from "redux/Auth/Register/RegisterSlice";
 // import { fetchUserData } from "redux/Auth/Register/RegisterSlice";
 
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import {
-  signupUser,
-  signupSelector,
-  clearState,
-} from "../../redux/Auth/Register/RegisterSlice";
+// import { useNavigate } from "react-router-dom";
+// import { useForm } from "react-hook-form";
+// import {
+//   signupUser,
+//   signupSelector,
+//   clearState,
+// } from "../../redux/Auth/Register/RegisterSlice";
 interface SignUpData {
   firstname: string;
   lastname: string;
@@ -34,7 +36,6 @@ interface SignUpData {
 }
 
 const Register: FC<{}> = () => {
-
   // const { firstName, lastName, roleId, roleName, username } = useSelector(
   //   (state: RootState) => state.register // Use 'register' here to match the slice name
   // );
@@ -66,41 +67,67 @@ const Register: FC<{}> = () => {
   //   dispatch(fetchUserData(userId));
   // };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpData>();
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    signupSelector
-  );
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<SignUpData>();
+  // const { isFetching, isSuccess, isError, errorMessage } = useSelector(
+  //   signupSelector
+  // );
 
-  const onSubmit = (data: SignUpData) => {
-    dispatch(signupUser(data));
-  };
+  // const onSubmit = (data: SignUpData) => {
+  //   dispatch(signupUser(data));
+  // };
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearState());
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(clearState());
+  //   };
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.log(errorMessage);
+  //     dispatch(clearState());
+  //   }
+
+  //   if (isSuccess) {
+  //     dispatch(clearState());
+  //     navigate("/auth/login");
+  //   }
+  // }, [isError, isSuccess, dispatch, navigate]);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleRegisterClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    const userCredentials = {
+      firstName: firstName || "",
+      lastName: lastName || "",
+      username: username || "",
+      email: email || "",
     };
-  }, [dispatch]);
 
-  useEffect(() => {
-    if (isError) {
-      console.log(errorMessage);
-      dispatch(clearState());
+    try {
+      await dispatch(registerUser(userCredentials));
+      console.log("Sukses");
+    } catch (error) {
+      console.log("Not succese");
+      console.error("Register failed:", error);
     }
-
-    if (isSuccess) {
-      dispatch(clearState());
-      navigate("/auth/login");
-    }
-  }, [isError, isSuccess, dispatch, navigate]);
+  };
   return (
     <>
-      <StyledForm height="fit-content"  onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm height="fit-content">
         <RegisterParagraph>Register</RegisterParagraph>
         <LabelInputContentHolder>
           <Input
@@ -118,7 +145,10 @@ const Register: FC<{}> = () => {
             paddingleft="5px"
             padding="0 10px"
             margin=" 25px auto"
-            // onChange={(e: any) => handleChange(e, "firstName")}
+            value={firstName}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFirstName(e.target.value)
+            }
           />
         </LabelInputContentHolder>
 
@@ -137,7 +167,10 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 25px auto"
-          // onChange={(e: any) => handleChange(e, "lastName")}
+          value={lastName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setLastName(e.target.value)
+          }
         />
 
         <Input
@@ -155,7 +188,10 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 25px auto"
-          // onChange={(e: any) => handleChange(e, "email")}
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
 
         <Input
@@ -191,10 +227,11 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 25px auto"
-          // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          //   const username = e.target.value;
-          //   console.log(`Username input value: ${username}`);
-          // }}
+          value={username}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setUsername(e.target.value);
+            // console.log(`Username input value: ${username}`);
+          }}
         />
         <Button
           h="40px"
@@ -203,7 +240,7 @@ const Register: FC<{}> = () => {
           borderRadius="5px"
           fontFamily="Poppins"
           fontSize="17px"
-          // onClick={handleFetchUserData}
+          onClick={handleRegisterClick}
         >
           Submit
         </Button>
