@@ -131,6 +131,7 @@ export const Input = styled.input<InputProps>`
 
 interface FormProps {
   height?: string;
+  onSubmit?: () => void;
 }
 export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};

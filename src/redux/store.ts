@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // slices
-import registerReducer from 'redux/Auth/Register/RegisterSlice';
+import registerSlice from "redux/Auth/Register/RegisterSlice";
 /* store map to provide to the toolkit provider ctx */
 const store = configureStore({
-  reducer: {register: registerReducer,},
+  reducer: { register: registerSlice },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
 });
 
 export default store;
