@@ -17,7 +17,10 @@ interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   marginTop?: string;
-  onClick?: () => void;
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void | Promise<void>;
+
   disabled?: boolean;
 }
 export const Button = styled.button<ButtonProps>`
@@ -40,7 +43,6 @@ export const Button = styled.button<ButtonProps>`
   font-weight: ${(props: any) => props.fontWeight};
   margin-top: ${(props: any) => props.marginTop};
   margin: 25px 0px 10px 0;
-
 
   &:hover:not(:disabled),
   &:active:not(:disabled),
@@ -155,21 +157,64 @@ export const StyledForm = styled.form<FormProps>`
   border-radius: 30px;
 `;
 
-
 export const Page = styled.div`
-  
-height: 100vh; /* Use viewport height to make it full screen */
-display: flex;
-align-items: center;
-justify-content: center;
-background: linear-gradient(to bottom, #8A52B5, #D9CEE1);
+  height: 100vh; /* Use viewport height to make it full screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #8a52b5, #d9cee1);
 `;
 
 export const Content = styled.div`
-  
-
-width: 100%;
-text-align: center;
-  
+  width: 100%;
+  text-align: center;
 `;
-
+interface dropdownProps {
+  label?: string;
+  id?: string;
+  type?: string;
+  name?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleFocus?: () => void;
+  handleSelectDropdown?:()=>void;
+  placeholder?: string;
+  value?: string;
+  inputRef?: RefObject<HTMLInputElement>;
+  pattern?: string;
+  readOnly?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  fontFamily?: string;
+  fontWeight?: string;
+  bordertoprightradius?: string;
+  borderbottomrightradius?: string;
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  paddingleft?: string;
+  backgroundcolor?: string;
+  border?: string;
+  borderradius?: string;
+  padding?: string;
+  margin?: string;
+}
+export const StyledSelect = styled.select<dropdownProps>`
+  font-family: ${(props) => props.fontFamily || "Poppins"};
+  font-weight: ${(props) => props.fontWeight || 700};
+  border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
+  border-bottom-right-radius: ${(props) => props.borderbottomrightradius || "20px"};
+  outline: none;
+  box-shadow: 0 0 2em #e6e9f9;
+  box-sizing: border-box;
+  border: ${(props) => props.border};
+  width: ${(props) => props.width || "100%"};
+  height: ${(props) => props.height || "100%"};
+  background: ${(props) => props.backgroundcolor || "#FFFFFF"};
+  border-radius: ${(props) => props.borderradius || "20px"};
+  font-size: ${(props) => props.fontSize || "12px"};
+  padding-left: ${(props) => props.paddingleft};
+  padding: ${(props) => props.padding};
+  margin-top: 12px;
+  display: block;
+  margin: ${(props) => props.margin};
+`;

@@ -14,47 +14,44 @@ interface RegisterState {
 
 }
 
-// const initialState: RegisterState = {
-//   firstName: "",
-//   lastName: "",
-//   username: "",
-//   email: "",
-//   roleId: "",
-//   roleName: null,
-//   token: "",
- 
-// };
-interface AuthState {
+interface AuthRegState {
   user: RegisterState | null;
   isAuthenticated: boolean;
 }
 
-const initialState: AuthState = {
+const initialState: AuthRegState = {
   user: null,
   isAuthenticated: false,
 };
-export const registerUser=createAsyncThunk(
+export const registerUser = createAsyncThunk(
     'user/registerUser',
-    async (userCredentials, { rejectWithValue }) => {
+    async (userCredentials:object, { rejectWithValue }) => {
       try {
         const response = await axios.post(
           'http://192.168.10.213:8080/TAM/registration',
           userCredentials
         );
   
-        const responseData = response.data.body;
-        console.log(responseData);
-        localStorage.setItem('user', JSON.stringify(responseData));
+        const responseRegData = response.data.body;
+        console.log(responseRegData);
+        localStorage.setItem('user', JSON.stringify(responseRegData));
   
-        return responseData;
+        if (response.status !== 200) {
+          return rejectWithValue(responseRegData.error.message);
+        }
+  
+  
+        return responseRegData;
       } catch (error) {
-        return rejectWithValue("");
+        console.log("Error in loginUser:", error);
+  
+        return rejectWithValue("Login failed");
       }
     }
   );
 
-  const authSlice = createSlice({
-    name: 'auth',
+  const registerSlice = createSlice({
+    name: 'register',
     initialState,
     reducers: {
       setUser: (state, action: PayloadAction<RegisterState>) => {
@@ -69,58 +66,13 @@ export const registerUser=createAsyncThunk(
           state.isAuthenticated = true;
         })
         .addCase(registerUser.rejected, (state, action) => {
-          // Handle login failure or errors here, if needed
+          state.isAuthenticated = false;
+          state.user = null;
+          // state.error = action.payload as string | null;
         });
     },
   });
   
-  export const { setUser } = authSlice.actions;
-  export default authSlice.reducer;
+  export const { setUser } = registerSlice.actions;
+  export default registerSlice.reducer;
 
-    // updateFirstName(state, action: PayloadAction<string>) {
-    //   state.firstName = action.payload;
-    // },
-    // updateLastName(state, action: PayloadAction<string>) {
-    //   state.lastName = action.payload;
-    // },
-    // updateusername(state, action: PayloadAction<string>) {
-    //   state.username = action.payload;
-    // },
-    // updateEmail(state, action: PayloadAction<string>) {
-    //   state.email = action.payload;
-    // },
-    // updateRole(
-    //   state,
-    //   action: PayloadAction<{ roleId: string; roleName: string }>
-    // ) {
-    //   state.roleId = action.payload.roleId;
-    //   state.roleName = action.payload.roleName;
-    // },
-    // Define other action creators to update other form fields
-  // },
-  //   extraReducers: (builder) => {
-  //     builder
-  //       .addCase(fetchUserData.pending, (state) => {
-  //         // Handle pending state (optional)
-  //       })
-  //       .addCase(fetchUserData.fulfilled, (state, action: PayloadAction<any>) => {
-  //         state.user = action.payload; // Update the user field with the fetched data
-  //       })
-  //       .addCase(fetchUserData.rejected, (state, action) => {
-  //         // Handle error here, you can log or display an error message
-  //         console.error('Error fetching user data:', action.error.message);
-  //       });
-  //   },
-// });
-
-// export const {
-//   updateFirstName,
-//   updateLastName,
-//   updateusername,
-//   updateRole,
-//   updateEmail,
-// } = registerSlice.actions;
-
-
-// export const signupSelector = (state: any) => state.signup;
-// export default registerSlice.reducer;

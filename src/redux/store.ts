@@ -6,8 +6,12 @@ import registerSlice from "redux/Auth/Register/RegisterSlice";
 const store = configureStore({
   reducer: { register: registerSlice },
 
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
+   middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['user/registerUser/fulfilled'], // Ignore specific actions if needed
+      },
+    }),
 });
 
 export default store;

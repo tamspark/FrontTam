@@ -5,116 +5,59 @@ import {
   LabelInputContentHolder,
   RegisterParagraph,
 } from "./style/Register.style";
-import { Button, Input, StyledForm } from "App/style/App.style";
+import { Button, Input, StyledForm, StyledSelect } from "App/style/App.style";
+
+//axios
+import axios from "axios";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "redux/store";
 import { registerUser } from "redux/Auth/Register/RegisterSlice";
-// import { RootState } from "redux/store";
-// import {
-//   updateFirstName,
-//   updateLastName,
-//   updateusername,
-//   updateRole,
-//   updateEmail,
-// } from "redux/Auth/Register/RegisterSlice";
-// import { fetchUserData } from "redux/Auth/Register/RegisterSlice";
 
-// import { useNavigate } from "react-router-dom";
-// import { useForm } from "react-hook-form";
-// import {
-//   signupUser,
-//   signupSelector,
-//   clearState,
-// } from "../../redux/Auth/Register/RegisterSlice";
-interface SignUpData {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
+interface DropdownItem {
+  id: string;
+  name?: string;
 }
 
 const Register: FC<{}> = () => {
-  // const { firstName, lastName, roleId, roleName, username } = useSelector(
-  //   (state: RootState) => state.register // Use 'register' here to match the slice name
-  // );
-
-  // const handleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  //   field: string
-  // ) => {
-  //   dispatch(updateFirstName(event.target.value));
-  //   dispatch(updateLastName(event.target.value));
-  //   dispatch(updateusername(event.target.value));
-
-  //   dispatch(updateEmail(event.target.value));
-
-  // };
-
-  // const handleRoleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const selectedRoleId = event.target.value; // Assuming your input field provides the role ID
-  //   const selectedRoleName = event.target.options[
-  //     event.target.selectedIndex
-  //   ].text; // Assuming you have a dropdown/select for role names
-
-  //   dispatch(updateRole({ roleId: selectedRoleId, roleName: selectedRoleName }));
-  // };
-
-  // const handleFetchUserData = () => {
-  //   dispatch(fetchUserData(userId));
-  // };
-
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<SignUpData>();
-  // const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-  //   signupSelector
-  // );
-
-  // const onSubmit = (data: SignUpData) => {
-  //   dispatch(signupUser(data));
-  // };
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(clearState());
-  //   };
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.log(errorMessage);
-  //     dispatch(clearState());
-  //   }
-
-  //   if (isSuccess) {
-  //     dispatch(clearState());
-  //     navigate("/auth/login");
-  //   }
-  // }, [isError, isSuccess, dispatch, navigate]);
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [selectedRole, setSelectedRole] = useState<number | null>(null); // Store the selected role's id
+  const [roles, setRoles] = useState<DropdownItem[]>([]);
+  console.log("role", roles);
+  console.log(email);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    axios
+      .get<DropdownItem[]>("http://192.168.10.213:8080/TAM/role")
+      .then((res) => {
+        setRoles(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log("error is", err));
+  }, []);
 
   const handleRegisterClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    if (selectedRole === null) {
+      console.log("Please select a role");
+      return;
+    }
 
     const userCredentials = {
       firstName: firstName || "",
       lastName: lastName || "",
       username: username || "",
       email: email || "",
+      role: {
+        id: selectedRole || 0,
+      },
     };
 
     try {
@@ -125,6 +68,7 @@ const Register: FC<{}> = () => {
       console.error("Register failed:", error);
     }
   };
+
   return (
     <>
       <StyledForm height="fit-content">
@@ -194,9 +138,7 @@ const Register: FC<{}> = () => {
           }
         />
 
-        <Input
-          placeholder="Role"
-          type="text"
+        <StyledSelect
           fontFamily="Poppins"
           fontSize="12px"
           borderbottomrightradius="20px"
@@ -209,8 +151,17 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 25px auto"
-          // onChange={handleRoleChange}
-        />
+          value={selectedRole !== null ? selectedRole.toString() : ""}
+          onChange={(e: any) => setSelectedRole(Number(e.target.value))}
+          required={true}
+        >
+          <option defaultValue="none">Select an Option</option>
+          {roles.map((role) => (
+            <option key={role.id} value={role.id}>
+              {role.name}
+            </option>
+          ))}
+        </StyledSelect>
 
         <Input
           placeholder="Username"
@@ -230,7 +181,7 @@ const Register: FC<{}> = () => {
           value={username}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value);
-            // console.log(`Username input value: ${username}`);
+            console.log(`Username input value: ${username}`);
           }}
         />
         <Button
