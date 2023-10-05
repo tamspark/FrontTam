@@ -1,14 +1,32 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 // style
 
 import { Input } from "App/style/App.style";
 import { Button } from "App/style/App.style";
 import { StyledForm } from "App/style/App.style";
-
+import { AppDispatch } from "redux/store";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "redux/Auth/recoverPasword/RecoverPasswordSlice";
 const ResetPassword: FC<{}> = () => {
   const handleClick = () => {
     console.log("U klikua!");
   };
+  const [newPassword,setNewPassword]=useState<string>("")
+  const [confirmPassword,setConfirmPassword]=useState<string>("")
+ 
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleResetPassClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+ 
+
+    console.log(typeof newPassword);
+    await dispatch(resetPassword(newPassword));
+  };
+
   return (
     <>
     <StyledForm height="280px">
@@ -28,6 +46,9 @@ const ResetPassword: FC<{}> = () => {
         borderradius="10px"
         paddingleft="5px"
         padding="0 10px"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setNewPassword(e.target.value)
+        }
       ></Input>
       <Input
         placeholder="Confirm Password"
@@ -44,16 +65,20 @@ const ResetPassword: FC<{}> = () => {
         borderradius="10px"
         paddingleft="5px"
         padding="0 10px"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setConfirmPassword(e.target.value)
+        }
       ></Input>
       <Button
         h="40px"
         w="100%"
         variant="primary"
-        onClick={handleClick}
+      
         borderRadius="5px"
         fontFamily="sanf-sarif"
         fontSize="18px"
         fontWeight="700"
+        onClick={handleResetPassClick}
       >
         Submit
       </Button>
