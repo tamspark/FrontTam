@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./authSlicer";
 
+// slices
+
+/* store map to provide to the toolkit provider ctx */
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -8,7 +10,10 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["user/loginUser/fulfilled"],
+        ignoredActions: [
+          "user/registerUser/fulfilled",
+          "user/loginUser/fulfilled",
+        ],
       },
     }),
 });
