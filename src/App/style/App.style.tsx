@@ -17,6 +17,7 @@ interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   marginTop?: string;
+  margin?: string;
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | Promise<void>;
@@ -42,7 +43,7 @@ export const Button = styled.button<ButtonProps>`
   font-size: ${(props: any) => props.fontSize};
   font-weight: ${(props: any) => props.fontWeight};
   margin-top: ${(props: any) => props.marginTop};
-  margin: 25px 0px 10px 0;
+  margin: ${(props: any) => props.margin || "25px 0px 10px 0"};
 
   &:hover:not(:disabled),
   &:active:not(:disabled),
@@ -176,7 +177,7 @@ interface dropdownProps {
   name?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleFocus?: () => void;
-  handleSelectDropdown?:()=>void;
+  handleSelectDropdown?: () => void;
   placeholder?: string;
   value?: string;
   inputRef?: RefObject<HTMLInputElement>;
@@ -202,7 +203,8 @@ export const StyledSelect = styled.select<dropdownProps>`
   font-family: ${(props) => props.fontFamily || "Poppins"};
   font-weight: ${(props) => props.fontWeight || 700};
   border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
-  border-bottom-right-radius: ${(props) => props.borderbottomrightradius || "20px"};
+  border-bottom-right-radius: ${(props) =>
+    props.borderbottomrightradius || "20px"};
   outline: none;
   box-shadow: 0 0 2em #e6e9f9;
   box-sizing: border-box;

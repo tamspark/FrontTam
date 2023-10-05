@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 
 //style
 import {
+  Label,
   LabelInputContentHolder,
   RegisterParagraph,
 } from "./style/Register.style";
@@ -74,8 +75,8 @@ const Register: FC<{}> = () => {
       <StyledForm height="fit-content">
         <RegisterParagraph>Register</RegisterParagraph>
         <LabelInputContentHolder>
+          <Label>FirstName</Label>
           <Input
-            placeholder="FirstName"
             type="text"
             fontFamily="Poppins"
             fontSize="12px"
@@ -88,16 +89,15 @@ const Register: FC<{}> = () => {
             borderradius="10px"
             paddingleft="5px"
             padding="0 10px"
-            margin=" 25px auto"
+            margin=" 15px auto"
             value={firstName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFirstName(e.target.value)
             }
           />
         </LabelInputContentHolder>
-
+        <Label>LastName</Label>
         <Input
-          placeholder="LastName"
           type="text"
           fontFamily="Poppins"
           fontSize="12px"
@@ -110,15 +110,14 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 15px auto"
           value={lastName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setLastName(e.target.value)
           }
         />
-
+        <Label>Email</Label>
         <Input
-          placeholder="Email"
           type="text"
           fontFamily="Poppins"
           fontSize="12px"
@@ -131,13 +130,13 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 15px auto"
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
         />
-
+        <Label>Role</Label>
         <StyledSelect
           fontFamily="Poppins"
           fontSize="12px"
@@ -150,7 +149,7 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 15px auto"
           value={selectedRole !== null ? selectedRole.toString() : ""}
           onChange={(e: any) => setSelectedRole(Number(e.target.value))}
           required={true}
@@ -162,7 +161,7 @@ const Register: FC<{}> = () => {
             </option>
           ))}
         </StyledSelect>
-
+        <Label>Username</Label>
         <Input
           placeholder="Username"
           type="text"
@@ -177,7 +176,7 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 15px auto"
           value={username}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value);
@@ -191,6 +190,7 @@ const Register: FC<{}> = () => {
           borderRadius="5px"
           fontFamily="Poppins"
           fontSize="17px"
+          margin="36px 0 20px 0" 
           onClick={handleRegisterClick}
         >
           Submit
