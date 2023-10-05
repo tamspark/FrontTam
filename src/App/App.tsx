@@ -17,7 +17,10 @@ const App: FC<{}> = () => {
         <Routes>
           <Route path="/auth" element={<AuthPage />}>
             <Route path="login" element={<Login />} index />
-            <Route path="pw-recovery" element={<ResetPassword />} />
+            <Route
+              path="tam/resetPassword/:token"
+              element={<ResetPassword />}
+            />
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
           </Route>
