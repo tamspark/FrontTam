@@ -17,7 +17,7 @@ interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   marginTop?: string;
-  onClick?: () => void;
+  onClick?:any;
   disabled?: boolean;
 }
 export const Button = styled.button<ButtonProps>`
