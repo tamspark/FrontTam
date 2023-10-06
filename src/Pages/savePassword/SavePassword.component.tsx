@@ -27,25 +27,15 @@ const ResetPassword: FC<{}> = () => {
     setPasswordsMatch(true);
 
     const password = {
-      password: newPassword,
+      password: newPassword || "",
     };
     try {
-      await dispatch(resetPassword(password || ""));
+      await dispatch(resetPassword(password));
       console.log("sukses");
     } catch (error) {
       console.log("error", error);
     }
-    // dispatch(resetPassword(newPassword)).then((resultAction: any) => {
-    //   if (resultAction) {
-    //     //  navigate("/auth/login");
-    //     // Password reset was successful, you can handle success here
-    //     console.log("Password reset successful");
-    //     // navigate("/auth/login");
-    //   } else {
-    //     // Password reset failed, you can handle the error here
-    //     console.error("Password reset failed:");
-    //   }
-    // });
+
   };
   console.log(resetPassword);
   return (

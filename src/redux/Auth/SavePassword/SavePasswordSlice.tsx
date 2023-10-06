@@ -29,7 +29,7 @@ export const resetPassword = createAsyncThunk(
       console.log("Token:", token);
 
       const response = await axios.post(
-        "https:/192.168.10.213/TAM/savepassword/{token}",
+        `http://192.168.10.213:8080/TAM/savepassword/${token}`,
 
         newPassword
       );
@@ -42,13 +42,12 @@ export const resetPassword = createAsyncThunk(
         return rejectWithValue(responseData.error.message);
       }
 
-      // localStorage.setItem("user", JSON.stringify(responseData));
 
       return responseData;
     } catch (error) {
-      console.log("Error in loginUser:", error);
+      console.log("Error in savepassword:", error);
 
-      return rejectWithValue("Login failed");
+      return rejectWithValue("savepassword failed");
     }
   }
 );
