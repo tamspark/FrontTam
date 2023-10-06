@@ -1,13 +1,15 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser, clearUser } from "redux/authSlicer";
+import { loginUser, clearUser, logoutUser } from "redux/authSlicer";
 // style
 import { Input } from "App/style/App.style";
 import { Button } from "App/style/App.style";
 import { StyledForm } from "App/style/App.style";
 import { AppDispatch } from "redux/store";
+import { useNavigate } from "react-router";
 
 const Login: FC<{}> = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -27,9 +29,15 @@ const Login: FC<{}> = () => {
     await dispatch(loginUser(userCredentials));
   };
 
-  // const handleLogout = () => {
-
-  //   dispatch(clearUser());
+  // const handleLogout = (userId: number) => {
+  //   try {
+  //     dispatch(logoutUser(userId)).then(() => {
+  //       dispatch(clearUser());
+  //       navigate("/auth/login");
+  //     });
+  //   } catch (error) {
+  //     console.error("Synchronous error:", error);
+  //   }
   // };
 
   return (
@@ -87,6 +95,7 @@ const Login: FC<{}> = () => {
         >
           Submit
         </Button>
+      
       </StyledForm>
     </>
   );
