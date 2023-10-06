@@ -52,6 +52,35 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk<void, number | null>(
+  "user/logoutUser",
+  async (incomingUserId: number | null, { rejectWithValue }) => {
+    try {
+      const user = localStorage.getItem("user");
+      console.log(user);
+      if (!user) {
+        throw new Error("User data not found in localStorage");
+      }
+      const userData = JSON.parse(user);
+      const userIdFromLocalStorage = userData.id;
+      console.log(userIdFromLocalStorage);
+      if (!userIdFromLocalStorage) {
+        throw new Error("User ID not found in user data");
+      }
+      const response = await axios.post(
+        `http://192.168.10.210:8080/TAM/auth/logout/${userIdFromLocalStorage}`
+      );
+
+      console.log("Logout response:", response.data);
+      localStorage.removeItem("user");
+    } catch (error) {
+      console.error("Error in logoutUser:", error);
+
+      return rejectWithValue("Logout failed");
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -74,6 +103,13 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = null;
+        state.error = action.payload as string | null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.payload as string | null;
       });
   },
