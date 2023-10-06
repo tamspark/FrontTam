@@ -133,7 +133,7 @@ export const Input = styled.input<InputProps>`
 
 interface FormProps {
   height?: string;
-  onSubmit?: () => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
 }
 export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
@@ -176,7 +176,7 @@ interface dropdownProps {
   name?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleFocus?: () => void;
-  handleSelectDropdown?:()=>void;
+  handleSelectDropdown?: () => void;
   placeholder?: string;
   value?: string;
   inputRef?: RefObject<HTMLInputElement>;
@@ -202,7 +202,8 @@ export const StyledSelect = styled.select<dropdownProps>`
   font-family: ${(props) => props.fontFamily || "Poppins"};
   font-weight: ${(props) => props.fontWeight || 700};
   border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
-  border-bottom-right-radius: ${(props) => props.borderbottomrightradius || "20px"};
+  border-bottom-right-radius: ${(props) =>
+    props.borderbottomrightradius || "20px"};
   outline: none;
   box-shadow: 0 0 2em #e6e9f9;
   box-sizing: border-box;

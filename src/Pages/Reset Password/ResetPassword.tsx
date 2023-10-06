@@ -55,7 +55,7 @@ const ResetPassword: FC<{}> = () => {
 
   return (
     <>
-      <StyledForm height="280px">
+      <StyledForm height="280px" onSubmit={handleSubmit}>
         <h1>Reset Password!</h1>
         <Input
           placeholder="New Password"
@@ -106,7 +106,6 @@ const ResetPassword: FC<{}> = () => {
           h="40px"
           w="100%"
           variant="primary"
-          onClick={handleSubmit}
           borderRadius="5px"
           fontFamily="sanf-sarif"
           fontSize="18px"

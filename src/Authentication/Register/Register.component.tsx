@@ -62,6 +62,7 @@ const Register: FC<{}> = () => {
 
     try {
       await dispatch(registerUser(userCredentials));
+      // window.location.href = "login";
       console.log("Sukses");
     } catch (error) {
       console.log("Not succese");
