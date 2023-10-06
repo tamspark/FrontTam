@@ -25,7 +25,7 @@ const ResetPassword: FC<{}> = () => {
     }
     setPasswordsMatch(true);
     dispatch(resetPassword(newPassword))
-    .then((resultAction) => {
+    .then((resultAction:any) => {
       if (resultAction) {
         // Password reset was successful, you can handle success here
         console.log("Password reset successful");
