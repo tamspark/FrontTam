@@ -81,7 +81,7 @@ const Login: FC<{}> = () => {
           w="100%"
           variant="primary"
           onClick={handleLoginClick}
-          borderRadius="5px"
+          borderradius="5px"
           fontFamily="Poppins"
           fontSize="17px"
         >

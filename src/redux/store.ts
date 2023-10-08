@@ -15,7 +15,7 @@ const store = configureStore({
         ignoredActions: [
           "user/registerUser/fulfilled",
           "user/loginUser/fulfilled",
-          "resetPassword: resetPasswordReducer",
+          "   resetPassword: resetPasswordSlice.reducer,",
         ],
       },
     }),

@@ -1,18 +1,18 @@
 import { styled } from "styled-components";
 import { ChangeEvent, RefObject } from "react";
 
-export const AppBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-`;
+// export const AppBox = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100vw;
+//   height: 100vh;
+// `;
 interface ButtonProps {
   variant?: "primary" | "secondary" | "third";
   h?: string;
   w?: string;
-  borderRadius?: string;
+  borderradius?: string;
   fontFamily?: string;
   fontSize?: string;
   fontWeight?: string;
@@ -32,18 +32,18 @@ export const Button = styled.button<ButtonProps>`
   text-align: center;
   height: ${(props: any) => props.h || "100%"};
   width: ${(props: any) => props.w || "100%"};
-  color: ${(props: any) => (props.variant === "primary" ? "white" : "#3e4684")};
+  color: ${(props: any) => (props.variant === "primary" ? "white" : "#525b99")};
   background-color: ${(props: any) =>
-    props.variant === "primary" ? "#3e4684" : "snow"};
+    props.variant === "primary" ? "#525b99" : "snow"};
   border: ${(props: any) =>
-    props.variant === "primary" ? "none" : "2px solid #3e4684"};
-  border-radius: ${(props: any) => props.borderRadius};
+    props.variant === "primary" ? "none" : "2px solid #525b99"};
+  border-radius: ${(props: any) => props.borderradius};
   text-decoration: none;
   font-family: ${(props: any) => props.fontFamily || "Poppins"};
   font-size: ${(props: any) => props.fontSize};
   font-weight: ${(props: any) => props.fontWeight};
   margin-top: ${(props: any) => props.marginTop};
-  margin: ${(props: any) => props.margin || "25px 0px 10px 0"};
+  margin: ${(props: any) => props.margin || "25px 0 0 0"};
 
   &:hover:not(:disabled),
   &:active:not(:disabled),
@@ -51,7 +51,7 @@ export const Button = styled.button<ButtonProps>`
     outline: 0;
     color: ${(props: any) =>
       props.variant === "primary"
-        ? "#3e4684"
+        ? "#525b99"
         : props.variant === "third"
         ? "white"
         : "2px solid #3e4684"};
@@ -64,7 +64,7 @@ export const Button = styled.button<ButtonProps>`
         : "white"};
     border: ${(props: any) =>
       props.variant === "primary"
-        ? "2px solid #3e4684"
+        ? "2px solid #525b99"
         : props.variant === "third"
         ? "2px solid black"
         : "1px solid #3e4684"};
@@ -109,7 +109,7 @@ interface InputProps {
 }
 export const Input = styled.input<InputProps>`
   font-family: ${(props: any) => props.fontFamily || "Poppins"};
-  font-weight: ${(props: any) => props.fontWeight || 700};
+  font-weight: ${(props: any) => props.fontWeight};
   border-top-right-radius: ${(props: any) =>
     props.bordertoprightradius || "20px"};
   border-bottom-right-radius: ${(props: any) =>
@@ -134,7 +134,7 @@ export const Input = styled.input<InputProps>`
 
 interface FormProps {
   height?: string;
-  onSubmit?: () => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
 }
 export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
@@ -147,8 +147,8 @@ export const StyledForm = styled.form<FormProps>`
   left: 50%;
   border-radius: 10px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.01);
-  box-shadow: 0 0 2em #e6e9f9;
+  /* border: 2px solid rgba(255, 255, 255, 0.01); */
+  box-shadow: 0 0 2em #cbcee3;
   padding: 0px 30px 20px 30px;
   font-family: "Poppins";
   color: #000000;
@@ -163,7 +163,7 @@ export const Page = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, #8a52b5, #d9cee1);
+  background: linear-gradient(to bottom, #49518f, #c8cef9);
 `;
 
 export const Content = styled.div`
@@ -201,7 +201,7 @@ interface dropdownProps {
 }
 export const StyledSelect = styled.select<dropdownProps>`
   font-family: ${(props) => props.fontFamily || "Poppins"};
-  font-weight: ${(props) => props.fontWeight || 700};
+  font-weight: ${(props) => props.fontWeight};
   border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
   border-bottom-right-radius: ${(props) =>
     props.borderbottomrightradius || "20px"};

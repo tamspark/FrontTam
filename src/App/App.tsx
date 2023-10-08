@@ -2,14 +2,14 @@ import { FC } from "react";
 
 // style
 import {} from "./style/App.style";
-import ResetPassword from "Pages/Reset Password/RecoverPassword";
+import ResetPassword from "Pages/Reset Password/ResetPassword";
 import Login from "Pages/Login/Login.component";
 import AuthPage from "Pages/Auth/Auth";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ForgetPassword from "Authentication/ChangePassword/ForgetPassword.component";
-import Register from "Authentication/Register/Register.component";
-
+import ForgetPassword from "../Pages/ChangePassword/ForgetPassword.component";
+import Register from "../Pages/Register/Register.component";
+import SavePasword from "../Pages/savePassword/SavePassword.component";
 const App: FC<{}> = () => {
   return (
     <>
@@ -17,7 +17,11 @@ const App: FC<{}> = () => {
         <Routes>
           <Route path="/auth" element={<AuthPage />}>
             <Route path="login" element={<Login />} index />
-            <Route path="pw-recovery" element={<ResetPassword />} />
+            <Route
+              path="tam/resetPassword/:token"
+              element={<ResetPassword />}
+            />
+            <Route path="tam/registration" element={<SavePasword />} />
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
           </Route>
