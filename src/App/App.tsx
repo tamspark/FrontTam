@@ -21,7 +21,7 @@ const App: FC<{}> = () => {
               path="tam/resetPassword/:token"
               element={<ResetPassword />}
             />
-            <Route path="tam/registration/" element={<SavePasword />} />
+            <Route path="tam/registration/:token" element={<SavePasword />} />
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
           </Route>

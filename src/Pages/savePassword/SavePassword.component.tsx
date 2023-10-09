@@ -1,13 +1,8 @@
 import { FC, useState } from "react";
 
 // style
-import {
-  ToggleButton,
-  InputGroup,
-  Input,
-  Button,
-  StyledForm,
-} from "App/style/App.style";
+import { ToggleButton, InputGroup, Input,Button,StyledForm } from "App/style/App.style";
+
 
 import { AppDispatch } from "redux/store";
 import { useDispatch } from "react-redux";
@@ -21,7 +16,7 @@ import {
   Warning,
   SavePassparagraph,
   Label,
-} from "./style/SavePassword.component";
+} from "./style/SavePassword.style";
 const ResetPassword: FC<{}> = () => {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState<string>("");
