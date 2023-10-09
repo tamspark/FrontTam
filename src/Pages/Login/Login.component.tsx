@@ -6,6 +6,11 @@ import { Input } from "App/style/App.style";
 import { Button } from "App/style/App.style";
 import { StyledForm } from "App/style/App.style";
 import { AppDispatch } from "redux/store";
+import {
+  LoginButtonHolder,
+  LoginLabel,
+  LoginParagraph,
+} from "./style/Login.style";
 
 const Login: FC<{}> = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,59 +39,60 @@ const Login: FC<{}> = () => {
 
   return (
     <>
-      <StyledForm height="280px">
-        <h1>Login Here!</h1>
+      <StyledForm height="fit-content">
+        <LoginParagraph>LOGIN</LoginParagraph>
+        <LoginLabel>USERNAME</LoginLabel>
         <Input
           placeholder="Username"
           type="text"
-          fontFamily="sanf-serif"
           fontSize="12px"
-          fontWeight="700"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
-          border="1px solid black"
+          border="none"
           width="100%"
           height="40px"
           backgroundcolor="#FFFFFF"
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
+          margin=" 5px 0 15px 0px"
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
         ></Input>
+        <LoginLabel>PASSWORD</LoginLabel>
         <Input
           placeholder="Password"
           type="password"
-          fontFamily="sanf-serif"
           fontSize="12px"
-          fontWeight="700"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
-          border="1px solid black"
+          border="none"
           width="100%"
           height="40px"
           backgroundcolor="#FFFFFF"
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
+          margin=" 5px 0 15px 0px"
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
         ></Input>
-        <Button
-          h="40px"
-          w="100%"
-          variant="primary"
-          onClick={handleLoginClick}
-          borderradius="5px"
-          fontFamily="Poppins"
-          fontSize="17px"
-        >
-          Submit
-        </Button>
+        <LoginButtonHolder>
+          <Button
+            h="40px"
+            w="100%"
+            variant="primary"
+            onClick={handleLoginClick}
+            borderradius="20px"
+            fontSize="17px"
+          >
+            Submit
+          </Button>
+        </LoginButtonHolder>
       </StyledForm>
     </>
   );

@@ -6,6 +6,11 @@ import { Button } from "App/style/App.style";
 import { StyledForm } from "App/style/App.style";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import {
+  ResetPassButtonHolder,
+  ResetPassLabel,
+} from "./style/ResetPassword.style";
+import { LoginParagraph } from "Pages/Login/style/Login.style";
 
 const ResetPassword: FC<{}> = () => {
   const navigate = useNavigate();
@@ -55,43 +60,45 @@ const ResetPassword: FC<{}> = () => {
 
   return (
     <>
-      <StyledForm height="280px" onSubmit={handleSubmit}>
-        <h1>Reset Password!</h1>
+      <StyledForm height="fit-content" onSubmit={handleSubmit}>
+        <LoginParagraph>Reset Password!</LoginParagraph>
+        <ResetPassLabel>NEW PASSWORD</ResetPassLabel>
         <Input
           placeholder="New Password"
           type="password"
-          fontFamily="sanf-serif"
           fontSize="12px"
           fontWeight="700"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
-          border="1px solid black"
+          border="none"
           width="100%"
           height="40px"
           backgroundcolor="#FFFFFF"
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
+          margin=" 5px 0 15px 0px"
           value={newPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewPassword(e.target.value)
           }
         ></Input>
+        <ResetPassLabel>CONFIRM PASSWORD</ResetPassLabel>
         <Input
           placeholder="Confirm Password"
           type="password"
-          fontFamily="sanf-serif"
           fontSize="12px"
           fontWeight="700"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
-          border="1px solid black"
+          border="none"
           width="100%"
           height="40px"
           backgroundcolor="#FFFFFF"
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
+          margin=" 5px 0 15px 0px"
           value={confirmPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setConfirmPassword(e.target.value)
@@ -102,17 +109,17 @@ const ResetPassword: FC<{}> = () => {
             Passwords do not match. Please try again.
           </p>
         )}
-        <Button
-          h="40px"
-          w="100%"
-          variant="primary"
-          borderradius="5px"
-          fontFamily="sanf-sarif"
-          fontSize="18px"
-          fontWeight="700"
-        >
-          Submit
-        </Button>
+        <ResetPassButtonHolder>
+          <Button
+            h="40px"
+            w="100%"
+            variant="primary"
+            borderradius="20px"
+            fontSize="18px"
+          >
+            Submit
+          </Button>
+        </ResetPassButtonHolder>
       </StyledForm>
     </>
   );
