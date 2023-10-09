@@ -39,8 +39,6 @@ export const resetPassword = createAsyncThunk(
         return rejectWithValue(responseData.error.message);
       }
 
-      // localStorage.setItem("user", JSON.stringify(responseData));
-
       return responseData;
     } catch (error) {
       console.log("Error in loginUser:", error);

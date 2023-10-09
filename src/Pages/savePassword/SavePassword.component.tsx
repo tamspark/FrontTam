@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-
+import { useNavigate } from "react-router";
 // style
 import {
   ToggleButton,
@@ -9,9 +9,10 @@ import {
   StyledForm,
 } from "App/style/App.style";
 
+//redux
 import { AppDispatch } from "redux/store";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+
 import { resetPassword } from "redux/Auth/SavePassword/SavePasswordSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,7 +49,7 @@ const ResetPassword: FC<{}> = () => {
     };
     try {
       await dispatch(resetPassword(password));
-
+      navigate("/auth/login");
       console.log("sukses");
     } catch (error) {
       console.log("error", error);
@@ -125,7 +126,6 @@ const ResetPassword: FC<{}> = () => {
             w="100%"
             variant="primary"
             borderradius="20px"
-            fontFamily="Poppins"
             fontSize="15px"
             onClick={handleResetPassClick}
           >
