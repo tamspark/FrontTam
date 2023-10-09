@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { ChangeEvent, RefObject } from "react";
 
+
 // export const AppBox = styled.div`
 //   display: flex;
 //   align-items: center;
@@ -18,9 +19,10 @@ interface ButtonProps {
   fontWeight?: string;
   marginTop?: string;
   margin?: string;
-  onClick?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void | Promise<void>;
+  onClick?: any;
+  // (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  // ) => void | Promise<void>;
 
   disabled?: boolean;
 }
@@ -134,7 +136,8 @@ export const Input = styled.input<InputProps>`
 
 interface FormProps {
   height?: string;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
+  onSubmit?:any;
+  //  (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
 }
 export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
@@ -200,23 +203,77 @@ interface dropdownProps {
   margin?: string;
 }
 export const StyledSelect = styled.select<dropdownProps>`
-  font-family: ${(props) => props.fontFamily || "Poppins"};
-  font-weight: ${(props) => props.fontWeight};
-  border-top-right-radius: ${(props) => props.bordertoprightradius || "20px"};
-  border-bottom-right-radius: ${(props) =>
+  font-family: ${(props:any) => props.fontFamily || "Poppins"};
+  font-weight: ${(props:any) => props.fontWeight};
+  border-top-right-radius: ${(props:any) => props.bordertoprightradius || "20px"};
+  border-bottom-right-radius: ${(props:any) =>
     props.borderbottomrightradius || "20px"};
   outline: none;
   box-shadow: 0 0 2em #e6e9f9;
   box-sizing: border-box;
-  border: ${(props) => props.border};
-  width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "100%"};
-  background: ${(props) => props.backgroundcolor || "#FFFFFF"};
-  border-radius: ${(props) => props.borderradius || "20px"};
-  font-size: ${(props) => props.fontSize || "12px"};
-  padding-left: ${(props) => props.paddingleft};
-  padding: ${(props) => props.padding};
+  border: ${(props:any) => props.border};
+  width: ${(props:any) => props.width || "100%"};
+  height: ${(props:any) => props.height || "100%"};
+  background: ${(props:any) => props.backgroundcolor || "#FFFFFF"};
+  border-radius: ${(props:any) => props.borderradius || "20px"};
+  font-size: ${(props:any) => props.fontSize || "12px"};
+  padding-left: ${(props:any) => props.paddingleft};
+  padding: ${(props:any) => props.padding};
   margin-top: 12px;
   display: block;
-  margin: ${(props) => props.margin};
+  margin: ${(props:any) => props.margin};
+`;
+
+
+interface PasswordInputProps extends InputProps {
+  showPassword: boolean;
+  onTogglePassword: () => void;
+}
+export const PasswordInput = styled.input<PasswordInputProps>`
+  font-family: ${(props: any) => props.fontFamily || "Poppins"};
+  font-weight: ${(props: any) => props.fontWeight || 700};
+  border-top-right-radius: ${(props: any) =>
+    props.bordertoprightradius || "20px"};
+  border-bottom-right-radius: ${(props: any) =>
+    props.borderbottomrightradius || "20px"};
+  outline: none;
+  box-shadow: 0 0 2em #e6e9f9;
+  box-sizing: border-box;
+  border: ${(props: any) => props.border};
+  width: ${(props: any) => props.width || "100%"};
+  height: ${(props: any) => props.height || "100%"};
+  background: ${(props: any) => props.backgroundcolor || "#FFFFFF"};
+  border-radius: ${(props: any) => props.borderradius || "20px"};
+  font-style: "normal";
+  font-size: ${(props: any) => props.fontSize || "12px"};
+  padding-left: ${(props: any) => props.paddingleft};
+  padding: ${(props: any) => props.padding};
+  margin-top: 12px;
+  display: block;
+  margin: ${(props: any) => props.margin};
+  position: relative; /* Required for the icon positioning */
+
+  /* Add styles to position the eye icon */
+  .eye-icon {
+    position: absolute;
+    right: 10px; /* Adjust this value to position the icon as needed */
+    top: 50%; /* Adjust this value to vertically center the icon */
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+`;
+export const InputGroup = styled.div`
+  position: relative;
+`;
+export const ToggleButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px; // Adjust the positioning as needed
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  user-select: none;
 `;

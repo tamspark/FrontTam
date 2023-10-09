@@ -19,3 +19,11 @@ export const ResetPassButtonHolder = styled.div`
   width: 100%;
   max-width: 180px;
 `;
+export const Warning = styled.p`
+  color: red;
+  font-family: "Poppins";
+  font-size: 11px;
+  text-align: left;
+  margin: 0;
+  font-weight: 600;
+`;

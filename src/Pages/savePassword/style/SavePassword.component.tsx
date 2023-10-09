@@ -21,7 +21,8 @@ export const SavePassButtonHolder = styled.div`
 export const Warning = styled.p`
   color: red;
   font-family: "Poppins";
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
   margin: 0;
+  font-weight: 600;
 `;
