@@ -1,8 +1,13 @@
 import { FC, useState } from "react";
 
 // style
-import { ToggleButton, InputGroup, Input,Button,StyledForm } from "App/style/App.style";
-
+import {
+  ToggleButton,
+  InputGroup,
+  Input,
+  Button,
+  StyledForm,
+} from "App/style/App.style";
 
 import { AppDispatch } from "redux/store";
 import { useDispatch } from "react-redux";
@@ -39,16 +44,17 @@ const ResetPassword: FC<{}> = () => {
     setPasswordsMatch(true);
 
     const password = {
-      password: newPassword || "",
+      password: newPassword,
     };
     try {
       await dispatch(resetPassword(password));
+
       console.log("sukses");
     } catch (error) {
       console.log("error", error);
     }
   };
-  console.log(resetPassword);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

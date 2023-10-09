@@ -13,7 +13,7 @@ export const Label = styled.label`
   line-height: 24px;
   color: #171616;
 `;
-export const LabelInputContentHolder = styled.div``;
+
 export const ButtonContainer = styled.div`
   margin: auto;
   width: 100%;

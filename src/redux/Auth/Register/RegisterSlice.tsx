@@ -18,15 +18,15 @@ interface RegisterState {
 interface AuthRegState {
   user: RegisterState | null;
   isAuthenticated: boolean;
-  error:string | null;
-  token:string | null;
+  error: string | null;
+  token: string | null;
 }
 
 const initialState: AuthRegState = {
   user: null,
   isAuthenticated: false,
-  error:null,
-  token:null,
+  error: null,
+  token: null,
 };
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -38,8 +38,8 @@ export const registerUser = createAsyncThunk(
       );
 
       const responseRegData = response.data.body;
-
-      localStorage.setItem("user", JSON.stringify(responseRegData));
+      console.log(responseRegData);
+      // localStorage.setItem("user", JSON.stringify(responseRegData));
 
       if (response.status !== 200) {
         return rejectWithValue(responseRegData.error.message);

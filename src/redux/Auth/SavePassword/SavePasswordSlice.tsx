@@ -13,7 +13,6 @@ const initialState: AuthRegPass = {
   user: null,
   isAuthenticated: false,
 };
-
 export const resetPassword = createAsyncThunk(
   "reset/resetPassword",
   async (newPassword: object, { rejectWithValue }) => {
@@ -35,23 +34,22 @@ export const resetPassword = createAsyncThunk(
       );
       console.log("respsonse", response);
       const responseData = response.data.body;
-
       console.log("responseData", responseData);
-
       if (response.status !== 200) {
         return rejectWithValue(responseData.error.message);
       }
 
+      // localStorage.setItem("user", JSON.stringify(responseData));
 
       return responseData;
     } catch (error) {
+      console.log("Error in loginUser:", error);
       console.log("Error in savepassword:", error);
 
       return rejectWithValue("savepassword failed");
     }
   }
 );
-
 const resetPasswordSlice = createSlice({
   name: "recoverPassword",
   initialState,
@@ -60,10 +58,10 @@ const resetPasswordSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
-    clearUser: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-    },
+    // clearUser: (state) => {
+    //   state.user = null;
+    //   state.isAuthenticated = false;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -74,7 +72,7 @@ const resetPasswordSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = null;
-          // state.error = action.payload as string | null;
+        //   state.error = action.payload as string | null;
       });
   },
 });

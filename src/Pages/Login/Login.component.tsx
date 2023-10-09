@@ -18,7 +18,7 @@ import {
 } from "./style/Login.style";
 
 const Login: FC<{}> = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -40,7 +40,7 @@ const Login: FC<{}> = () => {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Toggle the state when the button is clicked
+    setShowPassword(!showPassword); 
   };
 
   // const handleLogout = (userId: number) => {
@@ -114,6 +114,7 @@ const Login: FC<{}> = () => {
           >
             Submit
           </Button>
+       
         </LoginButtonHolder>
       </StyledForm>
     </>

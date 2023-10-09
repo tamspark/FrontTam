@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react";
 import {
   ButtonContainer,
   Label,
-  LabelInputContentHolder,
   RegisterParagraph,
 } from "./style/Register.style";
 import { Button, Input, StyledForm, StyledSelect } from "App/style/App.style";
@@ -27,10 +26,9 @@ const Register: FC<{}> = () => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [selectedRole, setSelectedRole] = useState<number | null>(null); // Store the selected role's id
+  const [selectedRole, setSelectedRole] = useState<number | null>(null); 
   const [roles, setRoles] = useState<DropdownItem[]>([]);
-  console.log("role", roles);
-  console.log(email);
+
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -53,7 +51,7 @@ const Register: FC<{}> = () => {
     }
 
     const userCredentials = {
-      firstName: firstName || "",
+      fistName: firstName || "",
       lastName: lastName || "",
       username: username || "",
       email: email || "",
@@ -65,9 +63,7 @@ const Register: FC<{}> = () => {
     try {
       await dispatch(registerUser(userCredentials));
       // window.location.href = "login";
-      console.log("Sukses");
     } catch (error) {
-      console.log("Not succese");
       console.error("Register failed:", error);
     }
   };
@@ -76,34 +72,31 @@ const Register: FC<{}> = () => {
     <>
       <StyledForm height="fit-content">
         <RegisterParagraph>REGISTER</RegisterParagraph>
-        <LabelInputContentHolder>
-          <Label>FIRSTNAME</Label>
-          <Input
-            placeholder="Firstname..."
-            type="text"
-            fontFamily="Poppins"
-            fontSize="12px"
-            borderbottomrightradius="20px"
-            bordertoprightradius="20px"
-            border="none"
-            width="100%"
-            height="45px"
-            backgroundcolor="#FFFFFF"
-            borderradius="10px"
-            paddingleft="5px"
-            padding="0 10px"
-            margin=" 5px 0 15px 0px"
-            value={firstName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFirstName(e.target.value)
-            }
-          />
-        </LabelInputContentHolder>
+        <Label>FIRSTNAME</Label>
+        <Input
+          placeholder="Firstname"
+          type="text"
+          fontSize="12px"
+          borderbottomrightradius="20px"
+          bordertoprightradius="20px"
+          border="none"
+          width="100%"
+          height="45px"
+          backgroundcolor="#FFFFFF"
+          borderradius="10px"
+          paddingleft="5px"
+          padding="0 10px"
+          margin=" 5px 0 15px 0px"
+          value={firstName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFirstName(e.target.value)
+          }
+        />
+
         <Label>LASTNAME</Label>
         <Input
-          placeholder="Lastname..."
+          placeholder="Lastname"
           type="text"
-          fontFamily="Poppins"
           fontSize="12px"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
@@ -122,9 +115,8 @@ const Register: FC<{}> = () => {
         />
         <Label>EMAIL</Label>
         <Input
-          placeholder="Email..."
+          placeholder="Email"
           type="text"
-          fontFamily="Poppins"
           fontSize="12px"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
@@ -143,7 +135,6 @@ const Register: FC<{}> = () => {
         />
         <Label>ROLE</Label>
         <StyledSelect
-          fontFamily="Poppins"
           fontSize="12px"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
@@ -168,9 +159,8 @@ const Register: FC<{}> = () => {
         </StyledSelect>
         <Label>USERNAME</Label>
         <Input
-          placeholder="Username..."
+          placeholder="Username"
           type="text"
-          fontFamily="Poppins"
           fontSize="12px"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
@@ -194,7 +184,6 @@ const Register: FC<{}> = () => {
             w="100%"
             variant="primary"
             borderradius="20px"
-            fontFamily="Poppins"
             fontSize="15px"
             margin="36px 0 20px 0"
             onClick={handleRegisterClick}
