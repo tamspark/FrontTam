@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from "react";
 
 //style
 import {
+  ButtonContainer,
+  Label,
   LabelInputContentHolder,
   RegisterParagraph,
 } from "./style/Register.style";
@@ -62,6 +64,7 @@ const Register: FC<{}> = () => {
 
     try {
       await dispatch(registerUser(userCredentials));
+      // window.location.href = "login";
       console.log("Sukses");
     } catch (error) {
       console.log("Not succese");
@@ -72,10 +75,11 @@ const Register: FC<{}> = () => {
   return (
     <>
       <StyledForm height="fit-content">
-        <RegisterParagraph>Register</RegisterParagraph>
+        <RegisterParagraph>REGISTER</RegisterParagraph>
         <LabelInputContentHolder>
+          <Label>FIRSTNAME</Label>
           <Input
-            placeholder="FirstName"
+            placeholder="Firstname..."
             type="text"
             fontFamily="Poppins"
             fontSize="12px"
@@ -88,16 +92,16 @@ const Register: FC<{}> = () => {
             borderradius="10px"
             paddingleft="5px"
             padding="0 10px"
-            margin=" 25px auto"
+            margin=" 5px 0 15px 0px"
             value={firstName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFirstName(e.target.value)
             }
           />
         </LabelInputContentHolder>
-
+        <Label>LASTNAME</Label>
         <Input
-          placeholder="LastName"
+          placeholder="Lastname..."
           type="text"
           fontFamily="Poppins"
           fontSize="12px"
@@ -110,15 +114,15 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 5px 0 15px 0px"
           value={lastName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setLastName(e.target.value)
           }
         />
-
+        <Label>EMAIL</Label>
         <Input
-          placeholder="Email"
+          placeholder="Email..."
           type="text"
           fontFamily="Poppins"
           fontSize="12px"
@@ -131,13 +135,13 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 5px 0 15px 0px"
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
         />
-
+        <Label>ROLE</Label>
         <StyledSelect
           fontFamily="Poppins"
           fontSize="12px"
@@ -150,7 +154,7 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 5px 0 15px 0px"
           value={selectedRole !== null ? selectedRole.toString() : ""}
           onChange={(e: any) => setSelectedRole(Number(e.target.value))}
           required={true}
@@ -162,9 +166,9 @@ const Register: FC<{}> = () => {
             </option>
           ))}
         </StyledSelect>
-
+        <Label>USERNAME</Label>
         <Input
-          placeholder="Username"
+          placeholder="Username..."
           type="text"
           fontFamily="Poppins"
           fontSize="12px"
@@ -177,24 +181,27 @@ const Register: FC<{}> = () => {
           borderradius="10px"
           paddingleft="5px"
           padding="0 10px"
-          margin=" 25px auto"
+          margin=" 5px 0 15px 0px"
           value={username}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value);
             console.log(`Username input value: ${username}`);
           }}
         />
-        <Button
-          h="40px"
-          w="100%"
-          variant="primary"
-          borderRadius="5px"
-          fontFamily="Poppins"
-          fontSize="17px"
-          onClick={handleRegisterClick}
-        >
-          Submit
-        </Button>
+        <ButtonContainer>
+          <Button
+            h="40px"
+            w="100%"
+            variant="primary"
+            borderradius="20px"
+            fontFamily="Poppins"
+            fontSize="15px"
+            margin="36px 0 20px 0"
+            onClick={handleRegisterClick}
+          >
+            SUBMIT
+          </Button>
+        </ButtonContainer>
       </StyledForm>
     </>
   );

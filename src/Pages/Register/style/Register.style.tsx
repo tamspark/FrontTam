@@ -1,18 +1,21 @@
 import styled from "styled-components";
 export const RegisterParagraph = styled.p`
   text-align: center;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 25px;
+  color: #525b99;
 `;
 export const Label = styled.label`
   font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 13px;
   line-height: 24px;
-  color: black;
-  margin: 16px 0 10px 0;
+  color: #171616;
 `;
 export const LabelInputContentHolder = styled.div``;
 export const ButtonContainer = styled.div`
-  align-items: center;
+  margin: auto;
+  width: 100%;
+  max-width: 180px;
 `;

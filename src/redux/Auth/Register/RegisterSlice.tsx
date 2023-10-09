@@ -1,6 +1,8 @@
 // redux/RegisterSlice.ts
 
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+
+//axios
 import axios from "axios";
 
 interface RegisterState {
@@ -16,11 +18,15 @@ interface RegisterState {
 interface AuthRegState {
   user: RegisterState | null;
   isAuthenticated: boolean;
+  error:string | null;
+  token:string | null;
 }
 
 const initialState: AuthRegState = {
   user: null,
   isAuthenticated: false,
+  error:null,
+  token:null,
 };
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -41,9 +47,9 @@ export const registerUser = createAsyncThunk(
 
       return responseRegData;
     } catch (error) {
-      console.log("Error in loginUser:", error);
+      console.log("Error in registerUser:", error);
 
-      return rejectWithValue("Login failed");
+      return rejectWithValue("register failed");
     }
   }
 );
@@ -56,6 +62,10 @@ const registerSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
+    clearUser: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,7 +76,7 @@ const registerSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = null;
-        // state.error = action.payload as string | null;
+        state.error = action.payload as string | null;
       });
   },
 });
