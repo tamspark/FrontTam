@@ -10,7 +10,7 @@ interface User {
   role: string | null;
 }
 
-interface AuthState {
+export type AuthState = {
   user: User | null;
   isAuthenticated: boolean;
   error: string | null;

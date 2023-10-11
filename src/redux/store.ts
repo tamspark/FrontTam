@@ -1,14 +1,68 @@
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 
-// slices
+// // slices
+// import registerSlice from "redux/Auth/Register/RegisterSlice";
+// import authReducer from "./authSlicer";
+// /* store map to provide to the toolkit provider ctx */
+// const store = configureStore({
+//   reducer: {
+//     auth: authReducer,
+//     register: registerSlice,
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [
+//           "user/registerUser/fulfilled",
+//           "user/loginUser/fulfilled",
+//           "resetPassword: resetPasswordSlice.reducer",
+//         ],
+//       },
+//     }),
+// });
+
+// export default store;
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppDispatch = typeof store.dispatch;
+
+
+
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import { combineReducers } from "redux";
 import registerSlice from "redux/Auth/Register/RegisterSlice";
 import authReducer from "./authSlicer";
-/* store map to provide to the toolkit provider ctx */
+import { AuthState } from "./authSlicer";
+import { AuthRegState } from "redux/Auth/Register/RegisterSlice";
+
+
+type RootState = {
+  auth: AuthState;
+  register: AuthRegState;
+
+};
+
+const persistConfig = {
+  key: "root",
+  storage: storage,
+  stateReconciler: autoMergeLevel2, 
+  whitelist: ["auth", "register"], 
+};
+
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  register: registerSlice,
+});
+
+
+const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
+
+
 const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    register: registerSlice,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -21,6 +75,9 @@ const store = configureStore({
     }),
 });
 
-export default store;
-export type RootState = ReturnType<typeof store.getState>;
+
+const persistor = persistStore(store);
+
+export { store, persistor };
 export type AppDispatch = typeof store.dispatch;
+export type { RootState };
