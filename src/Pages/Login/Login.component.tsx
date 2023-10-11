@@ -18,7 +18,7 @@ import {
 } from "./style/Login.style";
 
 const Login: FC<{}> = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -37,6 +37,7 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
+    navigate("/verify");
   };
 
   const togglePasswordVisibility = () => {

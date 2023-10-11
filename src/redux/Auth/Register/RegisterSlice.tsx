@@ -15,7 +15,7 @@ interface RegisterState {
   token: string | null;
 }
 
-interface AuthRegState {
+export type AuthRegState ={
   user: RegisterState | null;
   isAuthenticated: boolean;
   error: string | null;

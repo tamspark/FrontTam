@@ -5,7 +5,7 @@ import {} from "./style/App.style";
 import ResetPassword from "Pages/Reset Password/ResetPassword";
 import Login from "Pages/Login/Login.component";
 import AuthPage from "Pages/Auth/Auth";
-
+import Verification from "Pages/SecondStepAuth/SecondStep.component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgetPassword from "../Pages/ChangePassword/ForgetPassword.component";
 import Register from "../Pages/Register/Register.component";
@@ -25,6 +25,7 @@ const App: FC<{}> = () => {
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
           </Route>
+          <Route path="verify" element={<Verification />}/>
         </Routes>
       </BrowserRouter>
     </>
