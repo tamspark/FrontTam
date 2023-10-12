@@ -15,12 +15,12 @@ interface RegisterState {
   token: string | null;
 }
 
-export type AuthRegState ={
+export type AuthRegState = {
   user: RegisterState | null;
   isAuthenticated: boolean;
   error: string | null;
   token: string | null;
-}
+};
 
 const initialState: AuthRegState = {
   user: null,
@@ -81,5 +81,5 @@ const registerSlice = createSlice({
   },
 });
 
-export const { setUser } = registerSlice.actions;
+export const { setUser, clearUser } = registerSlice.actions;
 export default registerSlice.reducer;

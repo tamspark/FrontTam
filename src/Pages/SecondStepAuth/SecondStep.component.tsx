@@ -24,6 +24,7 @@ const Verification: FC<{}> = () => {
   const userId=user?.id;
 
   console.log(isAuthenticated);
+  console.log(userId)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
