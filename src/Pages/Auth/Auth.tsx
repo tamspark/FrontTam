@@ -10,9 +10,9 @@ const AuthPage: FC<{}> = () => {
   return (
     <>
    <Page>
-    <Content>
+    {/* <Content> */}
     {/* <img alt="" src={imazh}></img> */}
-    </Content>
+    {/* </Content> */}
     <Outlet/>
    </Page>
   
