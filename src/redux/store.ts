@@ -35,24 +35,28 @@ import authReducer from "./authSlicer";
 import { AuthState } from "./authSlicer";
 import { AuthRegState } from "redux/Auth/Register/RegisterSlice";
 import apartmentsSlice from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+import apartmentsCardSlice from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 import { AuthApartmentProps } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+import { ApartmentsState } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 type RootState = {
   auth: AuthState;
   register: AuthRegState;
   apartments: AuthApartmentProps;
+  apartmentsCard: ApartmentsState;
 };
 
 const persistConfig = {
   key: "root",
   storage: storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ["auth", "register", "apartments"],
+  whitelist: ["auth", "register", "apartments", "apartmentsCard"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerSlice,
   apartments: apartmentsSlice,
+  apartmentsCard: apartmentsCardSlice,
 });
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
