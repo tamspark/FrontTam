@@ -70,6 +70,7 @@ const store = configureStore({
           "user/registerUser/fulfilled",
           "user/loginUser/fulfilled",
           "user/fetchApartmentIds/fulfilled",
+          "user/fetchApartmentCardDetails/fulfilled",
           "resetPassword: resetPasswordSlice.reducer",
         ],
       },

@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import {
   ApartmentsState,
   fetchApartmentCardDetails,
+  // ApartmentDetails,
   // setApartmentId,
   // setUserId,
 } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
@@ -41,13 +42,10 @@ const Equipment = styled.div`
 
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
-  // const apartmentCardDetails = useSelector((state: RootState) => state.apartmentsCard.apartmentDetails);
+
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  // const apartmentId = useSelector(
-  //   (state: RootState) => state.apartmentsCard.apartmentDetails?.id
-  // );
-  // const routeApartementId = parseInt(useParams().id ?? "");
+
   const { id } = useParams();
   const apartmentId = id ? parseInt(id) : 0;
   useEffect(() => {
@@ -57,9 +55,7 @@ const ApartmentCard: FC<{}> = () => {
           if (fetchApartmentCardDetails.fulfilled.match(result)) {
             setApartmentCardDetails(result.payload);
           } else {
-            // Handle the case when apartment details are not available
             console.error("Apartment details not found.");
-            // You can also redirect to an error page or display a message.
           }
         })
         .catch((error: any) => {
@@ -72,39 +68,41 @@ const ApartmentCard: FC<{}> = () => {
 
   return (
     <>
-      <CardContainer>
-        <Location>
-          <strong>Location:</strong>
-          <br />
-          Street: Pjeter Budi
-          <br />
-          Zip: "13"
-          <br />
-          City: lushnje
-          <br />
-          Country: albania
-        </Location>
-        <div>
-          <strong>Rooms:</strong>
-          <ul>
-            <li>Max Occupancy:12</li>
-            <li>Bedrooms: 2</li>
-            <li>Bathrooms: 2</li>
-            <li>Double Beds: 2</li>
-            <li>Single Beds: 1</li>
-            <li>King Size Beds: 2</li>
-          </ul>
-        </div>
-        <Equipment>
-          <strong>Equipment:</strong>
-        </Equipment>
-        <Price>
-          <strong>Price Range:</strong>
-        </Price>
-        <div>
-          <strong>Type:</strong>
-        </div>
-      </CardContainer>
+      {apartmentCardDetails && (
+        <CardContainer>
+          <Location>
+            <strong>Location:</strong>
+            <br />
+            Street: {apartmentCardDetails.location.street}
+            <br />
+            Zip: {apartmentCardDetails.location.zip}
+            <br />
+            City: {apartmentCardDetails.location.city}
+            <br />
+            Country: {apartmentCardDetails.location.country}
+          </Location>
+          <div>
+            <strong>Rooms:</strong>
+            <ul>
+              <li>Max Occupancy: {apartmentCardDetails.rooms.maxOccupancy}</li>
+              <li>Bedrooms: {apartmentCardDetails.rooms.bedrooms}</li>
+              <li>Bathrooms: {apartmentCardDetails.rooms.bathrooms}</li>
+              <li>Double Beds: {apartmentCardDetails.rooms.doubleBeds}</li>
+              <li>Single Beds: {apartmentCardDetails.rooms.singleBeds}</li>
+              <li>King Size Beds: {apartmentCardDetails.rooms.kingSizeBeds}</li>
+            </ul>
+          </div>
+          <Equipment>
+            <strong>Equipment:</strong>
+          </Equipment>
+          <Price>
+            <strong>Price Range:</strong>
+          </Price>
+          <div>
+            <strong>Type:</strong>
+          </div>
+        </CardContainer>
+      )}
     </>
   );
 };

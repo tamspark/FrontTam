@@ -2,6 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface ApartmentDetails {
+  id: number;
+  name: string;
   location: {
     street: string;
     zip: string;
@@ -10,9 +12,30 @@ interface ApartmentDetails {
     latitude: string;
     longitude: string;
   };
+  timeZone: string;
+  rooms: {
+    maxOccupancy: number;
+    bedrooms: number;
+    bathrooms: number;
+    doubleBeds: number;
+    singleBeds: number;
+    sofaBeds: number | null;
+    couches: number | null;
+    childBeds: number | null;
+    queenSizeBeds: number | null;
+    kingSizeBeds: number;
+  };
+  equipments: string[];
+  currency: string;
+  price: {
+    minimal: string;
+    maximal: string;
+  };
+  type: {
+    id: number;
+    name: string;
+  };
   userId: number;
-  id: number;
-  // Define other fields here
 }
 
 export type ApartmentsState = {
@@ -20,62 +43,67 @@ export type ApartmentsState = {
   isAuthenticated: boolean;
   error: string | null;
 };
-const initialState: ApartmentDetails = {
-  location: {
-    street: "",
-    zip: "",
-    city: "",
-    country: "",
-    latitude: "",
-    longitude: "",
-  },
-  userId: 0,
-  id: 0,
-  // Initialize other fields
+const initialState: ApartmentsState = {
+  apartmentDetails: null,
+  isAuthenticated: false,
+  error: null,
 };
 
 export const fetchApartmentCardDetails = createAsyncThunk<
   ApartmentDetails,
-  { userId: number; id: number }
->("apartments/fetchUserApartmentCardDetails", async (userId, id) => {
-  try {
-    const response = await axios.get(
-      `http://192.168.10.210:8080TAM/${userId}/apartments/${id}`
-    );
-    console.log("userId", userId);
-    console.log("id", id);
-    console.log("res", response);
-    return response.data as ApartmentDetails;
-  } catch (error) {
-    console.error("err", error);
-    throw error;
+  { userId: number; id: number },
+  {
+    rejectValue: string;
   }
-});
+>(
+  "apartments/fetchUserApartmentCardDetails",
+  async ({ userId, id }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://192.168.10.210:8080/TAM/${userId}/apartments/${id}`
+      );
+      console.log("userId", userId);
+      console.log("id", id);
+      console.log("res", response);
+      return response.data as ApartmentDetails;
+    } catch (error) {
+      console.error("err", error);
+      return rejectWithValue("Failed to fetch apartment details.");
+    }
+  }
+);
 
 const apartmentsCardSlice = createSlice({
   name: "apartmentCard",
   initialState,
-    reducers: {
+  reducers: {
     setUserId: (state, action: PayloadAction<number>) => {
-      state.userId = action.payload; // Update the userId in the state
+      if (state.apartmentDetails) {
+        console.log(state.apartmentDetails);
+        state.apartmentDetails.userId = action.payload;
+      }
       state.isAuthenticated = true;
     },
     setApartmentId: (state, action: PayloadAction<number>) => {
-      state.id = action.payload; // Update the apartment id in the state
+      if (state.apartmentDetails) {
+        state.apartmentDetails.id = action.payload;
+      }
       state.isAuthenticated = true;
     },
-  },,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchApartmentCardDetails.fulfilled, (state, action) => {
-        return action.payload;
+        state.apartmentDetails = action.payload;
+        state.isAuthenticated = true;
       })
       .addCase(fetchApartmentCardDetails.rejected, (state, action) => {
-        // Handle the error state if needed
-        return state;
+        state.isAuthenticated = false;
+        state.apartmentDetails = null;
+        state.error = action.payload as string | null;
       });
   },
 });
 
-// export const { setUserId, setApartmentId } = apartmentsCardSlice.actions;
+export const { setUserId, setApartmentId } = apartmentsCardSlice.actions;
 export default apartmentsCardSlice.reducer;
