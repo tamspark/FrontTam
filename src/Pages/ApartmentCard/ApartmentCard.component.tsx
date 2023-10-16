@@ -1,11 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import {
-  ApartmentsState,
-  fetchApartmentCardDetails,
-  // ApartmentDetails,
-  // setApartmentId,
-  // setUserId,
-} from "redux/Auth/ApartmentCard/ApartmentCardSlice";
+import { fetchApartmentCardDetails } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -13,32 +7,21 @@ import { RootState } from "../../redux/store";
 import { AppDispatch } from "../../redux/store";
 
 //styled-components
-import styled from "styled-components";
+
 import { useParams } from "react-router-dom";
 
-const CardContainer = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 16px;
-  width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-`;
+//styled-components
 
-const Location = styled.div`
-  font-weight: bold;
-`;
-
-const Price = styled.div`
-  margin-top: 8px;
-  font-size: 20px;
-  color: #007bff;
-`;
-
-const Equipment = styled.div`
-  margin-top: 8px;
-`;
+import {
+  ApartmentName,
+  CardContainer,
+  Div,
+  DivsContentHolder,
+  Label,
+  ListItem,
+  Paragraphs,
+  UnorderedList,
+} from "./style/ApartmentCard.style";
 
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
@@ -70,37 +53,100 @@ const ApartmentCard: FC<{}> = () => {
     <>
       {apartmentCardDetails && (
         <CardContainer>
-          <Location>
-            <strong>Location:</strong>
-            <br />
-            Street: {apartmentCardDetails.location.street}
-            <br />
-            Zip: {apartmentCardDetails.location.zip}
-            <br />
-            City: {apartmentCardDetails.location.city}
-            <br />
-            Country: {apartmentCardDetails.location.country}
-          </Location>
-          <div>
-            <strong>Rooms:</strong>
-            <ul>
-              <li>Max Occupancy: {apartmentCardDetails.rooms.maxOccupancy}</li>
-              <li>Bedrooms: {apartmentCardDetails.rooms.bedrooms}</li>
-              <li>Bathrooms: {apartmentCardDetails.rooms.bathrooms}</li>
-              <li>Double Beds: {apartmentCardDetails.rooms.doubleBeds}</li>
-              <li>Single Beds: {apartmentCardDetails.rooms.singleBeds}</li>
-              <li>King Size Beds: {apartmentCardDetails.rooms.kingSizeBeds}</li>
-            </ul>
-          </div>
-          <Equipment>
-            <strong>Equipment:</strong>
-          </Equipment>
-          <Price>
-            <strong>Price Range:</strong>
-          </Price>
-          <div>
-            <strong>Type:</strong>
-          </div>
+          <ApartmentName>{apartmentCardDetails.name}</ApartmentName>
+
+          <DivsContentHolder>
+            <Div>
+              {/* <Location> */}
+              <Paragraphs>
+                <Label>City: </Label> {apartmentCardDetails.location.city}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Country: </Label>
+                {apartmentCardDetails.location.country}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Street: </Label>
+                {apartmentCardDetails.location.street}
+              </Paragraphs>
+              <Paragraphs>
+                {" "}
+                <Label>Zip: </Label> {apartmentCardDetails.location.zip}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Latitude: </Label>
+                {apartmentCardDetails.location.latitude}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Longitude: </Label>
+                {apartmentCardDetails.location.longitude}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Currency: </Label>"{apartmentCardDetails.currency}"
+              </Paragraphs>
+              <Paragraphs>
+                <Label> Minimal price: </Label>"
+                {apartmentCardDetails.price.minimal}"
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Maximal price: </Label>"
+                {apartmentCardDetails.price.maximal}"
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Time Zone: </Label>
+                {apartmentCardDetails.timeZone}
+              </Paragraphs>
+              <Paragraphs>
+                <Label>Type: </Label> {apartmentCardDetails.type.name}
+              </Paragraphs>
+              {/* </Location> */}
+            </Div>
+            <Div>
+              <Paragraphs>Rooms: </Paragraphs>
+              <UnorderedList>
+                <ListItem>
+                  <Label> Bathrooms: </Label>
+                  {apartmentCardDetails.rooms.bathrooms}
+                </ListItem>
+                <ListItem>
+                  <Label>Bedrooms: </Label>
+                  {apartmentCardDetails.rooms.bedrooms}
+                </ListItem>
+                <ListItem>
+                  <Label> Child Beds: </Label>
+                  {apartmentCardDetails.rooms.childBeds}
+                </ListItem>
+                <ListItem>
+                  <Label> Couches: </Label>
+                  {apartmentCardDetails.rooms.couches}
+                </ListItem>
+                <ListItem>
+                  <Label> Double Beds: </Label>
+                  {apartmentCardDetails.rooms.doubleBeds}
+                </ListItem>
+                <ListItem>
+                  <Label> King Size Beds: </Label>
+                  {apartmentCardDetails.rooms.kingSizeBeds}
+                </ListItem>
+                <ListItem>
+                  <Label> Max Occupancy: </Label>
+                  {apartmentCardDetails.rooms.maxOccupancy}
+                </ListItem>
+                <ListItem>
+                  <Label> Queen Size Beds: </Label>
+                  {apartmentCardDetails.rooms.queenSizeBeds}
+                </ListItem>
+                <ListItem>
+                  <Label>Single Beds: </Label>
+                  {apartmentCardDetails.rooms.singleBeds}
+                </ListItem>
+                <ListItem>
+                  <Label>Sofa Beds: </Label>
+                  {apartmentCardDetails.rooms.sofaBeds}
+                </ListItem>
+              </UnorderedList>
+            </Div>
+          </DivsContentHolder>
         </CardContainer>
       )}
     </>
