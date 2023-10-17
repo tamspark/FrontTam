@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Button } from 'App/style/App.style';
 
 const DownloadPDF = () => {
 
@@ -20,7 +20,17 @@ const pdf='/Redis.pdf'
   return (
     <div>
       <p>Click the button below to download the PDF:</p>
-      <button onClick={()=>{handleDownload(pdf)}}>Download PDF</button>
+      
+      <Button
+                h="40px"
+                w="100%"
+                variant="primary"
+                onClick={()=>{handleDownload(pdf)}}
+                borderradius="20px"
+                fontSize="17px"
+              >
+                Download
+              </Button>
     </div>
   );
 };

@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgetPassword from "../Pages/ChangePassword/ForgetPassword.component";
 import Register from "../Pages/Register/Register.component";
 import SavePasword from "../Pages/savePassword/SavePassword.component";
-import DownloadPDF from "Pdf/PdfDownloader/PdfDownloader.component";
+
 const App: FC<{}> = () => {
   return (
     <>
@@ -25,9 +25,9 @@ const App: FC<{}> = () => {
             <Route path="tam/registration/:token" element={<SavePasword />} />
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
+            <Route path="verify" element={<Verification />}/>
           </Route>
-          <Route path="verify" element={<Verification />}/>
-          <Route path="test" element={<DownloadPDF />}/>
+    
         </Routes>
       </BrowserRouter>
     </>
