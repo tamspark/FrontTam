@@ -5,7 +5,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 //axios
 import axios from "axios";
 
-interface RegisterState {
+ interface RegisterState {
   firstName: string;
   lastName: string;
   username: string;
@@ -39,8 +39,7 @@ export const registerUser = createAsyncThunk(
 
       const responseRegData = response.data.body;
       console.log(responseRegData);
-      // localStorage.setItem("user", JSON.stringify(responseRegData));
-
+    
       if (response.status !== 200) {
         return rejectWithValue(responseRegData.error.message);
       }

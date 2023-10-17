@@ -14,15 +14,20 @@ import { AppDispatch } from "redux/store";
 import { useDispatch } from "react-redux";
 
 import { resetPassword } from "redux/Auth/SavePassword/SavePasswordSlice";
+
+//fortawesome-icons
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//styled-component
 import {
   SavePassButtonHolder,
   Warning,
   SavePassparagraph,
   Label,
 } from "./style/SavePassword.style";
+
+
 const ResetPassword: FC<{}> = () => {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState<string>("");
@@ -34,6 +39,7 @@ const ResetPassword: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
   console.log(newPassword);
+  
   const handleResetPassClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
