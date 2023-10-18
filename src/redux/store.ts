@@ -35,24 +35,38 @@ import authReducer from "./authSlicer";
 import { AuthState } from "./authSlicer";
 import { AuthRegState } from "redux/Auth/Register/RegisterSlice";
 import apartmentsSlice from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+import apartmentsCardSlice from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 import { AuthApartmentProps } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+import { ApartmentsState } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
+import { AuthRegPass } from "redux/Auth/SavePassword/SavePasswordSlice";
+import resetPasswordSlice from "redux/Auth/SavePassword/SavePasswordSlice";
 type RootState = {
   auth: AuthState;
   register: AuthRegState;
   apartments: AuthApartmentProps;
+  apartmentsCard: ApartmentsState;
+  recoverPassword: AuthRegPass;
 };
 
 const persistConfig = {
   key: "root",
   storage: storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ["auth", "register", "apartments"],
+  whitelist: [
+    "auth",
+    "register",
+    "apartments",
+    "apartmentsCard",
+    "recoverPassword",
+  ],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerSlice,
   apartments: apartmentsSlice,
+  apartmentsCard: apartmentsCardSlice,
+  recoverPassword: resetPasswordSlice,
 });
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
@@ -66,7 +80,8 @@ const store = configureStore({
           "user/registerUser/fulfilled",
           "user/loginUser/fulfilled",
           "user/fetchApartmentIds/fulfilled",
-          "resetPassword: resetPasswordSlice.reducer",
+          "user/fetchApartmentCardDetails/fulfilled",
+          "user/resetPassword/fulfilled",
         ],
       },
     }),

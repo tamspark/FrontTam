@@ -175,7 +175,7 @@ const Register: FC<{}> = () => {
           value={username}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value);
-            console.log(`Username input value: ${username}`);
+            
           }}
         />
         <ButtonContainer>

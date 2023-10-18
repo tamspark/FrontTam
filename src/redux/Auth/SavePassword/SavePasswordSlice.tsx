@@ -1,17 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router";
-interface RecoverPass {
+
+export interface RecoverPass {
   password: string;
   token: string | null;
 }
-interface AuthRegPass {
+export type AuthRegPass = {
   user: RecoverPass | null;
   isAuthenticated: boolean;
-}
+  error: string | null;
+};
 const initialState: AuthRegPass = {
   user: null,
   isAuthenticated: false,
+  error: null,
 };
 export const resetPassword = createAsyncThunk(
   "reset/resetPassword",
@@ -32,7 +35,7 @@ export const resetPassword = createAsyncThunk(
 
         newPassword
       );
-      console.log("respsonse", response);
+      console.log("response", response);
       const responseData = response.data.body;
       console.log("responseData", responseData);
       if (response.status !== 200) {
@@ -41,7 +44,6 @@ export const resetPassword = createAsyncThunk(
 
       return responseData;
     } catch (error) {
-      console.log("Error in loginUser:", error);
       console.log("Error in savepassword:", error);
 
       return rejectWithValue("savepassword failed");
@@ -70,7 +72,7 @@ const resetPasswordSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = null;
-        //   state.error = action.payload as string | null;
+        state.error = action.payload as string | null;
       });
   },
 });

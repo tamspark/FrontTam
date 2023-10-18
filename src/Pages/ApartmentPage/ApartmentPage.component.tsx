@@ -20,8 +20,13 @@ import {
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
 import { AppDispatch } from "../../redux/store";
 
+//navigation
+
+import { useNavigate } from "react-router";
+// import { setApartmentId } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 
 const ApartmentPage: FC<{}> = () => {
+  const navigate = useNavigate();
   const [apartmentName, setApartmentNames] = useState<ApartmentProps[]>([]);
   const [error, setError] = useState<string | null>(null);
   console.log("apartmentName", apartmentName);
@@ -58,13 +63,20 @@ const ApartmentPage: FC<{}> = () => {
     fetchData();
   }, [dispatch, userId]);
 
+  const handleApartmentClick = (apartment: ApartmentProps) => {
+    console.log(apartment.id);
+    navigate(`/auth/apartmentcard/${apartment.id}`);
+  };
   return (
     <Container>
       {error ? (
         <ErrorMessage>{error}</ErrorMessage>
       ) : (
         apartmentName.map((apartment: any) => (
-          <ApartmentContentHolder key={apartment.id}>
+          <ApartmentContentHolder
+            key={apartment.id}
+            onClick={() => handleApartmentClick(apartment)}
+          >
             <Icon>
               <FontAwesomeIcon icon={faHotel} />
             </Icon>
