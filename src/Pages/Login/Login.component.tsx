@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser, clearUser, logoutUser } from "redux/authSlicer";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 // style
 import { Input } from "App/style/App.style";
 import { Button } from "App/style/App.style";
@@ -25,6 +27,18 @@ const Login: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+
+  const userSelector = (state: RootState) => state.auth.user; // Use RootState here
+    const isAuthenticatedSelector = (state: RootState) => state.auth.isAuthenticated; // Use RootState here
+ 
+ 
+
+  const user = useSelector(userSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  const verify=user?.registredInSmoobu;
+
+
   const handleLoginClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -37,7 +51,12 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
-    navigate("/verify");
+     
+    if (verify ===false) {
+      navigate("/auth/verify"); 
+    } else {
+      navigate("/auth/apartmentpage");
+    }
   };
 
   const togglePasswordVisibility = () => {

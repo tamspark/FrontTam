@@ -8,6 +8,7 @@ interface User {
   firstName: string | null;
   lastName: string | null;
   role: string | null;
+  registredInSmoobu:boolean;
 }
 
 export type AuthState = {
