@@ -22,9 +22,11 @@ const Verification: FC<{}> = () => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   
   const userId=user?.id;
+  const verify=user?.registredInSmoobu;
 
   console.log(isAuthenticated);
-  console.log(userId)
+  console.log(userId);
+  console.log(verify);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
