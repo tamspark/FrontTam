@@ -12,6 +12,7 @@ import Register from "../Pages/Register/Register.component";
 import SavePasword from "../Pages/savePassword/SavePassword.component";
 import ApartmentPage from "Pages/ApartmentPage/ApartmentPage.component";
 import ApartmentCard from "Pages/ApartmentCard/ApartmentCard.component";
+
 const App: FC<{}> = () => {
   return (
     <>
@@ -28,8 +29,9 @@ const App: FC<{}> = () => {
             <Route path="apartmentcard/:id" element={<ApartmentCard />} />
             <Route path="forgetpassword" element={<ForgetPassword />} />
             <Route path="register" element={<Register />} />
+            <Route path="verify" element={<Verification />}/>
           </Route>
-          <Route path="verify" element={<Verification />} />
+
         </Routes>
       </BrowserRouter>
     </>

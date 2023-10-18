@@ -47,12 +47,26 @@ const Verification: FC<{}> = () => {
     }
   };
 
+  const pdf='/Redis.pdf'
+
+
+  const handleDownload = (url:any) => {
+   const fileName=url.split("/").pop();
+   const aTag=document.createElement("a");
+   aTag.href=url;
+   aTag.setAttribute("download",fileName);
+   document.body.appendChild(aTag);
+   aTag.click();
+   aTag.remove();
+  };
+
+
   return (
     <div>
     
         <div>
        
-          <StyledForm height="300px">
+          <StyledForm height="430px">
             <LoginParagraph>Verification</LoginParagraph>
             <LoginLabel>Client ID</LoginLabel>
             <Input
@@ -107,6 +121,21 @@ const Verification: FC<{}> = () => {
                 Submit
               </Button>
             </LoginButtonHolder>
+
+            <p style={{fontSize:"15px",marginTop:"30px",marginBottom:"5px"}}>Missing this information? Download Pdf below and follow the instructions!</p>
+            <LoginButtonHolder>
+          <Button
+                margin="0"
+                h="40px"
+                w="100%"
+                variant="primary"
+                onClick={()=>{handleDownload(pdf)}}
+                borderradius="20px"
+                fontSize="15px"
+              >
+                Download Pdf
+              </Button>
+              </LoginButtonHolder>
           </StyledForm>
         </div>
      
