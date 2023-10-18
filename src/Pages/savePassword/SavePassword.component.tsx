@@ -27,7 +27,6 @@ import {
   Label,
 } from "./style/SavePassword.style";
 
-
 const ResetPassword: FC<{}> = () => {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState<string>("");
@@ -39,7 +38,7 @@ const ResetPassword: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
   console.log(newPassword);
-  
+
   const handleResetPassClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -55,8 +54,7 @@ const ResetPassword: FC<{}> = () => {
     };
     try {
       await dispatch(resetPassword(password));
-      navigate("/auth/login");
-      console.log("sukses");
+      // navigate("/auth/login");
     } catch (error) {
       console.log("error", error);
     }

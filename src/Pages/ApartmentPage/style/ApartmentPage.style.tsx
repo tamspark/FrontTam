@@ -11,7 +11,7 @@ export const Container = styled.div`
 // `;
 export const ApartmentContentHolder = styled.div`
   width: 100%;
-  height: fit-content;
+  height: 100px;
   max-width: 180px;
   padding: 10px 5px 10px 5px;
   margin: 10px;
