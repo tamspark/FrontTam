@@ -19,3 +19,9 @@ export const ButtonContainer = styled.div`
   width: 100%;
   max-width: 180px;
 `;
+
+export const LabelSpan = styled.span`
+  color: red;
+  font-family: "Poppins";
+  font-size: 17px;
+`;

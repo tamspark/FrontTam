@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import {
   ButtonContainer,
   Label,
+  LabelSpan,
   RegisterParagraph,
 } from "./style/Register.style";
 import { Button, Input, StyledForm, StyledSelect } from "App/style/App.style";
@@ -26,11 +27,28 @@ const Register: FC<{}> = () => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [selectedRole, setSelectedRole] = useState<number | null>(null); 
+  const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const [roles, setRoles] = useState<DropdownItem[]>([]);
+
+  //email validation
+  const validateEmail = (email: string): boolean => {
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailPattern.test(email);
+  };
 
   const dispatch: AppDispatch = useDispatch();
 
+  const userCredentials = {
+    firstName: firstName,
+    lastName: lastName,
+    username: username,
+    email: email,
+    role: {
+      id: selectedRole || 0,
+    },
+  };
+
+  //user role api call
   useEffect(() => {
     axios
       .get<DropdownItem[]>("http://192.168.10.213:8080/TAM/role")
@@ -45,26 +63,24 @@ const Register: FC<{}> = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    if (selectedRole === null) {
-      console.log("Please select a role");
-      return;
-    }
 
-    const userCredentials = {
-      fistName: firstName || "",
-      lastName: lastName || "",
-      username: username || "",
-      email: email || "",
-      role: {
-        id: selectedRole || 0,
-      },
-    };
-
-    try {
-      await dispatch(registerUser(userCredentials));
-      // window.location.href = "login";
-    } catch (error) {
-      console.error("Register failed:", error);
+    if (selectedRole === null || firstName === "" || lastName === "") {
+      console.log("Missing required information!");
+    } else if (!validateEmail(email)) {
+      console.log("Invalid email format!");
+    } else {
+      try {
+        await dispatch(registerUser(userCredentials));
+        // console.log("User registered successfully!");
+        setFirstName("");
+        setLastName("");
+        setUsername("");
+        setEmail("");
+        setRoles([]);
+        // window.location.href = "login";
+      } catch (error) {
+        console.error("Register failed!", error);
+      }
     }
   };
 
@@ -72,7 +88,9 @@ const Register: FC<{}> = () => {
     <>
       <StyledForm height="fit-content">
         <RegisterParagraph>REGISTER</RegisterParagraph>
-        <Label>FIRSTNAME</Label>
+        <Label>
+          FIRSTNAME<LabelSpan> * </LabelSpan>
+        </Label>
         <Input
           placeholder="Firstname"
           type="text"
@@ -87,13 +105,16 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 5px 0 15px 0px"
+          required={true}
           value={firstName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setFirstName(e.target.value)
           }
         />
 
-        <Label>LASTNAME</Label>
+        <Label>
+          LASTNAME<LabelSpan> * </LabelSpan>
+        </Label>
         <Input
           placeholder="Lastname"
           type="text"
@@ -108,15 +129,18 @@ const Register: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           margin=" 5px 0 15px 0px"
+          required={true}
           value={lastName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setLastName(e.target.value)
           }
         />
-        <Label>EMAIL</Label>
+        <Label>
+          EMAIL<LabelSpan> * </LabelSpan>
+        </Label>
         <Input
           placeholder="Email"
-          type="text"
+          type="email"
           fontSize="12px"
           borderbottomrightradius="20px"
           bordertoprightradius="20px"
@@ -129,11 +153,14 @@ const Register: FC<{}> = () => {
           padding="0 10px"
           margin=" 5px 0 15px 0px"
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setEmail(e.target.value);
+          }}
         />
-        <Label>ROLE</Label>
+
+        <Label>
+          ROLE<LabelSpan> * </LabelSpan>
+        </Label>
         <StyledSelect
           fontSize="12px"
           borderbottomrightradius="20px"
@@ -175,7 +202,6 @@ const Register: FC<{}> = () => {
           value={username}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(e.target.value);
-            
           }}
         />
         <ButtonContainer>
@@ -187,6 +213,14 @@ const Register: FC<{}> = () => {
             fontSize="15px"
             margin="36px 0 20px 0"
             onClick={handleRegisterClick}
+            disabled={
+              !(
+                selectedRole !== null &&
+                firstName !== "" &&
+                lastName !== "" &&
+                email !== ""
+              )
+            }
           >
             SUBMIT
           </Button>
