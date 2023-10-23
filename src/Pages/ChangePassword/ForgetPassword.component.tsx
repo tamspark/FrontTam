@@ -35,7 +35,7 @@ const ForgetPassword: FC<{}> = () => {
 
   return (
     <>
-      <StyledForm height="300px" onSubmit={handleSubmit}>
+      <StyledForm height="fit-content" onSubmit={handleSubmit}>
         <ChangePassH2>Please, enter your Email!</ChangePassH2>
         <EmailParagraph>
           We will send a link to your Email address!
