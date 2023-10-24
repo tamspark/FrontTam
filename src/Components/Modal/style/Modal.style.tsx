@@ -1,20 +1,52 @@
 import styled from "styled-components";
+export const ModalParagraph = styled.p`
+  font-family: "Poppins";
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  font-size: 25px;
+`;
 export const ModalForm = styled.div`
-  position: fixed;
+  /* position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  /* background-color: rgba(0, 0, 0, 0.4); */
+  overflow: auto; */
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const ModalContent = styled.div`
-  background-color: #fefefe;
+  /* background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 500px;
-  text-align: center;
+  text-align: center; */
+  /* width: 100%;
+  max-width: 300px; */
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+`;
+// export const DatePickerHolder = styled.div`
+//   width: 100%;
+//   display: flex;
+// `;
+// export const DatePickerContainer = styled.div`
+//   flex: 1;
+//   padding: 10px;
+// `;
+export const TextfieldDiv = styled.div`
+  margin-top: 10px;
 `;
