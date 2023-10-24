@@ -17,15 +17,25 @@ import {
   CardContainer,
   Div,
   DivsContentHolder,
+  IconContainer,
   Label,
   ListItem,
   Paragraphs,
   UnorderedList,
 } from "./style/ApartmentCard.style";
 
+//fontawesome-icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+//modal component
+import Modal from "Components/Modal/Modal.component";
+interface ModalProps {
+  onClose: () => void; 
+}
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -48,7 +58,10 @@ const ApartmentCard: FC<{}> = () => {
   }, [dispatch, userId, apartmentId]);
 
   console.log("apartmentCard", apartmentCardDetails);
-
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
   return (
     <>
       {apartmentCardDetails && (
@@ -147,8 +160,12 @@ const ApartmentCard: FC<{}> = () => {
               </UnorderedList>
             </Div>
           </DivsContentHolder>
+          <IconContainer>
+            <FontAwesomeIcon icon={faPlus} onClick={openModal}/>
+          </IconContainer>
         </CardContainer>
       )}
+        {isModalOpen && <Modal  />}
     </>
   );
 };

@@ -14,6 +14,7 @@ import {
   ModalForm,
   ModalParagraph,
   TextfieldDiv,
+  XIconHolder,
 } from "./style/Modal.style";
 import { Button } from "App/style/App.style";
 import { ButtonContainer } from "Pages/Register/style/Register.style";
@@ -23,11 +24,15 @@ import { AppDispatch, RootState } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "redux/Modal/ModalSlice";
 
+//fontawesome-icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 const Modal: FC<{}> = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
+
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
   function handleStartDateChange(event: any) {
@@ -65,7 +70,8 @@ const Modal: FC<{}> = () => {
         await dispatch(
           openModal({ userId, userCredentials: modalCredentials })
         );
-
+        setStartDate("");
+        setEndDate("");
         setPrice("");
         setMinLength("");
       } catch (error) {
@@ -79,6 +85,9 @@ const Modal: FC<{}> = () => {
     <>
       <ModalForm>
         <ModalContent>
+          <XIconHolder>
+          <FontAwesomeIcon icon={faX} />
+          </XIconHolder>
           <ModalParagraph>ADD RENT DATE</ModalParagraph>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>

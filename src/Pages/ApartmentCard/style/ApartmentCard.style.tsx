@@ -35,3 +35,9 @@ export const ListItem = styled.li``;
 export const Label = styled.span`
   font-weight: bold;
 `;
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 25px;
+  color: #49518f;
+`;

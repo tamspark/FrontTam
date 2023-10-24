@@ -4,6 +4,7 @@ export const ModalParagraph = styled.p`
   text-align: center;
   font-weight: 600;
   margin: 0;
+  margin-top: 10px;
   padding: 0;
   font-size: 25px;
 `;
@@ -15,8 +16,10 @@ export const ModalForm = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto; */
-  width: 100%;
-  height: 100%;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: #b9b7d8;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -30,8 +33,8 @@ export const ModalContent = styled.div`
   width: 80%;
   max-width: 500px;
   text-align: center; */
-  /* width: 100%;
-  max-width: 300px; */
+  width: 100%;
+  max-width: 330px;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -49,4 +52,13 @@ export const ModalContent = styled.div`
 // `;
 export const TextfieldDiv = styled.div`
   margin-top: 10px;
+`;
+export const XIconHolder = styled.button`
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  color: #636161;
 `;
