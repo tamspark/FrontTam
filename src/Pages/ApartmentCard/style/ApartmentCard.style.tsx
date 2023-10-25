@@ -41,3 +41,7 @@ export const IconContainer = styled.div`
   font-size: 25px;
   color: #49518f;
 `;
+
+export const IconHold = styled.div`
+  padding: 10px;
+`;

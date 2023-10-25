@@ -18,6 +18,7 @@ import {
   Div,
   DivsContentHolder,
   IconContainer,
+  IconHold,
   Label,
   ListItem,
   Paragraphs,
@@ -27,15 +28,14 @@ import {
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 //modal component
 import Modal from "Components/Modal/Modal.component";
-interface ModalProps {
-  onClose: () => void; 
-}
+
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); //  update modal
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -58,9 +58,10 @@ const ApartmentCard: FC<{}> = () => {
   }, [dispatch, userId, apartmentId]);
 
   console.log("apartmentCard", apartmentCardDetails);
-  // Function to open the modal
-  const openModal = () => {
-    setIsModalOpen(true);
+
+  // Function to open the update modal
+  const openUpdateModal = () => {
+    setIsUpdateModalOpen(true);
   };
   return (
     <>
@@ -161,11 +162,32 @@ const ApartmentCard: FC<{}> = () => {
             </Div>
           </DivsContentHolder>
           <IconContainer>
-            <FontAwesomeIcon icon={faPlus} onClick={openModal}/>
+            <IconHold>
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={() => setIsModalOpen(true)}
+              />
+            </IconHold>
+            <IconHold>
+              <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal}/>
+            </IconHold>
           </IconContainer>
         </CardContainer>
       )}
-        {isModalOpen && <Modal  />}
+      {isModalOpen && (
+        <Modal
+          onClose={() => setIsModalOpen(false)}
+          isUpdate={false} // Set flag to indicate adding
+        />
+      )}
+      
+      {isUpdateModalOpen && (
+        <Modal
+          onClose={() => setIsUpdateModalOpen(false)}
+          isUpdate={true} // Set flag to indicate updating
+          initialData={apartmentCardDetails} // Pass the data to the update modal
+        />
+      )}
     </>
   );
 };

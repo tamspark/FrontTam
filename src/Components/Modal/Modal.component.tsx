@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 
 // date picker from MUI
 
@@ -27,14 +27,31 @@ import { openModal } from "redux/Modal/ModalSlice";
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-const Modal: FC<{}> = () => {
+
+export type ModalProps = {
+  onClose: () => void;
+  isUpdate: boolean; // Add a flag to distinguish between add and update
+  initialData?: {
+    // Data to pre-fill the form when updating
+    startDate: string;
+    endDate: string;
+    price: string;
+    minLength: string;
+  };
+};
+
+const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
+  console.log("initial dta",initialData);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
 
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-
+  const apartmentIdFromStore = useSelector(
+    (state: RootState) => state.apartmentsCard.apartmentDetails?.id
+  );
+  console.log(apartmentIdFromStore);
   function handleStartDateChange(event: any) {
     const year = event.$y;
     const month = event.$M + 1;
@@ -51,7 +68,7 @@ const Modal: FC<{}> = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const modalCredentials = {
-    apartments: [1874674],
+    apartments: [apartmentIdFromStore],
     operations: [
       {
         dates: [`${startDate}:${endDate}`],
@@ -81,14 +98,26 @@ const Modal: FC<{}> = () => {
       console.log("User is not authenticated");
     }
   };
+
+  useEffect(() => {
+    if (isUpdate && initialData) {
+      // If it's an update and you have initial data, pre-fill the form fields
+      setStartDate(initialData.startDate);
+      setEndDate(initialData.endDate);
+      setPrice(initialData.price);
+      setMinLength(initialData.minLength);
+    }
+  }, [isUpdate, initialData]);
   return (
     <>
       <ModalForm>
         <ModalContent>
           <XIconHolder>
-          <FontAwesomeIcon icon={faX} />
+            {onClose && <FontAwesomeIcon icon={faX} onClick={onClose} />}
           </XIconHolder>
-          <ModalParagraph>ADD RENT DATE</ModalParagraph>
+          <ModalParagraph>
+            {isUpdate ? "UPDATE RENT DATE" : "ADD RENT DATE"}
+          </ModalParagraph>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker

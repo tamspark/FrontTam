@@ -50,6 +50,25 @@ export const openModal = createAsyncThunk<
   }
 );
 
+//get request
+export const fetchUpdatedData = createAsyncThunk<Modal, number>(
+  "modal/fetchUpdatedData",
+  async (userId: number) => {
+    try {
+      const response = await axios.get(
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`
+      );
+
+      const responseUpdatedData = response.data;
+      console.log(response);
+      return responseUpdatedData;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
 const modalSlice = createSlice({
   name: "modal",
   initialState,
@@ -70,6 +89,16 @@ const modalSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(openModal.rejected, (state, action) => {
+        state.isAuthenticated = false;
+        state.modal = null;
+        state.error = action.payload as string | null;
+      });
+    builder
+      .addCase(fetchUpdatedData.fulfilled, (state, action) => {
+        state.modal = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(fetchUpdatedData.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.modal = null;
         state.error = action.payload as string | null;
