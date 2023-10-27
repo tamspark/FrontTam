@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Holder = styled.div`
+  /* width: 100%;
+  height: 100%; */
+  display: flex;
+  flex-direction: column;
+`;
 export const CardContainer = styled.div`
   height: "fit-content";
   width: 350px;

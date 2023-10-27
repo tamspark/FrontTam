@@ -17,10 +17,10 @@ export const ModalForm = styled.div`
   height: 100%;
   overflow: auto; */
 
-  width: 100vw;
-  height: 100vh;
-  background-color: #b9b7d8;
-  position: fixed;
+  /* width: 100vw;
+  height: 100vh; */
+  /* background-color: #b9b7d8; */
+  /* position: fixed; */
   display: flex;
   justify-content: center;
   align-items: center;

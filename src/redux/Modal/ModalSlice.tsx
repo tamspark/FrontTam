@@ -9,18 +9,21 @@ interface Modal {
   endDate: string;
   price: number;
   minLength: number;
+  // apartments: number[];
 }
 
 export type ModalState = {
   modal: Modal | null;
   isAuthenticated: boolean;
   error: string | null;
+  // postData: Modal | null; // Add this line
 };
 
 const initialState: ModalState = {
   modal: null,
   isAuthenticated: false,
   error: null,
+  // postData: null,
 };
 
 export const openModal = createAsyncThunk<
@@ -50,24 +53,39 @@ export const openModal = createAsyncThunk<
   }
 );
 
-//get request
-export const fetchUpdatedData = createAsyncThunk<Modal, number>(
-  "modal/fetchUpdatedData",
-  async (userId: number) => {
-    try {
-      const response = await axios.get(
-        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`
-      );
+//get api
+// export const fetchUpdatedData = createAsyncThunk<
+//   Modal,
+//   { userId: number; startDate: string; endDate: string; apartments: number[] },
+//   { rejectValue: string }
+// >(
+//   "modal/fetchUpdatedData",
+//   async ({ userId, startDate, endDate, apartments }, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(
+//         "http://192.168.10.210:8080/TAM/1/apartmentAvailability",
+//         {
+//           params: {
+//             start_date: startDate,
+//             end_date: endDate,
+//             apartments: apartments,
+//           },
+//         }
+//       );
+//       console.log("userId:", userId);
 
-      const responseUpdatedData = response.data;
-      console.log(response);
-      return responseUpdatedData;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-);
+//       const responseData = response.data;
+//       if (response.status !== 200) {
+//         return rejectWithValue(responseData.error.message);
+//       }
+//       console.log("API Response:", responseData);
+//       return responseData;
+//     } catch (error) {
+//       console.log(error);
+//       return rejectWithValue("Failed to fetch updated data");
+//     }
+//   }
+// );
 
 const modalSlice = createSlice({
   name: "modal",
@@ -81,6 +99,10 @@ const modalSlice = createSlice({
       state.modal = null;
       state.isAuthenticated = false;
     },
+    // setPostData: (state, action: PayloadAction<Modal>) => {
+    //   state.postData = action.payload;
+    //   state.isAuthenticated = true;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -93,16 +115,18 @@ const modalSlice = createSlice({
         state.modal = null;
         state.error = action.payload as string | null;
       });
-    builder
-      .addCase(fetchUpdatedData.fulfilled, (state, action) => {
-        state.modal = action.payload;
-        state.isAuthenticated = true;
-      })
-      .addCase(fetchUpdatedData.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.modal = null;
-        state.error = action.payload as string | null;
-      });
+    // builder
+    //   .addCase(fetchUpdatedData.fulfilled, (state, action) => {
+    //     state.modal = action.payload;
+    //     state.isAuthenticated = true;
+    //     state.postData = action.payload;
+    //   })
+    //   .addCase(fetchUpdatedData.rejected, (state, action) => {
+    //     state.isAuthenticated = false;
+    //     state.modal = null;
+
+    //     state.error = action.payload as string | null;
+    //   });
   },
 });
 

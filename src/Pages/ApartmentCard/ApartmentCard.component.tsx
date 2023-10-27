@@ -8,7 +8,7 @@ import { AppDispatch } from "../../redux/store";
 
 //styled-components
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 //styled-components
 
@@ -17,8 +17,9 @@ import {
   CardContainer,
   Div,
   DivsContentHolder,
-  IconContainer,
-  IconHold,
+  Holder,
+  // IconContainer,
+  // IconHold,
   Label,
   ListItem,
   Paragraphs,
@@ -26,16 +27,17 @@ import {
 } from "./style/ApartmentCard.style";
 
 //fontawesome-icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlus } from "@fortawesome/free-solid-svg-icons";
+// import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 //modal component
 import Modal from "Components/Modal/Modal.component";
+// import { fetchUpdatedData } from "redux/Modal/ModalSlice";
 
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); //  update modal
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); //  update modal
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -60,11 +62,11 @@ const ApartmentCard: FC<{}> = () => {
   console.log("apartmentCard", apartmentCardDetails);
 
   // Function to open the update modal
-  const openUpdateModal = () => {
-    setIsUpdateModalOpen(true);
-  };
+  // const openUpdateModal = () => {
+  //   setIsUpdateModalOpen(true);
+  // };
   return (
-    <>
+    <Holder>
       {apartmentCardDetails && (
         <CardContainer>
           <ApartmentName>{apartmentCardDetails.name}</ApartmentName>
@@ -161,7 +163,7 @@ const ApartmentCard: FC<{}> = () => {
               </UnorderedList>
             </Div>
           </DivsContentHolder>
-          <IconContainer>
+          {/* <IconContainer>
             <IconHold>
               <FontAwesomeIcon
                 icon={faPlus}
@@ -169,26 +171,30 @@ const ApartmentCard: FC<{}> = () => {
               />
             </IconHold>
             <IconHold>
-              <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal}/>
+              <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal} />
             </IconHold>
-          </IconContainer>
+          </IconContainer> */}
+          <Link to="/auth/modal">
+           hi
+          </Link>
         </CardContainer>
       )}
-      {isModalOpen && (
+
+      {/* {isModalOpen && (
         <Modal
           onClose={() => setIsModalOpen(false)}
           isUpdate={false} // Set flag to indicate adding
         />
       )}
-      
+
       {isUpdateModalOpen && (
         <Modal
           onClose={() => setIsUpdateModalOpen(false)}
           isUpdate={true} // Set flag to indicate updating
           initialData={apartmentCardDetails} // Pass the data to the update modal
         />
-      )}
-    </>
+      )} */}
+    </Holder>
   );
 };
 export default ApartmentCard;

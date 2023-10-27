@@ -22,27 +22,37 @@ import { ButtonContainer } from "Pages/Register/style/Register.style";
 //redux
 import { AppDispatch, RootState } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "redux/Modal/ModalSlice";
+import {
+  ModalState,
+  // fetchUpdatedData,
+  openModal,
+} from "redux/Modal/ModalSlice";
 
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-export type ModalProps = {
-  onClose: () => void;
-  isUpdate: boolean; // Add a flag to distinguish between add and update
-  initialData?: {
-    // Data to pre-fill the form when updating
-    startDate: string;
-    endDate: string;
-    price: string;
-    minLength: string;
-  };
-};
+interface ModalData {
+  startDate: string;
+  endDate: string;
+  price: string;
+  minLength: string;
+  // apartments: number[];
+}
 
-const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
-  console.log("initial dta",initialData);
+// export type ModalProps = {
+//   // onClose: () => void;
+//   isUpdate: boolean;
+//   initialData?: ModalData; // Use the new type here
+// };
+const Modal: FC<{}> = () => {
+  // const location = useLocation();
+  // console.log(location);
+  // const modal = location.state ? location.state.modal : "";
   const [startDate, setStartDate] = useState<string>("");
+  // console.log(modal);
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
@@ -52,19 +62,25 @@ const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
     (state: RootState) => state.apartmentsCard.apartmentDetails?.id
   );
   console.log(apartmentIdFromStore);
+
   function handleStartDateChange(event: any) {
-    const year = event.$y;
-    const month = event.$M + 1;
-    const day = event.$D;
-    setStartDate(`${year}-${month}-${day}`);
+    if (event) {
+      const year = event.$y;
+      const month = event.$M + 1;
+      const day = event.$D;
+      setStartDate(`${year}-${month}-${day}`);
+    }
   }
 
   function handleEndDateChange(event: any) {
-    const year = event.$y;
-    const month = event.$M + 1;
-    const day = event.$D;
-    setEndDate(`${year}-${month}-${day}`);
+    if (event) {
+      const year = event.$y;
+      const month = event.$M + 1;
+      const day = event.$D;
+      setEndDate(`${year}-${month}-${day}`);
+    }
   }
+
   const dispatch: AppDispatch = useDispatch();
 
   const modalCredentials = {
@@ -77,7 +93,15 @@ const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
       },
     ],
   };
-
+  // const editModalCredentials = {
+  //   apartments: [apartmentIdFromStore],
+  //   operations: [
+  //     {
+  //       dates: [`${startDate}:${endDate}`],
+  //       daily_price: parseFloat(price),
+  //     },
+  //   ],
+  // };
   const handleModalClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -98,26 +122,77 @@ const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
       console.log("User is not authenticated");
     }
   };
-
+  const abc = {
+    start_date: "2023-12-02",
+    end_date: "2023-12-02",
+    apartments: [apartmentIdFromStore],
+  };
+  console.log("abc", abc);
   useEffect(() => {
-    if (isUpdate && initialData) {
-      // If it's an update and you have initial data, pre-fill the form fields
-      setStartDate(initialData.startDate);
-      setEndDate(initialData.endDate);
-      setPrice(initialData.price);
-      setMinLength(initialData.minLength);
+    if (userId) {
+      console.log(userId);
+
+      try {
+        axios
+          .get(
+            `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+            {
+              params: {
+                start_date: "2023-12-02",
+                end_date: "2023-12-02",
+                apartments: apartmentIdFromStore,
+              },
+            }
+          )
+          .then((response) => {
+            const data = response.data;
+            console.log(data);
+            setStartDate(data.apartments.start_date);
+            setEndDate(data.endDate);
+            setPrice(data.price);
+            setMinLength(data.minLength);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch data from the API: ", error);
+          });
+      } catch (error) {
+        console.error("Error in API request: ", error);
+      }
     }
-  }, [isUpdate, initialData]);
+  }, [userId]);
+
+  // useEffect(() => {
+  //   if (initialData) {
+  //     dispatch(
+  //       fetchUpdatedData({
+  //         userId: userId,
+  //         startDate: initialData.startDate,
+  //         endDate: initialData.endDate,
+  //         apartments: initialData.apartments,
+  //       })
+  //     )
+  //       .unwrap()
+  //       .then((data) => {
+  //         console.log(data);
+  //         setStartDate(data.startDate);
+  //         setEndDate(data.endDate);
+  //         setPrice(data.price.toString()); // Make sure to convert to a string if needed
+  //         setMinLength(data.minLength.toString()); // Convert to a string if needed
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to fetch updated data: ", error);
+  //       });
+  //   }
+  // }, [dispatch, initialData, userId]);
+
   return (
     <>
       <ModalForm>
         <ModalContent>
           <XIconHolder>
-            {onClose && <FontAwesomeIcon icon={faX} onClick={onClose} />}
+            <FontAwesomeIcon icon={faPenToSquare} />
           </XIconHolder>
-          <ModalParagraph>
-            {isUpdate ? "UPDATE RENT DATE" : "ADD RENT DATE"}
-          </ModalParagraph>
+          <ModalParagraph>ADD RENT DATE</ModalParagraph>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker
@@ -137,7 +212,7 @@ const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
             <TextField
               id="outlined-basic"
               label="Price"
-              value={price}
+              value={price || ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPrice(e.target.value)
               }
@@ -150,7 +225,7 @@ const Modal: FC<ModalProps> = ({ onClose, isUpdate, initialData }) => {
             <TextField
               id="outlined-basic"
               label="Minimum length of stay"
-              value={minLength}
+              value={minLength || ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setMinLength(e.target.value)
               }
