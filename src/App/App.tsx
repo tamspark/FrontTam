@@ -12,6 +12,7 @@ import Register from "../Pages/Register/Register.component";
 import SavePasword from "../Pages/savePassword/SavePassword.component";
 import ApartmentPage from "Pages/ApartmentPage/ApartmentPage.component";
 import ApartmentCard from "Pages/ApartmentCard/ApartmentCard.component";
+import MonthTable from "Pages/CalendarReservations/calendar";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
@@ -36,6 +37,7 @@ const App: FC<{}> = () => {
       <Route path="/auth" element={<AuthPage />}>
       <Route path="/auth/login" element={<Login />} index />
       <Route path="/auth/register" element={<Register/>} />
+      <Route path="/auth/calendar" element={<MonthTable/>} />
       <Route path="*" element={<Navigate to="/auth/login" replace />} /> 
       </Route>
     )}
