@@ -92,13 +92,14 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     setModal: (state, action: PayloadAction<Modal>) => {
+      console.log(state.modal);
       state.modal = action.payload;
       state.isAuthenticated = true;
     },
-    clearModal: (state) => {
-      state.modal = null;
-      state.isAuthenticated = false;
-    },
+    // clearModal: (state) => {
+    //   state.modal = null;
+    //   state.isAuthenticated = false;
+    // },
     // setPostData: (state, action: PayloadAction<Modal>) => {
     //   state.postData = action.payload;
     //   state.isAuthenticated = true;
@@ -130,5 +131,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const { setModal, clearModal } = modalSlice.actions;
+export const { setModal } = modalSlice.actions;
 export default modalSlice.reducer;

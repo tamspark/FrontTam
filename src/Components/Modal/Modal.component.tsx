@@ -31,16 +31,8 @@ import {
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 
-interface ModalData {
-  startDate: string;
-  endDate: string;
-  price: string;
-  minLength: string;
-  // apartments: number[];
-}
+import axios from "axios";
 
 // export type ModalProps = {
 //   // onClose: () => void;
@@ -48,11 +40,9 @@ interface ModalData {
 //   initialData?: ModalData; // Use the new type here
 // };
 const Modal: FC<{}> = () => {
-  // const location = useLocation();
-  // console.log(location);
-  // const modal = location.state ? location.state.modal : "";
+
   const [startDate, setStartDate] = useState<string>("");
-  // console.log(modal);
+
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
@@ -69,6 +59,7 @@ const Modal: FC<{}> = () => {
       const month = event.$M + 1;
       const day = event.$D;
       setStartDate(`${year}-${month}-${day}`);
+      localStorage.setItem("startDate", startDate);
     }
   }
 
@@ -78,6 +69,7 @@ const Modal: FC<{}> = () => {
       const month = event.$M + 1;
       const day = event.$D;
       setEndDate(`${year}-${month}-${day}`);
+      localStorage.setItem("startDate", endDate);
     }
   }
 
@@ -93,15 +85,7 @@ const Modal: FC<{}> = () => {
       },
     ],
   };
-  // const editModalCredentials = {
-  //   apartments: [apartmentIdFromStore],
-  //   operations: [
-  //     {
-  //       dates: [`${startDate}:${endDate}`],
-  //       daily_price: parseFloat(price),
-  //     },
-  //   ],
-  // };
+
   const handleModalClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -122,44 +106,47 @@ const Modal: FC<{}> = () => {
       console.log("User is not authenticated");
     }
   };
-  const abc = {
-    start_date: "2023-12-02",
-    end_date: "2023-12-02",
-    apartments: [apartmentIdFromStore],
-  };
-  console.log("abc", abc);
-  useEffect(() => {
-    if (userId) {
-      console.log(userId);
+  // const abc = {
+  //   start_date: "2023-12-02",
+  //   end_date: "2023-12-02",
+  //   apartments: [apartmentIdFromStore],
+  // };
+  // console.log("abc", abc);
 
-      try {
-        axios
-          .get(
-            `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
-            {
-              params: {
-                start_date: "2023-12-02",
-                end_date: "2023-12-02",
-                apartments: apartmentIdFromStore,
-              },
-            }
-          )
-          .then((response) => {
-            const data = response.data;
-            console.log(data);
-            setStartDate(data.apartments.start_date);
-            setEndDate(data.endDate);
-            setPrice(data.price);
-            setMinLength(data.minLength);
-          })
-          .catch((error) => {
-            console.error("Failed to fetch data from the API: ", error);
-          });
-      } catch (error) {
-        console.error("Error in API request: ", error);
-      }
-    }
-  }, [userId]);
+  // useEffect(() => {
+
+  //   if (userId) {
+  //     console.log(userId);
+
+  //     try {
+  //       axios
+  //         .get(
+  //           `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+  //           {
+  //             params: {
+  //               start_date: startDate,
+  //               end_date: endDate,
+  //               apartments: apartmentIdFromStore,
+  //             },
+  //           }
+  //         )
+  //         .then((response) => {
+  //           const data = response.data;
+
+  //           console.log(data);
+  //           // setStartDate(data.apartments.start_date);
+  //           // setEndDate(data.endDate);
+  //           // setPrice(data.price);
+  //           // setMinLength(data.minLength);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Failed to fetch data from the API: ", error);
+  //         });
+  //     } catch (error) {
+  //       console.error("Error in API request: ", error);
+  //     }
+  //   }
+  // }, [userId]);
 
   // useEffect(() => {
   //   if (initialData) {
@@ -189,10 +176,10 @@ const Modal: FC<{}> = () => {
     <>
       <ModalForm>
         <ModalContent>
-          <XIconHolder>
+          {/* <XIconHolder>
             <FontAwesomeIcon icon={faPenToSquare} />
-          </XIconHolder>
-          <ModalParagraph>ADD RENT DATE</ModalParagraph>
+          </XIconHolder> */}
+          <ModalParagraph>ADD RENT DATE </ModalParagraph>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker

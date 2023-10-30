@@ -18,8 +18,8 @@ import {
   Div,
   DivsContentHolder,
   Holder,
-  // IconContainer,
-  // IconHold,
+  IconContainer,
+  IconHold,
   Label,
   ListItem,
   Paragraphs,
@@ -27,9 +27,9 @@ import {
 } from "./style/ApartmentCard.style";
 
 //fontawesome-icons
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPlus } from "@fortawesome/free-solid-svg-icons";
-// import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 //modal component
 import Modal from "Components/Modal/Modal.component";
 // import { fetchUpdatedData } from "redux/Modal/ModalSlice";
@@ -163,20 +163,20 @@ const ApartmentCard: FC<{}> = () => {
               </UnorderedList>
             </Div>
           </DivsContentHolder>
-          {/* <IconContainer>
+          <IconContainer>
             <IconHold>
-              <FontAwesomeIcon
-                icon={faPlus}
-                onClick={() => setIsModalOpen(true)}
-              />
+              <Link to="/auth/modal">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  // onClick={() => setIsModalOpen(true)}
+                />
+              </Link>
             </IconHold>
-            <IconHold>
+            {/* <IconHold>
               <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal} />
-            </IconHold>
-          </IconContainer> */}
-          <Link to="/auth/modal">
-           hi
-          </Link>
+            </IconHold> */}
+          </IconContainer>
+    
         </CardContainer>
       )}
 
@@ -185,9 +185,9 @@ const ApartmentCard: FC<{}> = () => {
           onClose={() => setIsModalOpen(false)}
           isUpdate={false} // Set flag to indicate adding
         />
-      )}
+      )} */}
 
-      {isUpdateModalOpen && (
+      {/* {isUpdateModalOpen && (
         <Modal
           onClose={() => setIsUpdateModalOpen(false)}
           isUpdate={true} // Set flag to indicate updating
