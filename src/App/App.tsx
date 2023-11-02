@@ -15,7 +15,6 @@ import ApartmentCard from "Pages/ApartmentCard/ApartmentCard.component";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import Modal from "Components/Modal/Modal.component";
-import RentList from "Components/RentList/RentList.component";
 
 const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
@@ -41,7 +40,6 @@ const App: FC<{}> = () => {
                 element={<Navigate to="apartmentpage" replace />}
               />
               <Route path="modal" element={<Modal />} />
-              <Route path="rentlist" element={<RentList />} />
             </Route>
           ) : (
             <Route path="/auth" element={<AuthPage />}>

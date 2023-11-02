@@ -1,10 +1,11 @@
 import styled from "styled-components";
- export const TableContainer = styled.div`
+export const TableContainer = styled.div`
   width: 100%;
 `;
 
 export const Table = styled.table`
   width: 100%;
+
   border-collapse: collapse;
 `;
 
@@ -20,8 +21,8 @@ export const TableRow = styled.tr`
 
 export const TableCell = styled.td`
   border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+  text-align: center;
+  padding: 6px;
 `;
 export const EditButton = styled.button`
   background-color: #4caf50;

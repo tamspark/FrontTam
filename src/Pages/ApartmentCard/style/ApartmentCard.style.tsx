@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 export const Holder = styled.div`
   /* width: 100%;
   height: 100%; */
@@ -50,4 +50,13 @@ export const IconContainer = styled.div`
 
 export const IconHold = styled.div`
   padding: 10px;
+`;
+export const RentLink = styled(Link)`
+  color: #3a23c0;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 16px;
+  &:hover {
+    color: #290ccf;
+  }
 `;

@@ -23,6 +23,7 @@ import {
   Label,
   ListItem,
   Paragraphs,
+  RentLink,
   UnorderedList,
 } from "./style/ApartmentCard.style";
 
@@ -165,18 +166,14 @@ const ApartmentCard: FC<{}> = () => {
           </DivsContentHolder>
           <IconContainer>
             <IconHold>
-              <Link to="/auth/modal">
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  // onClick={() => setIsModalOpen(true)}
-                />
-              </Link>
+              <RentLink to="/auth/modal">
+                ADD RENT DATE
+              </RentLink>
             </IconHold>
             {/* <IconHold>
               <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal} />
             </IconHold> */}
           </IconContainer>
-    
         </CardContainer>
       )}
 
