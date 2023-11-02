@@ -1,16 +1,23 @@
 import styled from "styled-components";
 export const TableContainer = styled.div`
   width: 100%;
+  height: 80%;
+  overflow-x: auto;
+  position: relative;
 `;
 
 export const Table = styled.table`
   width: 100%;
-
   border-collapse: collapse;
 `;
 
 export const TableHead = styled.thead`
   background-color: #f0f0f0;
+  font-family: "Poppins";
+  white-space: nowrap; /* Prevent text from breaking into multiple lines */
+  position: sticky;
+  top: 0; /* Stick to the top of the container */
+  z-index: 1; /* Ensure it appears above the table body */
 `;
 
 export const TableRow = styled.tr`
@@ -23,6 +30,10 @@ export const TableCell = styled.td`
   border: 1px solid #dddddd;
   text-align: center;
   padding: 6px;
+  font-family: "Poppins";
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const EditButton = styled.button`
   background-color: #4caf50;
