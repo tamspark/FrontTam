@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   EditButton,
   Table,
@@ -10,11 +10,20 @@ import {
 import { Link } from "react-router-dom";
 import { Modal } from "redux/Modal/ModalSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Popup from "Components/Popup/Popup.component";
 interface RentListProps {
   rentalData: Modal[];
 }
 
 const RentList: FC<RentListProps> = ({ rentalData }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  console.log(selectedItem, "selected/ITem");
+  const handleEdit = (rentalResult: any) => {
+    console.log(rentalResult);
+    setIsModalOpen(true);
+    setSelectedItem(rentalResult);
+  };
   console.log(rentalData);
   const result: any[] = [];
 
@@ -64,7 +73,9 @@ const RentList: FC<RentListProps> = ({ rentalData }) => {
                 <TableCell>{`${rentalResult.min_length_of_stay} nights`}</TableCell>
                 <TableCell>
                   <Link to="auth/rentlist">
-                    <EditButton>Edit</EditButton>
+                    <EditButton onClick={() => handleEdit(rentalResult)}>
+                      Edit
+                    </EditButton>
                   </Link>
                   <Link to="">
                     <DeleteIcon />
@@ -75,6 +86,27 @@ const RentList: FC<RentListProps> = ({ rentalData }) => {
           </tbody>
         </Table>
       </TableContainer>
+      <Popup
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedItem(null);
+        }}
+        headerContent={<h2>Edit Item</h2>}
+        bodyContent={
+          <div>
+            <label>Date:</label>
+            <input type="text" value={selectedItem?.date} readOnly />
+            <label>Price</label>
+            <input type="number" value={selectedItem?.price} />
+            <label>Length of stay</label>
+            <input type="number" value={selectedItem?.min_length_of_stay} />
+          </div>
+        }
+        footerContent={
+          <button onClick={() => setIsModalOpen(false)}>Save</button>
+        }
+      />
     </>
   );
 };
