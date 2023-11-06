@@ -86,7 +86,7 @@ const modalSlice = createSlice({
       state.modal = action.payload;
       state.isAuthenticated = true;
     },
-
+ 
     setRentList: (state, action: PayloadAction<Modal>) => {
       console.log(state.modal);
       state.modal = action.payload;
@@ -116,5 +116,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const { setModal, setRentList } = modalSlice.actions;
+export const { setModal,  setRentList } = modalSlice.actions;
 export default modalSlice.reducer;

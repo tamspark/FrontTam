@@ -24,13 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, openModal, openRentList } from "redux/Modal/ModalSlice";
 
 import RentList from "Components/RentList/RentList.component";
-// import { useLocation } from "react-router-dom";
 
 const Modall: FC<{}> = () => {
-  // const location = useLocation();
-  // const { isEdit, initialData } = location.state || {};
-  // console.log("Location state:", location);
-  // console.log(location);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -45,19 +40,6 @@ const Modall: FC<{}> = () => {
   const apartmentIdFromStore = useSelector(
     (state: RootState) => state.apartmentsCard.apartmentDetails?.id
   );
-
-  //editing the modal
-  // useEffect(() => {
-  //   if (isEdit && initialData) {
-  //     console.log(isEdit, "isEdit");
-  //     console.log("iinitalData", initialData);
-  //     // If it's an edit operation and initialData is provided, pre-fill the input fields
-  //     setStartDate(initialData.startDate);
-  //     setEndDate(initialData.endDate);
-  //     setPrice(initialData.price.toString());
-  //     setMinLength(initialData.minLength.toString());
-  //   }
-  // }, [isEdit, initialData]);
 
   //startDate &endDate function
   function handleStartDateChange(event: any) {
@@ -80,6 +62,7 @@ const Modall: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  
   //post request
   const userCredentials = {
     apartments: [apartmentIdFromStore],
@@ -142,9 +125,9 @@ const Modall: FC<{}> = () => {
       setError("User ID not available.");
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, [dispatch, userId, endDate, startDate]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [dispatch, userId, endDate, startDate]);
 
   return (
     <>
