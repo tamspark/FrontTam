@@ -16,8 +16,8 @@ export const TableHead = styled.thead`
   font-family: "Poppins";
   white-space: nowrap; /* Prevent text from breaking into multiple lines */
   position: sticky;
-  top: 0; /* Stick to the top of the container */
-  z-index: 1; /* Ensure it appears above the table body */
+  top: 0;
+  z-index: 1;
 `;
 
 export const TableRow = styled.tr`
@@ -37,13 +37,14 @@ export const TableCell = styled.td`
 `;
 export const EditButton = styled.button`
   background-color: #4caf50;
+  border-radius: 5px;
   color: white;
   border: none;
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
   margin: 4px 2px;
   cursor: pointer;
 `;

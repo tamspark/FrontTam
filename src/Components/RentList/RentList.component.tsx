@@ -57,21 +57,26 @@ const RentList: FC<RentListProps> = ({ rentalData }) => {
             </tr>
           </TableHead>
           <tbody>
-            {result.map((rentalResult: any, index: number) => (
-              <TableRow key={index}>
-                <TableCell>{rentalResult.date}</TableCell>
-                <TableCell>{`${rentalResult.price} $`}</TableCell>
-                <TableCell>{`${rentalResult.min_length_of_stay} nights`}</TableCell>
-                <TableCell>
-                  <Link to="auth/rentlist">
-                    <EditButton>Edit</EditButton>
-                  </Link>
-                  <Link to="">
-                    <DeleteIcon />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
+            {result.map(
+              (rentalResult: any, index: number) => (
+                console.log(rentalResult),
+                (
+                  <TableRow key={index}>
+                    <TableCell>{rentalResult.date}</TableCell>
+                    <TableCell>{`${rentalResult.price} $`}</TableCell>
+                    <TableCell>{`${rentalResult.min_length_of_stay} nights`}</TableCell>
+                    <TableCell>
+                      <Link to="auth/modal">
+                        <EditButton>Edit</EditButton>
+                      </Link>
+                      <Link to="">
+                        <DeleteIcon />
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                )
+              )
+            )}
           </tbody>
         </Table>
       </TableContainer>

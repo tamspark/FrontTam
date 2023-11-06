@@ -29,7 +29,7 @@ export const openModal = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.213:8080/TAM/${userId}/apartmentAvailability`,
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
         userCredentials
       );
 
@@ -86,7 +86,7 @@ const modalSlice = createSlice({
       state.modal = action.payload;
       state.isAuthenticated = true;
     },
- 
+
     setRentList: (state, action: PayloadAction<Modal>) => {
       console.log(state.modal);
       state.modal = action.payload;
@@ -116,5 +116,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const { setModal,  setRentList } = modalSlice.actions;
+export const { setModal, setRentList } = modalSlice.actions;
 export default modalSlice.reducer;

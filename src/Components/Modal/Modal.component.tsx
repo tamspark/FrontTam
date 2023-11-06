@@ -24,8 +24,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, openModal, openRentList } from "redux/Modal/ModalSlice";
 
 import RentList from "Components/RentList/RentList.component";
+// import { useLocation } from "react-router-dom";
 
 const Modall: FC<{}> = () => {
+  // const location = useLocation();
+  // const { isEdit, initialData } = location.state || {};
+  // console.log("Location state:", location);
+  // console.log(location);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -34,11 +39,27 @@ const Modall: FC<{}> = () => {
   console.log(rentList, "rent");
   const [error, setError] = useState<string | null>(null);
   const [showRentList, setShowRentList] = useState<boolean>(false);
+
+  //get userId &apartmentId from store
   const userId = useSelector((state: RootState) => state.auth.user?.id);
   const apartmentIdFromStore = useSelector(
     (state: RootState) => state.apartmentsCard.apartmentDetails?.id
   );
 
+  //editing the modal
+  // useEffect(() => {
+  //   if (isEdit && initialData) {
+  //     console.log(isEdit, "isEdit");
+  //     console.log("iinitalData", initialData);
+  //     // If it's an edit operation and initialData is provided, pre-fill the input fields
+  //     setStartDate(initialData.startDate);
+  //     setEndDate(initialData.endDate);
+  //     setPrice(initialData.price.toString());
+  //     setMinLength(initialData.minLength.toString());
+  //   }
+  // }, [isEdit, initialData]);
+
+  //startDate &endDate function
   function handleStartDateChange(event: any) {
     if (event) {
       const year = event.$y;
@@ -77,12 +98,9 @@ const Modall: FC<{}> = () => {
     e.preventDefault();
     if (userId) {
       try {
-        // Send the POST request to openModal
         const response = await dispatch(openModal({ userId, userCredentials }));
-  
+
         if (openModal.fulfilled.match(response)) {
-          // The POST request was successful
-          // Proceed to get the updated data with openRentList
           await fetchData();
           setShowRentList(true);
         } else {
@@ -95,8 +113,6 @@ const Modall: FC<{}> = () => {
       console.log("User is not authenticated");
     }
   };
-  
-
 
   //get request
   const rentListProperties = {
