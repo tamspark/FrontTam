@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 export const Holder = styled.div`
-  /* width: 100%;
-  height: 100%; */
   display: flex;
   flex-direction: column;
 `;
@@ -43,7 +42,7 @@ export const Label = styled.span`
 `;
 export const IconContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-size: 25px;
   color: #49518f;
 `;

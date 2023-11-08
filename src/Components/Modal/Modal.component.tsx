@@ -42,7 +42,7 @@ const Modall: FC<{}> = () => {
     (state: RootState) => state.apartmentsCard.apartmentDetails?.id
   );
 
-  //startDate &endDate function
+  //startDate & endDate function
   function handleStartDateChange(event: any) {
     if (event) {
       const year = event.$y;
@@ -84,11 +84,8 @@ const Modall: FC<{}> = () => {
         const response = await dispatch(openModal({ userId, userCredentials }));
 
         if (openModal.fulfilled.match(response)) {
-          // await fetchData();
           setShowRentList(true);
           navigate("/auth/rentlist");
-        } else {
-          console.log("Modal failed", response.error);
         }
       } catch (error) {
         console.log("Error in handleModalClick:", error);
@@ -97,38 +94,6 @@ const Modall: FC<{}> = () => {
       console.log("User is not authenticated");
     }
   };
-
-  // //get request
-  // const rentListProperties = {
-  //   start_date: startDate,
-  //   end_date: endDate,
-  //   apartments: apartmentIdFromStore,
-  // };
-
-  // const fetchData = () => {
-  //   if (userId) {
-  //     console.log(userId);
-  //     dispatch(openRentList({ userId, rentListProperties }))
-  //       .then((result: any) => {
-  //         console.log("result", result);
-  //         if (openRentList.fulfilled.match(result)) {
-  //           setRentList([result.payload]);
-  //           console.log("resu", result.payload);
-  //         } else if (openRentList.rejected.match(result)) {
-  //           setError("Error fetching rent list. Please try again later!");
-  //         }
-  //       })
-  //       .catch((error: any) => {
-  //         console.error("Error fetching rent list:", error);
-  //         setError("Error fetching rent list. Please try again later!");
-  //       });
-  //   } else {
-  //     setError("User ID not available.");
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchData();
-  // }, [dispatch, userId, endDate, startDate]);
 
   return (
     <>

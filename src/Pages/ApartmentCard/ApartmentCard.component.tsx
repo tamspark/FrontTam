@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { AppDispatch } from "../../redux/store";
 
-//styled-components
-
-import { Link, useParams } from "react-router-dom";
+//react-router-dom
+import { useParams } from "react-router-dom";
 
 //styled-components
 
@@ -27,18 +26,8 @@ import {
   UnorderedList,
 } from "./style/ApartmentCard.style";
 
-//fontawesome-icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-//modal component
-import Modal from "Components/Modal/Modal.component";
-// import { fetchUpdatedData } from "redux/Modal/ModalSlice";
-
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); //  update modal
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -62,10 +51,6 @@ const ApartmentCard: FC<{}> = () => {
 
   console.log("apartmentCard", apartmentCardDetails);
 
-  // Function to open the update modal
-  // const openUpdateModal = () => {
-  //   setIsUpdateModalOpen(true);
-  // };
   return (
     <Holder>
       {apartmentCardDetails && (
@@ -74,7 +59,6 @@ const ApartmentCard: FC<{}> = () => {
 
           <DivsContentHolder>
             <Div>
-              {/* <Location> */}
               <Paragraphs>
                 <Label>City: </Label> {apartmentCardDetails.location.city}
               </Paragraphs>
@@ -87,7 +71,6 @@ const ApartmentCard: FC<{}> = () => {
                 {apartmentCardDetails.location.street}
               </Paragraphs>
               <Paragraphs>
-                {" "}
                 <Label>Zip: </Label> {apartmentCardDetails.location.zip}
               </Paragraphs>
               <Paragraphs>
@@ -116,7 +99,6 @@ const ApartmentCard: FC<{}> = () => {
               <Paragraphs>
                 <Label>Type: </Label> {apartmentCardDetails.type.name}
               </Paragraphs>
-              {/* </Location> */}
             </Div>
             <Div>
               <Paragraphs>Rooms: </Paragraphs>
@@ -165,20 +147,15 @@ const ApartmentCard: FC<{}> = () => {
             </Div>
           </DivsContentHolder>
           <IconContainer>
-            <IconHold><RentLink to="/auth/rentlist">Edit Price</RentLink></IconHold>
             <IconHold>
-              <RentLink to="/auth/modal">
-                ADD RENT DATE
-              </RentLink>
+              <RentLink to="/auth/rentlist">EDIT PRICE</RentLink>
             </IconHold>
-            {/* <IconHold>
-              <FontAwesomeIcon icon={faPenToSquare} onClick={openUpdateModal} />
-            </IconHold> */}
+            <IconHold>
+              <RentLink to="/auth/modal">ADD RENT DATE</RentLink>
+            </IconHold>
           </IconContainer>
         </CardContainer>
       )}
-
- 
     </Holder>
   );
 };

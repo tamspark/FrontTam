@@ -46,12 +46,8 @@ export const ModalBody = styled.div`
   flex: 1;
   padding: 20px 25px;
   background-color: white;
-  /* flex: none;
-  order: 1;
-  align-self: stretch;
-  text-align: left;
-  flex-grow: 0; */
 `;
+
 export const ModalFooter = styled.div`
   display: flex;
   width: 300px;

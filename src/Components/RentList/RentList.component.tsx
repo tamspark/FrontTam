@@ -1,13 +1,15 @@
 import { FC, useState, useEffect } from "react";
 import {
   EditButton,
+  H2,
+  IconLink,
   Table,
+  TableAndDatepickerHolder,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
 } from "./style/RentList.style";
-import { Link } from "react-router-dom";
 import { Modal, openModal, openRentList } from "redux/Modal/ModalSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Popup from "Components/Popup/Popup.component";
@@ -32,6 +34,7 @@ const RentList: FC<RentListProps> = () => {
   const [error, setError] = useState<string>("");
   const [result, setResult] = useState<any[]>([]);
   console.log(selectedItem, "selected/ITem");
+
   //get userId &apartmentId from store
   const userId = useSelector((state: RootState) => state.auth.user?.id);
   const apartmentIdFromStore = useSelector(
@@ -103,36 +106,13 @@ const RentList: FC<RentListProps> = () => {
     }
   };
 
-  //get api
-  // const rentListProperties = {
-  //   start_date: selectedItem?.date,
-  //   end_date: selectedItem?.date,
-  //   apartments: apartmentIdFromStore,
-  // };
-  // const fetchUpdatedList = async () => {
-  //   if (userId) {
-  //     console.log(userId);
-  //     dispatch(openRentList({ userId, rentListProperties }))
-  //       .then((result: any) => {
-  //         console.log("result", result);
-  //         if (openRentList.fulfilled.match(result)) {
-  //           setRentList([result.payload]);
-  //           console.log("resu", result.payload);
-  //         }
-  //       })
-  //       .catch((error: any) => {
-  //         console.error("Error fetching rent list:", error);
-  //       });
-  //   }
-  // };
-
   const handleEdit = (rental: any) => {
     console.log(rental);
     setIsModalOpen(true);
     setSelectedItem(rental);
   };
 
-  // //get request
+  //get request
   const rentListProperties = {
     start_date: startDate,
     end_date: endDate,
@@ -204,45 +184,78 @@ const RentList: FC<RentListProps> = () => {
   }, [rentList]);
 
   return (
-    <>
+    <TableAndDatepickerHolder>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={["DatePicker"]}>
+        <DemoContainer
+          components={["DatePicker"]}
+          sx={{ justifyContent: "center" }}
+        >
           <DatePicker
             label="Start date"
             onChange={handleStartDateChange}
-            // sx={{ marginTop: "10px !important" }}
+            sx={{ margin: "10px  !important" }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root": {
+            //     margin: "10px  !important",
+            //     marginTop: "0 !important",
+            //     "&:hover fieldset": {
+            //       borderColor: "black",
+            //     },
+            //     "&.Mui-focused fieldset": {
+            //       borderColor: "black",
+            //     },
+            //     "& label.Mui-focused": {
+            //       color: "black",
+            //     },
+            //   },
+            // }}
           />
           <DatePicker
             label="End date"
             onChange={handleEndDateChange}
-            // sx={{ marginTop: "10px !important" }}
+            sx={{ margin: "10px  !important" }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root": {
+            //     margin: "10px !important",
+            //     marginTop: "0 !important",
+            //     "&:hover fieldset": {
+            //       borderColor: "black",
+            //     },
+            //     "&.Mui-focused fieldset": {
+            //       borderColor: "black",
+            //     },
+            //     "& label.Mui-focused": {
+            //       color: "black",
+            //     },
+            //   },
+            // }}
           />
         </DemoContainer>
       </LocalizationProvider>
       <TableContainer>
         <Table>
           <TableHead>
-            <tr>
+            <TableRow>
               <th>Date</th>
               <th>Price</th>
               <th>Minimum Length of Stay</th>
               <th>Actions</th>
-            </tr>
+            </TableRow>
           </TableHead>
           <tbody>
             {result.map((rental: any, index: any) => (
               <TableRow key={index}>
                 <TableCell>{rental.date}</TableCell>
                 <TableCell>${rental.price}</TableCell>
-                <TableCell>{`${rental.min_length_of_stay} nights`}</TableCell>
+                <TableCell>{rental.min_length_of_stay} nights</TableCell>
                 <TableCell>
                   <EditButton onClick={() => handleEdit(rental)}>
                     Edit
                   </EditButton>
 
-                  <Link to="">
+                  <IconLink to="">
                     <DeleteIcon />
-                  </Link>
+                  </IconLink>
                 </TableCell>
               </TableRow>
             ))}
@@ -255,7 +268,7 @@ const RentList: FC<RentListProps> = () => {
           setIsModalOpen(false);
           setSelectedItem(null);
         }}
-        headerContent={<h2>Edit Item</h2>}
+        headerContent={<H2>Edit Item</H2>}
         bodyContent={
           <>
             {selectedItem && (
@@ -286,7 +299,7 @@ const RentList: FC<RentListProps> = () => {
                 />
                 <TextField
                   id="outlined-basic"
-                  label="Min length of stay"
+                  label="Minimum length of stay"
                   type="number"
                   value={selectedItem?.min_length_of_stay || ""}
                   onChange={(e) => {
@@ -305,7 +318,7 @@ const RentList: FC<RentListProps> = () => {
         }
         footerContent={<Button onClick={handleSave}>Save</Button>}
       />
-    </>
+    </TableAndDatepickerHolder>
   );
 };
 
