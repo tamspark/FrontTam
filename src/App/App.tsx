@@ -15,11 +15,13 @@ import ApartmentCard from "Pages/ApartmentCard/ApartmentCard.component";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import Modal from "Components/Modal/Modal.component";
+import RentList from "Components/RentList/RentList.component";
 
 const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
   return (
     <>
       <BrowserRouter>
@@ -34,12 +36,16 @@ const App: FC<{}> = () => {
               <Route path="apartmentpage" element={<ApartmentPage />} />
               <Route path="forgetpassword" element={<ForgetPassword />} />
               <Route path="verify" element={<Verification />} />
-              <Route path="apartmentcard/:id" element={<ApartmentCard />} />
+              <Route
+                path="apartmentcard/:id"
+                element={<ApartmentCard />}
+              />{" "}
+              <Route path="modal" element={<Modal />} />
+              <Route path="rentlist" element={<RentList rentalData={[]} />} />
               <Route
                 path="*"
                 element={<Navigate to="apartmentpage" replace />}
               />
-              <Route path="modal" element={<Modal />} />
             </Route>
           ) : (
             <Route path="/auth" element={<AuthPage />}>

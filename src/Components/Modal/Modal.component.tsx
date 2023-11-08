@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 
 // date picker from MUI
 
@@ -21,19 +21,20 @@ import { ButtonContainer } from "Pages/Register/style/Register.style";
 //redux
 import { AppDispatch, RootState } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, openModal, openRentList } from "redux/Modal/ModalSlice";
+import {  openModal } from "redux/Modal/ModalSlice";
 
-import RentList from "Components/RentList/RentList.component";
+//navigate
+import { useNavigate } from "react-router-dom";
+
 
 const Modall: FC<{}> = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
-  const [rentList, setRentList] = useState<Modal[]>([]);
-  console.log(rentList, "rent");
-  const [error, setError] = useState<string | null>(null);
   const [showRentList, setShowRentList] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   //get userId &apartmentId from store
   const userId = useSelector((state: RootState) => state.auth.user?.id);
@@ -62,7 +63,6 @@ const Modall: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  
   //post request
   const userCredentials = {
     apartments: [apartmentIdFromStore],
@@ -84,8 +84,9 @@ const Modall: FC<{}> = () => {
         const response = await dispatch(openModal({ userId, userCredentials }));
 
         if (openModal.fulfilled.match(response)) {
-          await fetchData();
+          // await fetchData();
           setShowRentList(true);
+          navigate("/auth/rentlist");
         } else {
           console.log("Modal failed", response.error);
         }
@@ -97,105 +98,98 @@ const Modall: FC<{}> = () => {
     }
   };
 
-  //get request
-  const rentListProperties = {
-    start_date: startDate,
-    end_date: endDate,
-    apartments: apartmentIdFromStore,
-  };
+  // //get request
+  // const rentListProperties = {
+  //   start_date: startDate,
+  //   end_date: endDate,
+  //   apartments: apartmentIdFromStore,
+  // };
 
-  const fetchData = () => {
-    if (userId) {
-      console.log(userId);
-      dispatch(openRentList({ userId, rentListProperties }))
-        .then((result: any) => {
-          console.log("result", result);
-          if (openRentList.fulfilled.match(result)) {
-            setRentList([result.payload]);
-            console.log("resu", result.payload);
-          } else if (openRentList.rejected.match(result)) {
-            setError("Error fetching rent list. Please try again later!");
-          }
-        })
-        .catch((error: any) => {
-          console.error("Error fetching rent list:", error);
-          setError("Error fetching rent list. Please try again later!");
-        });
-    } else {
-      setError("User ID not available.");
-    }
-  };
+  // const fetchData = () => {
+  //   if (userId) {
+  //     console.log(userId);
+  //     dispatch(openRentList({ userId, rentListProperties }))
+  //       .then((result: any) => {
+  //         console.log("result", result);
+  //         if (openRentList.fulfilled.match(result)) {
+  //           setRentList([result.payload]);
+  //           console.log("resu", result.payload);
+  //         } else if (openRentList.rejected.match(result)) {
+  //           setError("Error fetching rent list. Please try again later!");
+  //         }
+  //       })
+  //       .catch((error: any) => {
+  //         console.error("Error fetching rent list:", error);
+  //         setError("Error fetching rent list. Please try again later!");
+  //       });
+  //   } else {
+  //     setError("User ID not available.");
+  //   }
+  // };
   // useEffect(() => {
   //   fetchData();
   // }, [dispatch, userId, endDate, startDate]);
 
   return (
     <>
-      {showRentList ? (
-        <RentList rentalData={rentList} />
-      ) : (
-        <ModalForm>
-          <ModalContent>
-            {/* <XIconHolder>
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </XIconHolder> */}
-            <ModalParagraph>ADD RENT DATE </ModalParagraph>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
-                <DatePicker
-                  label="Start date"
-                  onChange={handleStartDateChange}
-                  sx={{ marginTop: "10px !important" }}
-                />
-                <DatePicker
-                  label="End date"
-                  onChange={handleEndDateChange}
-                  sx={{ marginTop: "10px !important" }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+      <ModalForm>
+        <ModalContent>
+          <ModalParagraph>ADD RENT DATE </ModalParagraph>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="Start date"
+                onChange={handleStartDateChange}
+                sx={{ marginTop: "10px !important" }}
+              />
+              <DatePicker
+                label="End date"
+                onChange={handleEndDateChange}
+                sx={{ marginTop: "10px !important" }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
 
-            <TextfieldDiv>
-              <TextField
-                id="outlined-basic"
-                label="Price"
-                value={price || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPrice(e.target.value)
-                }
-                type="number"
-                variant="outlined"
-                fullWidth
-              />
-            </TextfieldDiv>
-            <TextfieldDiv>
-              <TextField
-                id="outlined-basic"
-                label="Minimum length of stay"
-                value={minLength || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMinLength(e.target.value)
-                }
-                type="number"
-                variant="outlined"
-                fullWidth
-              />
-            </TextfieldDiv>
-            <ButtonContainer>
-              <Button
-                h="40px"
-                w="100%"
-                variant="primary"
-                borderradius="12px"
-                fontSize="15px"
-                onClick={handleModalClick}
-              >
-                SUBMIT
-              </Button>
-            </ButtonContainer>
-          </ModalContent>
-        </ModalForm>
-      )}
+          <TextfieldDiv>
+            <TextField
+              id="outlined-basic"
+              label="Price"
+              value={price || ""}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPrice(e.target.value)
+              }
+              type="number"
+              variant="outlined"
+              fullWidth
+            />
+          </TextfieldDiv>
+          <TextfieldDiv>
+            <TextField
+              id="outlined-basic"
+              label="Minimum length of stay"
+              value={minLength || ""}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setMinLength(e.target.value)
+              }
+              type="number"
+              variant="outlined"
+              fullWidth
+            />
+          </TextfieldDiv>
+          <ButtonContainer>
+            <Button
+              h="40px"
+              w="100%"
+              variant="primary"
+              borderradius="12px"
+              fontSize="15px"
+              onClick={handleModalClick}
+            >
+              SUBMIT
+            </Button>
+          </ButtonContainer>
+        </ModalContent>
+      </ModalForm>
     </>
   );
 };

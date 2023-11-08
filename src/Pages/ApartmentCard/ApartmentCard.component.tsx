@@ -165,6 +165,7 @@ const ApartmentCard: FC<{}> = () => {
             </Div>
           </DivsContentHolder>
           <IconContainer>
+            <IconHold><RentLink to="/auth/rentlist">Edit Price</RentLink></IconHold>
             <IconHold>
               <RentLink to="/auth/modal">
                 ADD RENT DATE
@@ -177,20 +178,7 @@ const ApartmentCard: FC<{}> = () => {
         </CardContainer>
       )}
 
-      {/* {isModalOpen && (
-        <Modal
-          onClose={() => setIsModalOpen(false)}
-          isUpdate={false} // Set flag to indicate adding
-        />
-      )} */}
-
-      {/* {isUpdateModalOpen && (
-        <Modal
-          onClose={() => setIsUpdateModalOpen(false)}
-          isUpdate={true} // Set flag to indicate updating
-          initialData={apartmentCardDetails} // Pass the data to the update modal
-        />
-      )} */}
+ 
     </Holder>
   );
 };

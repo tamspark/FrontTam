@@ -7,6 +7,7 @@ export interface Modal {
   price: number;
   minLength: number;
   userId: number;
+  date: string;
 }
 
 export type ModalState = {
