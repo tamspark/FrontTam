@@ -165,7 +165,7 @@ export const Page = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: linear-gradient(to bottom, #49518f, #c8cef9); */
+  background: linear-gradient(to bottom, #49518f, #c8cef9);
 `;
 
 export const Content = styled.div`

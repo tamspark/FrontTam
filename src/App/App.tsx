@@ -27,29 +27,35 @@ const App: FC<{}> = () => {
     <>
       <BrowserRouter>
         <Routes>
-          {/* {isAuthenticated ? ( */}
-          <Route path="/auth" element={<AuthPage />}>
-            <Route
-              path="tam/resetPassword/:token"
-              element={<ResetPassword />}
-            />
-            <Route path="tam/registration/:token" element={<SavePasword />} />
-            <Route path="apartmentpage" element={<ApartmentPage />} />
-            <Route path="forgetpassword" element={<ForgetPassword />} />
-            <Route path="verify" element={<Verification />} />
-            <Route path="apartmentcard/:id" element={<ApartmentCard />} />{" "}
-            <Route path="modal" element={<Modal />} />
-            <Route path="rentlist" element={<RentList rentalData={[]} />} />
-            <Route path="messagepage" element={<MessagePage />} />
-            <Route path="*" element={<Navigate to="apartmentpage" replace />} />
-          </Route>
-          {/* ) : ( */}
-          <Route path="/auth" element={<AuthPage />}>
-            <Route path="/auth/login" element={<Login />} index />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/auth/login" replace />} />
-          </Route>
-          {/* )} */}
+          {isAuthenticated ? (
+            <Route path="/auth" element={<AuthPage />}>
+              <Route
+                path="tam/resetPassword/:token"
+                element={<ResetPassword />}
+              />
+              <Route path="tam/registration/:token" element={<SavePasword />} />
+              <Route path="apartmentpage" element={<ApartmentPage />} />
+              <Route path="forgetpassword" element={<ForgetPassword />} />
+              <Route path="verify" element={<Verification />} />
+              <Route
+                path="apartmentcard/:id"
+                element={<ApartmentCard />}
+              />{" "}
+              <Route path="modal" element={<Modal />} />
+              <Route path="rentlist" element={<RentList rentalData={[]} />} />
+              <Route path="messagepage" element={<MessagePage />} />
+              <Route
+                path="*"
+                element={<Navigate to="apartmentpage" replace />}
+              />
+            </Route>
+          ) : (
+            <Route path="/auth" element={<AuthPage />}>
+              <Route path="/auth/login" element={<Login />} index />
+              <Route path="/auth/register" element={<Register />} />
+              <Route path="*" element={<Navigate to="/auth/login" replace />} />
+            </Route>
+          )}
         </Routes>
       </BrowserRouter>
     </>

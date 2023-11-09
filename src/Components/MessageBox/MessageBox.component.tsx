@@ -32,7 +32,6 @@ const MessageBox: FC<{}> = () => {
           <AttachIconHolder>
             <FontAwesomeIcon icon={faPaperclip} />
           </AttachIconHolder>
-
           <InputHold placeholder="Type a message here..." />
           <SendIcon>
             <FontAwesomeIcon icon={faPaperPlane} style={{ flex: "1" }} />
