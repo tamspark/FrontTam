@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 export const MessageBoxContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -50,14 +51,37 @@ export const SendMessagContainer = styled.div`
   border-radius: 20px;
   margin: 10px 0;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 export const InputHold = styled.input`
   color: black;
   border: none;
   font-family: "Poppins";
   font-size: large;
-  text-align: center;
+  /* text-align: center; */
   outline: none;
   box-sizing: border-box;
-  width: 100%;
+
+  /* width: 100%; */
+`;
+export const AttachIconHolder = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 0;
+  font-size: 29px;
+`;
+export const SendIcon = styled.div`
+  display: flex;
+  align-items: center;
+  /* padding-right: 10px; */
+  margin: 0;
+  font-size: 29px;
+  background-color: #329a93;
+  /* border-radius: 50%; */
+  width: 60px;
+  border-end-end-radius: 10px;
+  border-inline-end-width: 10px;
+  border-top-right-radius: 10px;
 `;

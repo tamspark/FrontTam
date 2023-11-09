@@ -2,16 +2,19 @@ import { FC } from "react";
 import {
   AdminInfoContentHolder,
   AdminNameParagraph,
+  AttachIconHolder,
   Icon,
   InputHold,
   MessageBoxContainer,
   ProfileImage,
+  SendIcon,
   SendMessagContainer,
   ThreeDotsHolder,
   UserInformationHolder,
 } from "./style/MessageBox.style";
 import AdminLogo from "../ExistingChat/assets/adminlogo.png";
-import { Input } from "App/style/App.style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 const MessageBox: FC<{}> = () => {
   return (
     <>
@@ -26,8 +29,14 @@ const MessageBox: FC<{}> = () => {
           </ThreeDotsHolder>
         </UserInformationHolder>
         <SendMessagContainer>
-          
-          <InputHold placeholder="Type a message here..."/>
+          <AttachIconHolder>
+            <FontAwesomeIcon icon={faPaperclip} />
+          </AttachIconHolder>
+
+          <InputHold placeholder="Type a message here..." />
+          <SendIcon>
+            <FontAwesomeIcon icon={faPaperPlane} style={{ flex: "1" }} />
+          </SendIcon>
         </SendMessagContainer>
       </MessageBoxContainer>
     </>
