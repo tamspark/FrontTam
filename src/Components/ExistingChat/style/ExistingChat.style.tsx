@@ -18,9 +18,7 @@ export const UserProfileContainer = styled.div`
   padding: 10px 5px 0 5px;
 `;
 
-export const Icon = styled(AccountCircle)`
-  font-size: large;
-`;
+
 export const UserImage = styled.img`
   width: 50px;
   height: 50px;
