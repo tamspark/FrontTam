@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import Modal from "Components/Modal/Modal.component";
 import RentList from "Components/RentList/RentList.component";
+import MessagePage from "Components/MessagePage/MessagePage.component";
 
 const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
@@ -42,6 +43,7 @@ const App: FC<{}> = () => {
               />{" "}
               <Route path="modal" element={<Modal />} />
               <Route path="rentlist" element={<RentList rentalData={[]} />} />
+              <Route path="messagepage" element={<MessagePage />} />
               <Route
                 path="*"
                 element={<Navigate to="apartmentpage" replace />}

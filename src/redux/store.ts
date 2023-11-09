@@ -42,8 +42,8 @@ import { AuthRegPass } from "redux/Auth/SavePassword/SavePasswordSlice";
 import resetPasswordSlice from "redux/Auth/SavePassword/SavePasswordSlice";
 import { ModalState } from "redux/Modal/ModalSlice";
 import modalSlice from "redux/Modal/ModalSlice";
-import { RentListState } from "redux/RentList/RentListSlice";
-import rentListSlice from "redux/RentList/RentListSlice";
+import { MessageState } from "redux/MessagePage/MessagePageSlice";
+import messagesSlice from "redux/MessagePage/MessagePageSlice";
 type RootState = {
   auth: AuthState;
   register: AuthRegState;
@@ -51,7 +51,7 @@ type RootState = {
   apartmentsCard: ApartmentsState;
   recoverPassword: AuthRegPass;
   modal: ModalState;
-  rentList: RentListState;
+  messages: MessageState;
 };
 
 const persistConfig = {
@@ -65,7 +65,7 @@ const persistConfig = {
     "apartmentsCard",
     "recoverPassword",
     "modal",
-    "rentList",
+    "messages",
   ],
 };
 
@@ -76,7 +76,7 @@ const rootReducer = combineReducers({
   apartmentsCard: apartmentsCardSlice,
   recoverPassword: resetPasswordSlice,
   modal: modalSlice,
-  rentList: rentListSlice,
+  messages: messagesSlice,
 });
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
@@ -93,7 +93,7 @@ const store = configureStore({
           "user/fetchApartmentCardDetails/fulfilled",
           "user/resetPassword/fulfilled",
           "user/openModal/fulfilled",
-          "user/openRentList/fulfilled",
+          "user/fetchMessage/fulfilled",
         ],
       },
     }),
