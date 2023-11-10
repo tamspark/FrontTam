@@ -6,7 +6,7 @@ import { MessagePageContainer } from "./style/MessagePage.style";
 const MessagePage: FC<{}> = () => {
   return (
     <MessagePageContainer>
-      <ExistingChat />
+      {/* <ExistingChat /> */}
       <MessageBox />
     </MessagePageContainer>
   );

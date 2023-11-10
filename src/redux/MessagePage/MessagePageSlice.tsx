@@ -1,19 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// export interface Message {
-//   id: number;
-//   subject: string;
-//   message: string;
-//   htmlMessage: string;
-//   type: number;
-// }
-// export interface MesagePageProps {
-//   page_count: number;
-//   page_size: number;
-//   total_items: number;
-//   page: number;
-//   messages: Message[];
-// }
+
 export interface MesagePageProps {
   page_count: number;
   page_size: number;
@@ -39,6 +26,36 @@ const initialState: MessageState = {
   error: null,
 };
 
+//post api
+export const sendMessage = createAsyncThunk(
+  "message/sendMessage",
+  async (
+    { userId, messageProps }: { userId: number; messageProps: object },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axios.post(
+        `http://192.168.10.210:8080/TAM/48161231/message/${userId}`,
+        messageProps
+      );
+
+      const responseData = response.data;
+      console.log(responseData);
+
+      if (response.status !== 200) {
+        return rejectWithValue(responseData.error.message);
+      }
+
+      return responseData;
+    } catch (error: any) {
+      console.log("Error in sendMessage:", error.response);
+
+      return rejectWithValue("Send Message failed");
+    }
+  }
+);
+
+//get api
 export const fetchMessage = createAsyncThunk<
   MesagePageProps,
   { userId: number },
@@ -48,7 +65,7 @@ export const fetchMessage = createAsyncThunk<
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `http://192.168.10.210:8080/TAM/48052989/message/${userId}`
+      `http://192.168.10.210:8080/TAM/48161231/message/${userId}`
     );
     console.log("userId", userId);
 
@@ -63,9 +80,22 @@ export const fetchMessage = createAsyncThunk<
 const messagesSlice = createSlice({
   name: "messages",
   initialState,
-  reducers: {},
+  reducers: {
+    updateMessages: (state, action: PayloadAction<MesagePageProps>) => {
+      state.messages = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
+      .addCase(sendMessage.fulfilled, (state, action) => {
+        state.messages = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(sendMessage.rejected, (state, action) => {
+        state.isAuthenticated = false;
+        state.messages = null;
+        state.error = action.payload as string | null;
+      })
       .addCase(fetchMessage.fulfilled, (state, action) => {
         state.messages = action.payload;
         state.isAuthenticated = true;
@@ -78,5 +108,5 @@ const messagesSlice = createSlice({
   },
 });
 
-// export const { } = messagesSlice.actions;
+export const { updateMessages} = messagesSlice.actions;
 export default messagesSlice.reducer;
