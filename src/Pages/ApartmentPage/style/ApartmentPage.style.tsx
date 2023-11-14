@@ -4,11 +4,7 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
 `;
-// export const ApartmentParagraph = styled.p`
-//   font-family: "Poppins";
-//   font-size: 25px;
-//   color: white;
-// `;
+
 export const ApartmentContentHolder = styled.div`
   width: 100%;
   height: 100px;

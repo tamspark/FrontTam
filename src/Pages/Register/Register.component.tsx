@@ -51,7 +51,7 @@ const Register: FC<{}> = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("http://192.168.10.213:8080/TAM/role")
+      .get<DropdownItem[]>("http://192.168.10.210:8080/TAM/role")
       .then((res) => {
         setRoles(res.data);
         console.log(res.data);
@@ -71,7 +71,7 @@ const Register: FC<{}> = () => {
     } else {
       try {
         await dispatch(registerUser(userCredentials));
-        // console.log("User registered successfully!");
+        console.log("Go to check the email!");
         setFirstName("");
         setLastName("");
         setUsername("");

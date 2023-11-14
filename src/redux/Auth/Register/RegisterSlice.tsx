@@ -1,5 +1,4 @@
 // redux/RegisterSlice.ts
-
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 //axios
@@ -33,7 +32,7 @@ export const registerUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.213:8080/TAM/registration",
+        "http://192.168.10.210:8080/TAM/registration",
         userCredentials
       );
 

@@ -60,9 +60,10 @@ const RentList: FC<RentListProps> = () => {
       setEndDate(`${year}-${month}-${day}`);
     }
   }
+  
   // Calculate the start and end dates for the current month
   const today = new Date();
-  const currentMonth = today.getMonth() + 1; // Month is 0-based
+  const currentMonth = today.getMonth() + 1; 
   const currentYear = today.getFullYear();
   const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
   const startOfMonth = `${currentYear}-${currentMonth
@@ -147,7 +148,7 @@ const RentList: FC<RentListProps> = () => {
     }
   }, [dispatch, userId, endDate, startDate]);
 
-  // Initialize startDate and endDate to the current month's range when the component mounts
+  
   useEffect(() => {
     setStartDate(startOfMonth);
     setEndDate(endOfMonth);

@@ -1,16 +1,16 @@
 import { FC, useEffect, useState } from "react";
-import { fetchApartmentCardDetails } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
+
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { AppDispatch } from "../../redux/store";
+import { fetchApartmentCardDetails } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 
 //react-router-dom
 import { useParams } from "react-router-dom";
 
 //styled-components
-
 import {
   ApartmentName,
   CardContainer,
