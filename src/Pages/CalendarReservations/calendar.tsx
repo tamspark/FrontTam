@@ -8,7 +8,7 @@ interface MonthOption {
 }
 
 function MonthTable() {
-  const [selectedMonth, setSelectedMonth] = useState<number>(1);
+  const [selectedMonth, setSelectedMonth] = useState<number>(11);
   const [selectedYear, setSelectedYear] = useState<number>(2023); // Default to a specific year (you can set it to the current year)
   const [daysOfMonth, setDaysOfMonth] = useState<any>(31);
   const [dayNames, setDayNames] = useState<string[]>([]);
