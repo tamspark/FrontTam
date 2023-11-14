@@ -32,6 +32,7 @@ const RentList: FC<RentListProps> = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [error, setError] = useState<string>("");
+  console.log(error);
   const [result, setResult] = useState<any[]>([]);
   console.log(selectedItem, "selected/ITem");
 
@@ -287,7 +288,7 @@ const RentList: FC<RentListProps> = () => {
                   label="Price"
                   type="number"
                   value={selectedItem?.price || ""}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     setSelectedItem({
                       ...selectedItem,
                       price: parseFloat(e.target.value),
@@ -302,7 +303,7 @@ const RentList: FC<RentListProps> = () => {
                   label="Minimum length of stay"
                   type="number"
                   value={selectedItem?.min_length_of_stay || ""}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     setSelectedItem({
                       ...selectedItem,
                       min_length_of_stay: parseInt(e.target.value),

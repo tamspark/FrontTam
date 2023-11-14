@@ -42,7 +42,7 @@ const App: FC<{}> = () => {
                 element={<ApartmentCard />}
               />{" "}
               <Route path="modal" element={<Modal />} />
-              <Route path="/calendar" element={<MonthTable />} />
+              <Route path="calendar" element={<MonthTable />} />
               <Route path="rentlist" element={<RentList rentalData={[]} />} />
               <Route
                 path="*"
