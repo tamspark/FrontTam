@@ -21,9 +21,7 @@ import {
 import { AppDispatch } from "../../redux/store";
 
 //navigation
-
 import { useNavigate } from "react-router";
-// import { setApartmentId } from "redux/Auth/ApartmentCard/ApartmentCardSlice";
 
 const ApartmentPage: FC<{}> = () => {
   const navigate = useNavigate();

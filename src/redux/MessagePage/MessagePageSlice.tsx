@@ -67,7 +67,6 @@ export const fetchMessage = createAsyncThunk<
     const response = await axios.get(
       `http://192.168.10.210:8080/TAM/48161231/message/${userId}`
     );
-    console.log("userId", userId);
 
     console.log("res", response);
     return response.data as MesagePageProps;
@@ -81,8 +80,9 @@ const messagesSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    updateMessages: (state, action: PayloadAction<MesagePageProps>) => {
+    setMessages: (state, action: PayloadAction<MesagePageProps>) => {
       state.messages = action.payload;
+      state.isAuthenticated = true;
     },
   },
   extraReducers: (builder) => {
@@ -108,5 +108,5 @@ const messagesSlice = createSlice({
   },
 });
 
-export const { updateMessages} = messagesSlice.actions;
+export const { setMessages } = messagesSlice.actions;
 export default messagesSlice.reducer;

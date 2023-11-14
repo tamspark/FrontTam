@@ -16,7 +16,7 @@ export const ModalForm = styled.div`
 `;
 export const ModalContent = styled.div`
   width: 100%;
-  max-width: 330px;
+  min-width: 330px;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

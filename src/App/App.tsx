@@ -33,7 +33,6 @@ const App: FC<{}> = () => {
                 path="tam/resetPassword/:token"
                 element={<ResetPassword />}
               />
-              <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="apartmentpage" element={<ApartmentPage />} />
               <Route path="forgetpassword" element={<ForgetPassword />} />
               <Route path="verify" element={<Verification />} />
@@ -52,7 +51,8 @@ const App: FC<{}> = () => {
           ) : (
             <Route path="/auth" element={<AuthPage />}>
               <Route path="/auth/login" element={<Login />} index />
-              <Route path="/auth/register" element={<Register />} />
+              <Route path="/auth/register" element={<Register />} />{" "}
+              <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="*" element={<Navigate to="/auth/login" replace />} />
             </Route>
           )}

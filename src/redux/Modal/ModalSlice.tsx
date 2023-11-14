@@ -35,7 +35,7 @@ export const openModal = createAsyncThunk(
       );
 
       const responseRegData = response.data;
-      console.log(responseRegData);
+      console.log("",responseRegData);
 
       if (response.status !== 200) {
         return rejectWithValue(responseRegData.error.message);
@@ -49,6 +49,7 @@ export const openModal = createAsyncThunk(
     }
   }
 );
+
 //get api
 export const openRentList = createAsyncThunk<
   Modal,
@@ -60,14 +61,12 @@ export const openRentList = createAsyncThunk<
     try {
       const response = await axios.get(
         `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
-
         { params: rentListProperties }
       );
 
       const responseRentListData = response.data.data;
       console.log(responseRentListData);
-      // Store the response data in localStorage
-      // localStorage.setItem("modal", JSON.stringify(responseRentListData));
+
       if (response.status !== 200) {
         return rejectWithValue(responseRentListData.error);
       }

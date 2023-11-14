@@ -4,14 +4,18 @@ import {
   AdminNameParagraph,
   AttachIconHolder,
   Icon,
+  IncomingMessage,
   InputHold,
   MessageBoxContainer,
+  MessagesBodyHolder,
   ParagraphsHolder,
   ProfileImage,
   SendIcon,
   SendMessagContainer,
   ThreeDotsHolder,
   UserInformationHolder,
+  UserMessage,
+  UserMessageContainer,
 } from "./style/MessageBox.style";
 import AdminLogo from "../ExistingChat/assets/adminlogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +26,6 @@ import {
   MesagePageProps,
   fetchMessage,
   sendMessage,
-  updateMessages,
 } from "redux/MessagePage/MessagePageSlice";
 const MessageBox: FC<{}> = () => {
   const [messageDetails, setMessageDetails] = useState<MesagePageProps[]>([]);
@@ -35,10 +38,11 @@ const MessageBox: FC<{}> = () => {
   //   (state: RootState) => state.auth.user?.firstName
   // );
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const reservationId = useSelector(
-    (state: RootState) => state.messages.messages
-  );
-  console.log(reservationId);
+  console.log(userId)
+  // const reservationId = useSelector(
+  //   (state: RootState) => state.messages.messages
+  // );
+  // console.log(reservationId);
   const dispatch: AppDispatch = useDispatch();
 
   //post request
@@ -56,10 +60,12 @@ const MessageBox: FC<{}> = () => {
         const response = await dispatch(sendMessage({ userId, messageProps }));
 
         if (sendMessage.fulfilled.match(response)) {
-          setWriteMessage("");
-          console.log("u kry");
           // Refetch messages after sending
-          dispatch(updateMessages(response.payload));
+          const fetchResponse = await dispatch(fetchMessage({ userId }));
+          if (fetchMessage.fulfilled.match(fetchResponse)) {
+            setMessageDetails([fetchResponse.payload]);
+            setWriteMessage("");
+          }
         }
       } catch (error) {
         console.log("Error in handleModalClick:", error);
@@ -100,57 +106,34 @@ const MessageBox: FC<{}> = () => {
         {messageDetails.map((chat: MesagePageProps, index: any) => (
           <ParagraphsHolder key={index}>
             {chat.messages.map((message: any, messageIndex: any) => (
-              <div key={messageIndex} style={{ margin: "5px" }}>
+              <MessagesBodyHolder key={messageIndex}>
                 {message.type === 1 ? (
-                  <p
-                    style={{
-                      // paddingLeft: "10px",
-                      background: "white",
-                      width: "fit-content",
-                      borderRadius: "10px",
-                      padding: "5px ",
-                      textAlign: "left",
-                      margin: "0",
-                      fontFamily: "Poppins",
-                      fontSize: "14px",
-                    }}
+                  <IncomingMessage
                     dangerouslySetInnerHTML={{ __html: message.htmlMessage }}
                   >
                     {/* {message.message} */}
-                  </p>
+                  </IncomingMessage>
                 ) : (
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <p
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        paddingRight: "10px",
-                        background: "#329a93",
-                        width: "fit-content",
-                        borderRadius: "10px",
-                        padding: "5px ",
-                        textAlign: "right",
-                        margin: "0",
-                        fontFamily: "Poppins",
-                        fontSize: "14px",
-                      }}
-                      // dangerouslySetInnerHTML={{ __html: message.htmlMessage }}
+                  <UserMessageContainer>
+                    <UserMessage
+
+                    // dangerouslySetInnerHTML={{ __html: message.htmlMessage }}
                     >
                       {message.message}
-                    </p>
-                  </div>
+                    </UserMessage>
+                  </UserMessageContainer>
                 )}
-              </div>
+              </MessagesBodyHolder>
             ))}
           </ParagraphsHolder>
         ))}
 
         <SendMessagContainer>
           <AttachIconHolder>
-            <FontAwesomeIcon icon={faPaperclip} />
+            <FontAwesomeIcon icon={faPaperclip} style={{ fontSize: "20px" }} />
           </AttachIconHolder>
           <InputHold
-            type="html"
+            type="text"
             placeholder="Type a message here..."
             value={writeMessage || ""}
             onChange={(e: any) => setWriteMessage(e.target.value)}
@@ -158,7 +141,7 @@ const MessageBox: FC<{}> = () => {
           <SendIcon>
             <FontAwesomeIcon
               icon={faPaperPlane}
-              style={{ flex: "1" }}
+              style={{ flex: "1", fontSize: "20px" }}
               onClick={(e: any) => handleSendMessageClick(e)}
             />
           </SendIcon>

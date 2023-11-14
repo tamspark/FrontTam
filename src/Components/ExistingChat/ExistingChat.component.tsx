@@ -1,79 +1,40 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 //styled-components
 import {
-  ChatContentHolder,
   ExistingChatHolder,
-  LastMessage,
-  MessageCountContainer,
+  InboxMessages,
   MessagesParagraph,
-  UnreadMessagesCount,
+  Span,
   UserImage,
-  UserInfoContainer,
   UserNameParagraph,
   UserProfileContainer,
-  UsersNameParagraph,
 } from "./style/ExistingChat.style";
 
+//import photo from assets
 import AdminLogo from "../ExistingChat/assets/adminlogo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "redux/store";
-import {
-  MesagePageProps,
-  fetchMessage,
-} from "redux/MessagePage/MessagePageSlice";
+
+//redux
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 const ExistingChat: FC<{}> = () => {
-  // const [messageDetails, setMessageDetails] = useState<MesagePageProps[]>([]);
-  // console.log(messageDetails);
   //get user firstName from store
-  const userName = useSelector(
-    (state: RootState) => state.auth.user?.firstName
+  const email = useSelector((state: RootState) => state.auth.user?.email);
+  const messages = useSelector(
+    (state: RootState) => state.messages.messages?.total_items
   );
-  // const userId = useSelector((state: RootState) => state.auth.user?.id);
-  // const reservationId = useSelector(
-  //   (state: RootState) => state.messages.messages
-  // );
-  // console.log(reservationId);
-  // const dispatch: AppDispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     dispatch(fetchMessage({ userId }))
-  //       .then((result: any) => {
-  //         if (fetchMessage.fulfilled.match(result)) {
-  //           setMessageDetails([result.payload]);
-  //         } else {
-  //           console.error("Messages not found.");
-  //         }
-  //       })
-  //       .catch((error: any) => {
-  //         console.error("Error fetching messages:", error);
-  //       });
-  //   }
-  // }, [dispatch, userId]);
+  console.log(messages);
   return (
     <ExistingChatHolder>
       <UserProfileContainer>
-        <UserImage src={AdminLogo} alt="user-photo" />
-        <UserNameParagraph>{userName}</UserNameParagraph>
+        {/* <UserImage src={AdminLogo} alt="user-photo" /> */}
+        <UserNameParagraph>{email}</UserNameParagraph>
       </UserProfileContainer>
-      <MessagesParagraph>Messages</MessagesParagraph>
-      {/* {messageDetails.map((chat: MesagePageProps, index: any) => (
-        <ChatContentHolder key={index}>
-          <UserInfoContainer>
-            <UsersNameParagraph>{chat.messages[0].subject}</UsersNameParagraph>
-            <LastMessage>{chat.messages[0].message}</LastMessage>
-          </UserInfoContainer>
-          <MessageCountContainer> */}
-            {/* {chat.unreadMessagesCount > 0 && (
-              <UnreadMessagesCount>
-                {chat.unreadMessagesCount}
-              </UnreadMessagesCount>
-            )} */}
-          {/* </MessageCountContainer>
-        </ChatContentHolder>
-      ))} */}
+      <InboxMessages>
+        <MessagesParagraph>Inbox</MessagesParagraph>
+        <Span>{messages}</Span>
+      </InboxMessages>
     </ExistingChatHolder>
   );
 };
