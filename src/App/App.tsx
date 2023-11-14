@@ -12,6 +12,7 @@ import Register from "../Pages/Register/Register.component";
 import SavePasword from "../Pages/savePassword/SavePassword.component";
 import ApartmentPage from "Pages/ApartmentPage/ApartmentPage.component";
 import ApartmentCard from "Pages/ApartmentCard/ApartmentCard.component";
+import MonthTable from "Pages/CalendarReservations/calendar";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import Modal from "Components/Modal/Modal.component";
@@ -41,6 +42,7 @@ const App: FC<{}> = () => {
                 element={<ApartmentCard />}
               />{" "}
               <Route path="modal" element={<Modal />} />
+              <Route path="/calendar" element={<MonthTable />} />
               <Route path="rentlist" element={<RentList rentalData={[]} />} />
               <Route
                 path="*"
