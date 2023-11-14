@@ -42,7 +42,7 @@ export const TableCell = styled.td`
   text-overflow: ellipsis;
 `;
 export const EditButton = styled.button`
-  background-color: #4caf50;
+  background-color: #4837517a;
   border-radius: 5px;
   color: white;
   border: none;

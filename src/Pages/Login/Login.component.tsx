@@ -14,10 +14,14 @@ import { useNavigate } from "react-router";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  DontHaveAccountHold,
   LoginButtonHolder,
   LoginLabel,
   LoginParagraph,
+  Paragraph,
+  RegisterLink,
 } from "./style/Login.style";
+
 
 const Login: FC<{}> = () => {
   const navigate = useNavigate();
@@ -27,17 +31,14 @@ const Login: FC<{}> = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-
   const userSelector = (state: RootState) => state.auth.user; // Use RootState here
-    const isAuthenticatedSelector = (state: RootState) => state.auth.isAuthenticated; // Use RootState here
- 
- 
+  const isAuthenticatedSelector = (state: RootState) =>
+    state.auth.isAuthenticated; // Use RootState here
 
   const user = useSelector(userSelector);
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
-  const verify=user?.registredInSmoobu;
-
+  const verify = user?.registredInSmoobu;
 
   const handleLoginClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -51,20 +52,17 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
-     
-    if (verify ===false) {
-      navigate("/auth/verify"); 
+
+    if (verify === false) {
+      navigate("/auth/verify");
     } else {
       navigate("/auth/apartmentpage");
     }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
-
-
- 
 
   // const handleLogout = (userId: number) => {
   //   try {
@@ -137,8 +135,13 @@ const Login: FC<{}> = () => {
           >
             Submit
           </Button>
-       
         </LoginButtonHolder>
+        <DontHaveAccountHold>
+          <Paragraph>You don't have an account?</Paragraph>
+          <RegisterLink to="/auth/register">
+            <Paragraph>Register!</Paragraph>
+          </RegisterLink>
+        </DontHaveAccountHold>
       </StyledForm>
     </>
   );
