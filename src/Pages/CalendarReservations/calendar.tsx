@@ -99,11 +99,27 @@ function MonthTable() {
   console.log("Selected Date:", firstDate);
   const lastDate = endDate(selectedMonth, selectedYear);
   console.log("Selected Date:", lastDate);
+
+  const isStartDateOfReservation = (reservation: any, day: number) => {
+    const startDate = new Date(reservation.allBookedDates[0]);
+    return startDate.getDate() === day;
+  };
+
+  const isEndDateOfReservation = (reservation: any, day: number) => {
+    const endDate = new Date(
+      reservation.allBookedDates[reservation.allBookedDates.length - 1]
+    );
+    
+    return endDate.getDate() === day;
+  };
+
   return (
     <div>
-      <h2>Month Table</h2>
-
+        <div style={{display:"flex", justifyContent: "space-between"}}>
+      <h2>Calendar</h2>
+<div style={{justifyContent: "space-between"}}>
       <select
+      style={{color:"#333",fontSize:"16px",cursor:"pointer",backgroundColor:"#fff", outline:"none",borderRadius:"4px", padding:"8px",border:"1px solid #ccc"}}
         value={selectedMonth}
         onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
       >
@@ -114,18 +130,21 @@ function MonthTable() {
         ))}
       </select>
       <input
+       style={{color:"#333",fontSize:"16px",cursor:"pointer",backgroundColor:"#fff", outline:"none",borderRadius:"4px", padding:"8px",border:"1px solid #ccc"}}
         type="number"
         value={selectedYear}
         onChange={(e) => setSelectedYear(parseInt(e.target.value))}
       />
-      <button onClick={makeApiRequest}>Update Table</button>
+      </div>
+      </div>
+      {/* <button onClick={makeApiRequest}>Update Table</button> */}
 
       <table className="table-container">
-        <thead className="table-header">
+        <thead className="table-header" >
           <tr>
             <td></td>
             {Array.from({ length: daysOfMonth }, (_, i) => (
-              <th className="table-header"  key={i}>
+              <th className="table-header" key={i}>
                 {i + 1}
               </th>
             ))}
@@ -133,7 +152,7 @@ function MonthTable() {
           <tr>
             <td></td>
             {dayNames.map((dayName, index) => (
-              <th key={index}>{dayName}</th>
+              <th key={index}  style={{ color: dayName === "Sat" || dayName === "Sun" ? 'red' : 'inherit' }}>{dayName}</th>
             ))}
           </tr>
         </thead>
@@ -150,24 +169,47 @@ function MonthTable() {
                         .padStart(2, "0")}-${i + 1}`
                     )
                 );
+                let cellStyle: any = {
+                    borderRight : "0px solid",
+                    borderColor:"#c5c5c5",
+                    padding: "10px",
+                    background: "", 
+                  };
+            
+                  if (reservation) {
+                    if (isStartDateOfReservation(reservation, i + 1)) {
+                      cellStyle.background = "linear-gradient(to bottom right, transparent 50%, #41F793 50%)"; 
+                    } else if (isEndDateOfReservation(reservation, i + 1)) {
+                      cellStyle.background = "linear-gradient(to top left, transparent 50%, #41F793 50%)";
+                    } else {
+                      cellStyle.background = "#41F793"; 
+                    }
+                    
+                    if (reservation.blocked_booking) {
+                        if (isStartDateOfReservation(reservation, i + 1)) {
+                          cellStyle.background = "linear-gradient(to bottom right, transparent 50%, rgb(93 93 93) 50%)"; 
+                        } else if (isEndDateOfReservation(reservation, i + 1)) {
+                          cellStyle.background = "linear-gradient(to top left, transparent 50%, rgb(93 93 93) 50%)";
+                        } else {
+                          cellStyle.background = "rgb(93 93 93)"; 
+                        }
+                      }
+                    } else {
+                      cellStyle.background = "white"; 
+                    }
+
+
+                    
                 return (
                   <td
-                    style={{
-                      border: "1px solid",
-                      padding: "10px",
-                      backgroundColor: reservation
-                        ? reservation.blocked_booking
-                          ? "rgb(197 194 194)"
-                          : "rgb(164 203 221)"
-                        : "white",
-                    }}
+                    style={cellStyle}
                     key={i}
                   >
                     {reservation?.blocked_booking ? (
-                      <span style={{ color: "red" }}>X</span>
+                      <span  style={{ color: "red" }}></span>
                     ) : null}
                     {reservation && !reservation?.blocked_booking && (
-                      <span style={{ color: "green" }}>✔</span>
+                      <span style={{ color: "green" }}></span>
                     )}
                   </td>
                 );

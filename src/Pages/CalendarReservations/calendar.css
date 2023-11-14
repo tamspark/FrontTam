@@ -5,7 +5,10 @@
 
   }
   
-
+  .table-header{
+    border-top: 1px solid;
+    border-color:  #c5c5c5;
+  }
   
   .table-header th {
    
@@ -21,6 +24,7 @@
   
   .table-body td {
     border: 1px solid;
+    border-color:  #c5c5c5;
     padding: 10px;
   }
 
