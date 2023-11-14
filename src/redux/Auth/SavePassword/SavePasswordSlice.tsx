@@ -31,7 +31,7 @@ export const resetPassword = createAsyncThunk(
  
 
       const response = await axios.post(
-        `http://192.168.10.210:8080/TAM/savepassword/${token}`,
+        `http://192.168.10.213:8080/TAM/savepassword/${token}`,
 
         newPassword
       );
