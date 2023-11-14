@@ -1,5 +1,10 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
+export const Holder = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export const CardContainer = styled.div`
   height: "fit-content";
   width: 350px;
@@ -34,4 +39,23 @@ export const UnorderedList = styled.ul``;
 export const ListItem = styled.li``;
 export const Label = styled.span`
   font-weight: bold;
+`;
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+  color: #49518f;
+`;
+
+export const IconHold = styled.div`
+  padding: 10px;
+`;
+export const RentLink = styled(Link)`
+  color: #3a23c0;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 16px;
+  &:hover {
+    color: #290ccf;
+  }
 `;

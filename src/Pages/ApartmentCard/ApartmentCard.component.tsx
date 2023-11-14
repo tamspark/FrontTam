@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { AppDispatch } from "../../redux/store";
 
-//styled-components
-
+//react-router-dom
 import { useParams } from "react-router-dom";
 
 //styled-components
@@ -17,15 +16,18 @@ import {
   CardContainer,
   Div,
   DivsContentHolder,
+  Holder,
+  IconContainer,
+  IconHold,
   Label,
   ListItem,
   Paragraphs,
+  RentLink,
   UnorderedList,
 } from "./style/ApartmentCard.style";
 
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
-
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -50,14 +52,13 @@ const ApartmentCard: FC<{}> = () => {
   console.log("apartmentCard", apartmentCardDetails);
 
   return (
-    <>
+    <Holder>
       {apartmentCardDetails && (
         <CardContainer>
           <ApartmentName>{apartmentCardDetails.name}</ApartmentName>
 
           <DivsContentHolder>
             <Div>
-              {/* <Location> */}
               <Paragraphs>
                 <Label>City: </Label> {apartmentCardDetails.location.city}
               </Paragraphs>
@@ -70,7 +71,6 @@ const ApartmentCard: FC<{}> = () => {
                 {apartmentCardDetails.location.street}
               </Paragraphs>
               <Paragraphs>
-                {" "}
                 <Label>Zip: </Label> {apartmentCardDetails.location.zip}
               </Paragraphs>
               <Paragraphs>
@@ -99,7 +99,6 @@ const ApartmentCard: FC<{}> = () => {
               <Paragraphs>
                 <Label>Type: </Label> {apartmentCardDetails.type.name}
               </Paragraphs>
-              {/* </Location> */}
             </Div>
             <Div>
               <Paragraphs>Rooms: </Paragraphs>
@@ -147,9 +146,17 @@ const ApartmentCard: FC<{}> = () => {
               </UnorderedList>
             </Div>
           </DivsContentHolder>
+          <IconContainer>
+            <IconHold>
+              <RentLink to="/auth/rentlist">EDIT PRICE</RentLink>
+            </IconHold>
+            <IconHold>
+              <RentLink to="/auth/modal">ADD RENT DATE</RentLink>
+            </IconHold>
+          </IconContainer>
         </CardContainer>
       )}
-    </>
+    </Holder>
   );
 };
 export default ApartmentCard;
