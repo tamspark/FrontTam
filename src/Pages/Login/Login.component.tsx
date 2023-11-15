@@ -14,10 +14,14 @@ import { AppDispatch } from "redux/store";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  DontHaveAccountHold,
   LoginButtonHolder,
   LoginLabel,
   LoginParagraph,
+  Paragraph,
+  RegisterLink,
 } from "./style/Login.style";
+
 
 const Login: FC<{}> = () => {
 
@@ -26,6 +30,7 @@ const Login: FC<{}> = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const dispatch: AppDispatch = useDispatch();
+
 
 
   const handleLoginClick = async (
@@ -40,15 +45,11 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
-  }
 
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
-
-
- 
 
   // const handleLogout = (userId: number) => {
   //   try {
@@ -121,8 +122,13 @@ const Login: FC<{}> = () => {
           >
             Submit
           </Button>
-       
         </LoginButtonHolder>
+        <DontHaveAccountHold>
+          <Paragraph>You don't have an account?</Paragraph>
+          <RegisterLink to="/auth/register">
+            <Paragraph>Register!</Paragraph>
+          </RegisterLink>
+        </DontHaveAccountHold>
       </StyledForm>
     </>
   );

@@ -5,7 +5,10 @@ import {
   ButtonContainer,
   Label,
   LabelSpan,
+  LoginLink,
   RegisterParagraph,
+  RegisterDontHaveAccountHold,
+  RegParagraph,
 } from "./style/Register.style";
 import { Button, Input, StyledForm, StyledSelect } from "App/style/App.style";
 
@@ -225,6 +228,12 @@ const Register: FC<{}> = () => {
             SUBMIT
           </Button>
         </ButtonContainer>
+        <RegisterDontHaveAccountHold>
+          <RegParagraph>Already have an account?</RegParagraph>
+          <LoginLink to="/auth/login">
+            <RegParagraph>Login!</RegParagraph>
+          </LoginLink>
+        </RegisterDontHaveAccountHold>
       </StyledForm>
     </>
   );

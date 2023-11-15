@@ -18,7 +18,7 @@ export const Modal = styled.div`
   align-items: center;
   padding: 0px;
   position: fixed;
-  background-color: #5c5c96;
+  background-color: #483751d4;
   color: #ffffff;
   box-shadow: 0px 4px 20px rgba(25, 29, 58, 0.1);
   border-radius: 10px;
@@ -28,7 +28,7 @@ export const Modal = styled.div`
 export const ModalHeader = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #5c5c96;
+  background-color: #483751d4;
   align-items: flex-start;
   padding: 14px 16px;
   border-radius: 10px 10px 0px 0px;

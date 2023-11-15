@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 export const RegisterParagraph = styled.p`
   text-align: center;
@@ -24,4 +25,21 @@ export const LabelSpan = styled.span`
   color: red;
   font-family: "Poppins";
   font-size: 17px;
+`;
+export const RegisterDontHaveAccountHold = styled.div`
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+`;
+export const RegParagraph = styled.p`
+  /* padding: 0px 5px; */
+  font-size: 15px;
+  margin: 0;
+`;
+
+export const LoginLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
 `;
