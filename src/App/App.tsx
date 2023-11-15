@@ -23,32 +23,39 @@ const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
-
+  const verify=useSelector((state:RootState)=>state.auth.user?.registredInSmoobu);
+console.log(verify);
   return (
     <>
       <BrowserRouter>
         <Routes>
           {isAuthenticated ? (
+
             <Route path="/auth" element={<AuthPage />}>
-              <Route
-                path="tam/resetPassword/:token"
-                element={<ResetPassword />}
-              />
-              <Route path="apartmentpage" element={<ApartmentPage />} />
-              <Route path="forgetpassword" element={<ForgetPassword />} />
-              <Route path="verify" element={<Verification />} />
-              <Route
-                path="apartmentcard/:id"
-                element={<ApartmentCard />}
-              />{" "}
-              <Route path="modal" element={<Modal />} />
-              <Route path="calendar" element={<MonthTable />} />
-              <Route path="rentlist" element={<RentList rentalData={[]} />} />
-              <Route path="messagepage" element={<MessagePage />} />
-              <Route
+              
+              {verify ? (
+              <>
+                <Route path="apartmentpage" element={<ApartmentPage />} />
+                <Route path="forgetpassword" element={<ForgetPassword />} />
+                <Route path="apartmentcard/:id" element={<ApartmentCard />} />
+                <Route path="modal" element={<Modal />} />
+                <Route path="calendar" element={<MonthTable />} />
+                <Route path="rentlist" element={<RentList rentalData={[]} />} />
+                <Route path="messagepage" element={<MessagePage />} />
+                <Route
                 path="*"
                 element={<Navigate to="apartmentpage" replace />}
               />
+              </>
+            ) : (
+              <>
+              <Route path="verify" element={<Verification />} />
+              <Route
+              path="*"
+              element={<Navigate to="verify" replace />}
+            /></>
+            )}
+             
             </Route>
           ) : (
             <Route path="/auth" element={<AuthPage />}>

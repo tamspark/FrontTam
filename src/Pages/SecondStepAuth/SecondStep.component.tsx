@@ -10,10 +10,15 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useNavigate } from "react-router-dom";
+import { updateSmoobuRegistration } from "redux/authSlicer";
+import { useDispatch } from "react-redux";
 
 const Verification: FC<{}> = () => {
     const userSelector = (state: RootState) => state.auth.user; // Use RootState here
     const isAuthenticatedSelector = (state: RootState) => state.auth.isAuthenticated; // Use RootState here
+ const dispatch=useDispatch();
+  
  
   const [clientId, setClientId] = useState<string>("");
   const [clientAPIKey, setClientAPIKey] = useState<string>("");
@@ -27,6 +32,7 @@ const Verification: FC<{}> = () => {
   console.log(isAuthenticated);
   console.log(userId);
   console.log(verify);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +50,11 @@ const Verification: FC<{}> = () => {
       );
 
       console.log("POST request successful:", response.data);
+      const isRegisteredInSmoobu = response.data.registredInSmoobu;
+
+     
+      dispatch(updateSmoobuRegistration(isRegisteredInSmoobu));
+      navigate("/auth/apartmentpage");
     } catch (error) {
       console.error("POST request error:", error);
     }
