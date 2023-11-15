@@ -33,6 +33,7 @@ const Login: FC<{}> = () => {
 
 
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLoginClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -45,7 +46,7 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
-
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
