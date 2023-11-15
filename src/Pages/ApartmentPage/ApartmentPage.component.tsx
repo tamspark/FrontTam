@@ -6,7 +6,7 @@ import {
   ErrorMessage,
   Icon,
 } from "./style/ApartmentPage.style";
-
+import { Button } from "App/style/App.style";
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHotel } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +19,7 @@ import {
   fetchApartmentIds,
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
 import { AppDispatch } from "../../redux/store";
+
 
 //navigation
 import { useNavigate } from "react-router";
@@ -65,6 +66,18 @@ const ApartmentPage: FC<{}> = () => {
     console.log(apartment.id);
     navigate(`/auth/apartmentcard/${apartment.id}`);
   };
+
+  const logout = (): void => {
+    try {
+      localStorage.clear();
+      window.location.reload();
+      console.log('localStorage cleared successfully.');
+    } catch (error) {
+      console.error('Error clearing localStorage:', error);
+    }
+  };
+
+
   return (
     <Container>
       {error ? (
@@ -82,7 +95,12 @@ const ApartmentPage: FC<{}> = () => {
           </ApartmentContentHolder>
         ))
       )}
+       <Button
+        h="50px"
+        w="150px"
+        onClick={logout}>Log out</Button>
     </Container>
+   
   );
 };
 

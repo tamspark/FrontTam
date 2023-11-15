@@ -10,7 +10,7 @@ import { StyledForm } from "App/style/App.style";
 import { InputGroup } from "App/style/App.style";
 import { ToggleButton } from "App/style/App.style";
 import { AppDispatch } from "redux/store";
-import { useNavigate } from "react-router";
+
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,23 +20,12 @@ import {
 } from "./style/Login.style";
 
 const Login: FC<{}> = () => {
-  const navigate = useNavigate();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const dispatch: AppDispatch = useDispatch();
-
-
-  const userSelector = (state: RootState) => state.auth.user; // Use RootState here
-    const isAuthenticatedSelector = (state: RootState) => state.auth.isAuthenticated; // Use RootState here
- 
- 
-
-  const user = useSelector(userSelector);
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
-
-  const verify=user?.registredInSmoobu;
 
 
   const handleLoginClick = async (
@@ -51,13 +40,8 @@ const Login: FC<{}> = () => {
 
     console.log(typeof userCredentials);
     await dispatch(loginUser(userCredentials));
-     
-    if (verify ===false) {
-      navigate("/auth/verify"); 
-    } else {
-      navigate("/auth/apartmentpage");
-    }
-  };
+  }
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); 

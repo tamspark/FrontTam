@@ -94,12 +94,19 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+    updateSmoobuRegistration: (state, action: PayloadAction<boolean>) => {
+      if (state.user) {
+        state.user.registredInSmoobu = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
+      
+
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthenticated = false;
@@ -116,5 +123,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser } = authSlice.actions;
+export const { setUser, clearUser,updateSmoobuRegistration } = authSlice.actions;
 export default authSlice.reducer;
