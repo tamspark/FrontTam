@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import * as Styled from './Navbar.style'; // Import your styled components
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar: React.FC = () => {
   const logout = (): void => {
@@ -29,7 +30,7 @@ const Navbar: React.FC = () => {
           <Styled.Li onClick={goToMessages}>Messages</Styled.Li>
           <Styled.Li onClick={goToApartments}>Apartments</Styled.Li>
         </Styled.Ul>
-        <Styled.LogoutButton onClick={logout}>Logout</Styled.LogoutButton>
+        <Styled.LogoutButton onClick={logout}><LogoutIcon fontSize='small'/>Logout </Styled.LogoutButton>
       </Styled.Nav>
     </Styled.Header>
   );

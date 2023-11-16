@@ -3,13 +3,24 @@ import styled from "styled-components";
 
 export const TableAndDatepickerHolder = styled.div`
   width: 100%;
-  height: 80%;
+  height: calc(100vh - 150px);
+  max-width:1440px;
 `;
 export const TableContainer = styled.div`
-  width: 100%;
-  height: 80%;
-  overflow-x: auto;
-  position: relative;
+width: 100%;
+height: calc(100% - 20px);
+
+overflow-x: auto;
+position: relative;
+
+/* Hide the scrollbar */
+scrollbar-width: none; /* Firefox */
+-ms-overflow-style: none; /* Internet Explorer/Edge */
+
+/* WebKit-based browsers like Chrome and Safari */
+&::-webkit-scrollbar {
+  display: none;
+}
 `;
 
 export const Table = styled.table`

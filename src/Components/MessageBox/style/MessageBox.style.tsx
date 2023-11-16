@@ -7,6 +7,7 @@ export const MessageBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #c4c4c4;
+  
 `;
 export const UserInformationHolder = styled.div`
   width: 100%;
@@ -84,9 +85,20 @@ export const SendIcon = styled.div`
 `;
 
 export const ParagraphsHolder = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-x: auto;
+width: 100%;
+height: 100%;
+overflow-y: scroll; /* Enable vertical scrolling */
+/* Hide the scrollbar */
+scrollbar-width: none; /* Firefox */
+-ms-overflow-style: none; /* Internet Explorer/Edge */
+
+/* WebKit-based browsers like Chrome and Safari */
+&::-webkit-scrollbar {
+  display: none;
+}
+
+
+
 `;
 export const MessagesBodyHolder = styled.div`
   margin: 5px;

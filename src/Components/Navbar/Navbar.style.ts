@@ -32,9 +32,10 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-  margin-right: 15px;
+  margin-right: 35px;
   cursor: pointer;
-
+font-size: 20px; 
+font-weight: 700;
   &:last-child {
     margin-right: 0;
   }
@@ -53,14 +54,17 @@ export const NavLink = styled.a`
 
 export const LogoutButton = styled.button`
   background-color: lightblue;
-  color: #000000;
+  color: black;
   border: 1px solid;
   border-color: #000000;
   padding: 8px 26px;
   margin-right: 20px;
   border-radius: 4px;
   cursor: pointer;
-
+  font-size:20px;
+display:flex;
+align-items:center;
+gap:10px;
   &:hover {
     background-color: #e3edf0;
   }

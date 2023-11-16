@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ExistingChatHolder = styled.div`
   width: 300px;
   /* height: fit-content; */
-  overflow: visible;
+  overflow: hidden;
   background-color: #ffff;
   border: 1px solid #ccc;
   /* border-radius: 10px; */

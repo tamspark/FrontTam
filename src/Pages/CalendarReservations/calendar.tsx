@@ -196,8 +196,8 @@ function MonthTable() {
                       )
                   );
                   let cellStyle: any = {
-                    borderRight: "0px solid",
-                    borderColor: "#c5c5c5",
+                    borderRight: "1px solid",
+                    borderColor: "#c5c5c8",
                     padding: "10px",
                     background: "",
                   };
@@ -243,7 +243,9 @@ function MonthTable() {
             ))}
           </tbody>
         </table>{" "}
-        <img src={CoomingSoon} alt="photo" />
+        <div style={{width:"100%",display:"flex",justifyContent:"center",paddingTop:"20px"}}>
+        <img src={CoomingSoon} alt="photo1" />
+        </div>
       </div>
     </div>
   );
