@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import "./calendar.css";
-
+import CoomingSoon from "./assets/ComingSoon.png";
 interface MonthOption {
   value: number;
   label: string;
@@ -109,116 +109,141 @@ function MonthTable() {
     const endDate = new Date(
       reservation.allBookedDates[reservation.allBookedDates.length - 1]
     );
-    
+
     return endDate.getDate() === day;
   };
 
   return (
     <div className="page">
       <div className="content">
-        <div style={{display:"flex", justifyContent: "space-between"}}>
-      <h2>Calendar</h2>
-<div style={{justifyContent: "space-between"}}>
-      <select
-      style={{color:"#333",fontSize:"16px",cursor:"pointer",backgroundColor:"#fff", outline:"none",borderRadius:"4px", padding:"8px",border:"1px solid #ccc"}}
-        value={selectedMonth}
-        onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-      >
-        {monthOptions.map((month: MonthOption) => (
-          <option key={month.value} value={month.value}>
-            {month.label}
-          </option>
-        ))}
-      </select>
-      <input
-       style={{color:"#333",fontSize:"16px",cursor:"pointer",backgroundColor:"#fff", outline:"none",borderRadius:"4px", padding:"8px",border:"1px solid #ccc"}}
-        type="number"
-        value={selectedYear}
-        onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-      />
-      </div>
-      </div>
-      {/* <button onClick={makeApiRequest}>Update Table</button> */}
-
-      <table className="table-container">
-        <thead className="table-header" >
-          <tr>
-            <td></td>
-            {Array.from({ length: daysOfMonth }, (_, i) => (
-              <th className="table-header" key={i}>
-                {i + 1}
-              </th>
-            ))}
-          </tr>
-          <tr>
-            <td></td>
-            {dayNames.map((dayName, index) => (
-              <th key={index}  style={{ color: dayName === "Sa" || dayName === "Su" ? 'red' : 'inherit' }}>{dayName}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="table-body">
-          {apartmentData.map((apartment) => (
-            <tr key={apartment.apartmentId}>
-              <td>{apartment.apartmentName}</td>
-              {Array.from({ length: daysOfMonth }, (_, i) => {
-                const reservation = apartment.reservations.find(
-                  (reservation: { allBookedDates: string[] }) =>
-                    reservation.allBookedDates.includes(
-                      `${selectedYear}-${selectedMonth
-                        .toString()
-                        .padStart(2, "0")}-${i + 1}`
-                    )
-                );
-                let cellStyle: any = {
-                    borderRight : "0px solid",
-                    borderColor:"#c5c5c5",
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h2>Calendar</h2>
+          <div style={{ justifyContent: "space-between" }}>
+            <select
+              style={{
+                color: "#333",
+                fontSize: "16px",
+                cursor: "pointer",
+                backgroundColor: "#fff",
+                outline: "none",
+                borderRadius: "4px",
+                padding: "8px",
+                border: "1px solid #ccc",
+              }}
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+            >
+              {monthOptions.map((month: MonthOption) => (
+                <option key={month.value} value={month.value}>
+                  {month.label}
+                </option>
+              ))}
+            </select>
+            <input
+              style={{
+                color: "#333",
+                fontSize: "16px",
+                cursor: "pointer",
+                backgroundColor: "#fff",
+                outline: "none",
+                borderRadius: "4px",
+                padding: "8px",
+                border: "1px solid #ccc",
+              }}
+              type="number"
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+            />
+          </div>
+        </div>
+        {/* <button onClick={makeApiRequest}>Update Table</button> */}
+        <table className="table-container">
+          <thead className="table-header">
+            <tr>
+              <td></td>
+              {Array.from({ length: daysOfMonth }, (_, i) => (
+                <th className="table-header" key={i}>
+                  {i + 1}
+                </th>
+              ))}
+            </tr>
+            <tr>
+              <td></td>
+              {dayNames.map((dayName, index) => (
+                <th
+                  key={index}
+                  style={{
+                    color:
+                      dayName === "Sa" || dayName === "Su" ? "red" : "inherit",
+                  }}
+                >
+                  {dayName}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="table-body">
+            {apartmentData.map((apartment) => (
+              <tr key={apartment.apartmentId}>
+                <td>{apartment.apartmentName}</td>
+                {Array.from({ length: daysOfMonth }, (_, i) => {
+                  const reservation = apartment.reservations.find(
+                    (reservation: { allBookedDates: string[] }) =>
+                      reservation.allBookedDates.includes(
+                        `${selectedYear}-${selectedMonth
+                          .toString()
+                          .padStart(2, "0")}-${i + 1}`
+                      )
+                  );
+                  let cellStyle: any = {
+                    borderRight: "0px solid",
+                    borderColor: "#c5c5c5",
                     padding: "10px",
-                    background: "", 
+                    background: "",
                   };
-            
+
                   if (reservation) {
                     if (isStartDateOfReservation(reservation, i + 1)) {
-                      cellStyle.background = "linear-gradient(to bottom right, transparent 50%, #41F793 50%)"; 
+                      cellStyle.background =
+                        "linear-gradient(to bottom right, transparent 50%, #41F793 50%)";
                     } else if (isEndDateOfReservation(reservation, i + 1)) {
-                      cellStyle.background = "linear-gradient(to top left, transparent 50%, #41F793 50%)";
+                      cellStyle.background =
+                        "linear-gradient(to top left, transparent 50%, #41F793 50%)";
                     } else {
-                      cellStyle.background = "#41F793"; 
+                      cellStyle.background = "#41F793";
                     }
-                    
+
                     if (reservation.blocked_booking) {
-                        if (isStartDateOfReservation(reservation, i + 1)) {
-                          cellStyle.background = "linear-gradient(to bottom right, transparent 50%, rgb(93 93 93) 50%)"; 
-                        } else if (isEndDateOfReservation(reservation, i + 1)) {
-                          cellStyle.background = "linear-gradient(to top left, transparent 50%, rgb(93 93 93) 50%)";
-                        } else {
-                          cellStyle.background = "rgb(93 93 93)"; 
-                        }
+                      if (isStartDateOfReservation(reservation, i + 1)) {
+                        cellStyle.background =
+                          "linear-gradient(to bottom right, transparent 50%, rgb(93 93 93) 50%)";
+                      } else if (isEndDateOfReservation(reservation, i + 1)) {
+                        cellStyle.background =
+                          "linear-gradient(to top left, transparent 50%, rgb(93 93 93) 50%)";
+                      } else {
+                        cellStyle.background = "rgb(93 93 93)";
                       }
-                    } else {
-                      cellStyle.background = "white"; 
                     }
+                  } else {
+                    cellStyle.background = "white";
+                  }
 
-
-                    
-                return (
-                  <td
-                    style={cellStyle}
-                    key={i}
-                  >
-                    {reservation?.blocked_booking ? (
-                      <span  style={{ color: "red" }}></span>
-                    ) : null}
-                    {reservation && !reservation?.blocked_booking && (
-                      <span style={{ color: "green" }}></span>
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  return (
+                    <td style={cellStyle} key={i}>
+                      {reservation?.blocked_booking ? (
+                        <span style={{ color: "red" }}></span>
+                      ) : null}
+                      {reservation && !reservation?.blocked_booking && (
+                        <span style={{ color: "green" }}></span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>{" "}
+        <img src={CoomingSoon} alt="photo" />
       </div>
     </div>
   );
