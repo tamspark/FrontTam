@@ -3,6 +3,8 @@ export const Container = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
+  justify-content:center;
+  align-items:center;
 `;
 
 export const ApartmentContentHolder = styled.div`
@@ -16,6 +18,8 @@ export const ApartmentContentHolder = styled.div`
   border: 2px solid white;
   color: white;
   font-family: "Poppins";
+  background-color:#77b4c1;
+  cursor:pointer;
 `;
 export const Icon = styled.div`
   text-align: center;

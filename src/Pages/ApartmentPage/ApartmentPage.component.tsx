@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState} from "react";
 import {
   ApartmentContentHolder,
   ApartmentNameParagraph,
@@ -67,15 +67,7 @@ const ApartmentPage: FC<{}> = () => {
     navigate(`/auth/apartmentcard/${apartment.id}`);
   };
 
-  const logout = (): void => {
-    try {
-      localStorage.clear();
-      window.location.reload();
-      console.log('localStorage cleared successfully.');
-    } catch (error) {
-      console.error('Error clearing localStorage:', error);
-    }
-  };
+
 
 
   return (
@@ -92,13 +84,11 @@ const ApartmentPage: FC<{}> = () => {
               <FontAwesomeIcon icon={faHotel} />
             </Icon>
             <ApartmentNameParagraph>{apartment.name}</ApartmentNameParagraph>
+           
           </ApartmentContentHolder>
         ))
       )}
-       <Button
-        h="50px"
-        w="150px"
-        onClick={logout}>Log out</Button>
+      
     </Container>
    
   );

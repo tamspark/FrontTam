@@ -7,10 +7,12 @@ import { MessagePageContainer } from "./style/MessagePage.style";
 
 const MessagePage: FC<{}> = () => {
   return (
+    <div style={{width:"100vw",display:"flex", justifyContent:"center"}}>
     <MessagePageContainer>
       <ExistingChat />
       <MessageBox />
     </MessagePageContainer>
+    </div>
   );
 };
 

@@ -59,7 +59,7 @@ function MonthTable() {
       const firstDayOfMonth = new Date(selectedYear, selectedMonth - 1, 1);
       const dayNames = [];
 
-      const dayNamesArray = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+      const dayNamesArray = ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"];
 
       let currentDayIndex = firstDayOfMonth.getDay();
 
@@ -114,7 +114,8 @@ function MonthTable() {
   };
 
   return (
-    <div>
+    <div className="page">
+      <div className="content">
         <div style={{display:"flex", justifyContent: "space-between"}}>
       <h2>Calendar</h2>
 <div style={{justifyContent: "space-between"}}>
@@ -152,7 +153,7 @@ function MonthTable() {
           <tr>
             <td></td>
             {dayNames.map((dayName, index) => (
-              <th key={index}  style={{ color: dayName === "Sat" || dayName === "Sun" ? 'red' : 'inherit' }}>{dayName}</th>
+              <th key={index}  style={{ color: dayName === "Sa" || dayName === "Su" ? 'red' : 'inherit' }}>{dayName}</th>
             ))}
           </tr>
         </thead>
@@ -218,6 +219,7 @@ function MonthTable() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
