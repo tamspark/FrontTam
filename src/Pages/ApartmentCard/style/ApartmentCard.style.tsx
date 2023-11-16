@@ -59,3 +59,4 @@ export const RentLink = styled(Link)`
     color: #290ccf;
   }
 `;
+
