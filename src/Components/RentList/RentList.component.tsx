@@ -240,7 +240,9 @@ const RentList: FC<RentListProps> = () => {
             <TableRow>
               <th>Date</th>
               <th>Price</th>
+              <th>Suggested Price</th>
               <th>Minimum Length of Stay</th>
+              <th>Suggested Minimum Length of Stay</th>
               <th>Actions</th>
             </TableRow>
           </TableHead>
@@ -249,7 +251,9 @@ const RentList: FC<RentListProps> = () => {
               <TableRow key={index}>
                 <TableCell>{rental.date}</TableCell>
                 <TableCell>${rental.price}</TableCell>
+                <TableCell>Missing Information!!!</TableCell>
                 <TableCell>{rental.min_length_of_stay} nights</TableCell>
+                <TableCell>Missing Information!!!</TableCell>
                 <TableCell>
                   <EditButton onClick={() => handleEdit(rental)}>
                     Edit

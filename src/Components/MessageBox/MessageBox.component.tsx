@@ -97,7 +97,7 @@ const MessageBox: FC<{}> = () => {
         <UserInformationHolder>
           <AdminInfoContentHolder>
             <ProfileImage src={AdminLogo} alt="admin-photo" />
-            <AdminNameParagraph>Gisela Thellipi</AdminNameParagraph>
+            <AdminNameParagraph>Redis Halili</AdminNameParagraph>
           </AdminInfoContentHolder>
           <ThreeDotsHolder>
             <Icon />

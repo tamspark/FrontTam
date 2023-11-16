@@ -35,7 +35,7 @@ export const Li = styled.li`
   margin-right: 35px;
   cursor: pointer;
 font-size: 20px; 
-font-weight: 700;
+font-weight: 600;
   &:last-child {
     margin-right: 0;
   }
@@ -61,7 +61,7 @@ export const LogoutButton = styled.button`
   margin-right: 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size:20px;
+  font-size:16px;
 display:flex;
 align-items:center;
 gap:10px;
