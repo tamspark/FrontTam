@@ -16,7 +16,7 @@ function MonthTable() {
 
   //   const [apiResponse, setApiResponse] = useState<any>(null);
   const makeApiRequest = () => {
-    const apiUrl = `http://192.168.10.210:8080/TAM/1/reservations/calendar`;
+    const apiUrl = `http://192.168.10.141:8080/TAM/3/reservations/calendar`;
 
     axios
       .get(apiUrl, {

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import * as Styled from './Navbar.style'; // Import your styled components
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Navbar: React.FC = () => {
   const logout = (): void => {
@@ -20,6 +21,7 @@ const Navbar: React.FC = () => {
   const goToCalendar = () => navigate('/auth/calendar');
   const goToMessages = () => navigate('/auth/messagepage');
   const goToApartments = () => navigate('/auth/apartmentpage');
+  const goToProfile = () => navigate('/auth/userprofile');
 
   return (
     <Styled.Header>
@@ -30,7 +32,10 @@ const Navbar: React.FC = () => {
           <Styled.Li onClick={goToMessages}>Messages</Styled.Li>
           <Styled.Li onClick={goToApartments}>Apartments</Styled.Li>
         </Styled.Ul>
-        <Styled.LogoutButton onClick={logout}><LogoutIcon fontSize='small'/>Logout </Styled.LogoutButton>
+        <div onClick={goToProfile} style={{display:"flex",gap:"10px"}}>
+        
+        <div style={{width:"35px",cursor:"pointer"}}><PersonIcon fontSize='large'/></div>
+        <Styled.LogoutButton onClick={logout}><LogoutIcon fontSize='small'/>Logout </Styled.LogoutButton></div>
       </Styled.Nav>
     </Styled.Header>
   );

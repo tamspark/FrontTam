@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const Page = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  width:100%;
+  max-width:1240px;
+  align-items:center;
+  justify-content:space-between;
+`;
+
 export const Holder = styled.div`
   display: flex;
   flex-direction: column;
 `;
 export const CardContainer = styled.div`
   height: "fit-content";
-  width: 350px;
+  width: 450px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;

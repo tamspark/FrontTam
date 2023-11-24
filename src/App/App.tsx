@@ -20,6 +20,9 @@ import RentList from "Components/RentList/RentList.component";
 import MessagePage from "Components/MessagePage/MessagePage.component";
 import Home from "Pages/Home/Home.component";
 import Authenticated from "Pages/Authenticated/Authenticated.page";
+import UserProfile from "Pages/Profile/Profile.component";
+import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
+
 
 const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
@@ -33,6 +36,7 @@ const App: FC<{}> = () => {
     <>
       <BrowserRouter>
         <Routes>
+
           {isAuthenticated ? (
             <Route path="/auth" element={<Authenticated />}>
               {verify ? (
@@ -44,6 +48,8 @@ const App: FC<{}> = () => {
                   <Route path="modal" element={<Modal />} />
                   <Route path="calendar" element={<MonthTable />} />
                   <Route path="home" element={<Home />} />
+                  <Route path="userprofile" element={<UserProfile />} />
+                  {/* <Route path="mycalendar" element={<MyCalendar />} /> */}
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}
