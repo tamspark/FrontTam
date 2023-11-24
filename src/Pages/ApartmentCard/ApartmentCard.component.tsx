@@ -20,18 +20,26 @@ import {
   IconHold,
   Label,
   ListItem,
+  Page,
   Paragraphs,
   RentLink,
   UnorderedList,
 } from "./style/ApartmentCard.style";
+import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
+
+
 
 const ApartmentCard: FC<{}> = () => {
   const [apartmentCardDetails, setApartmentCardDetails] = useState<any>();
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
+  const userID = userId ? String(userId) : '';
+  
+
 
   const { id } = useParams();
   const apartmentId = id ? parseInt(id) : 0;
+  const apartmentID = apartmentId ? String(apartmentId) : '';
   useEffect(() => {
     if (userId && apartmentId) {
       dispatch(fetchApartmentCardDetails({ userId, id: apartmentId }))
@@ -49,36 +57,12 @@ const ApartmentCard: FC<{}> = () => {
   }, [dispatch, userId, apartmentId]);
 
   console.log("apartmentCard", apartmentCardDetails);
-  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileInputChange = (event: any) => {
-    
-    const file = event.target.files[0];
-  
-    setSelectedFile(file);
-    handleFileInputChange1(event);
-  };
-
-  const handleUpload = () => {
-  
-    if (selectedFile) {
-    
-      console.log("Uploading file:", selectedFile);
-    
-    } else {
-      console.log("No file selected.");
-    }
-  };
-
-  const [selectedFileName, setSelectedFileName] = useState('');
-
-const handleFileInputChange1 = (event:any) => {
-  const fileName = event.target.files[0].name;
-  setSelectedFileName(fileName);
-  // Handle other file input logic as needed
-};
   return (
+    <Page>
+        <MyCalendar userId={userID} apartamentId={apartmentID}/>
     <Holder>
+    
       {apartmentCardDetails && (
         <CardContainer>
           <ApartmentName>{apartmentCardDetails.name}</ApartmentName>
@@ -180,71 +164,10 @@ const handleFileInputChange1 = (event:any) => {
               <RentLink to="/auth/modal">ADD RENT DATE</RentLink>
             </IconHold>
           </IconContainer>
-          <div style={{display:"flex",
-        flexDirection:"row",
-        gap:"50px",
-        justifyContent:"center",
-        alignItems:"flex-end"}}>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              display: "inline-block",
-              height:"35px"
-            }}
-          >
-            <input
-              type="file"
-              id="fileInput"
-              style={{
-                position: "absolute",
-               
-                opacity: 0,
-                top: 0,
-                right: 0,
-              }}
-              onChange={handleFileInputChange}
-            />
-            <label
-              htmlFor="fileInput"
-              style={{
-                display: "flex",
-              alignItems:"center",
-              justifyContent:"center",
-                backgroundColor: "#3498db",
-                color: " #fff",
-                borderRadius: "5px",
-                cursor: "pointer",
-             width:"100px",
-              height: "35px"
-              }}
-            >
-              Choose File
-            </label>
-          </div>
-          <button
-            style={{
-              display: "inline-block",
-              padding: "px 20px",
-              backgroundColor: "#3498db",
-              color: "#fff",
-              borderRadius: "5px",
-              cursor: "pointer",
-              textDecoration: "none",
-              border: "none",
-              marginTop: "10px",
-              width: "100px",
-              height: "35px",
-            }}
-            onClick={handleUpload}
-          >
-            Upload
-          </button>
-          </div>
-          {selectedFileName && <p>Selected Photo: {selectedFileName}</p>}
         </CardContainer>
       )}
     </Holder>
+    </Page>
   );
 };
 export default ApartmentCard;
