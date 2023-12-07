@@ -21,7 +21,8 @@ import MessagePage from "Components/MessagePage/MessagePage.component";
 import Home from "Pages/Home/Home.component";
 import Authenticated from "Pages/Authenticated/Authenticated.page";
 import UserProfile from "Pages/Profile/Profile.component";
-import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
+import ChatComponent from "Components/OpenAIAssistant/OpenAIAssistant.component";
+// import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
 const App: FC<{}> = () => {
@@ -49,7 +50,8 @@ const App: FC<{}> = () => {
                   <Route path="calendar" element={<MonthTable />} />
                   <Route path="home" element={<Home />} />
                   <Route path="userprofile" element={<UserProfile />} />
-                  {/* <Route path="mycalendar" element={<MyCalendar />} /> */}
+                  <Route path="resetpassword" element={<ResetPassword/>} />
+                  <Route path="chat" element={<ChatComponent/>} />
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}
