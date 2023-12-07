@@ -41,6 +41,7 @@ export const MessagesParagraph = styled.p`
 `;
 export const InboxMessages = styled.div`
   display: flex;
+  flex-direction:column;
 `;
 export const Span = styled.p`
   border-radius: 20px;

@@ -6,7 +6,7 @@ import {
   ErrorMessage,
   Icon,
 } from "./style/ApartmentPage.style";
-import { Button } from "App/style/App.style";
+// import { Button } from "App/style/App.style";
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHotel } from "@fortawesome/free-solid-svg-icons";

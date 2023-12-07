@@ -1,9 +1,8 @@
-
-
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+
 import axios from "axios";
-import Icon from "./assets/829452_user_512x512.png"
+import Icon from "./assets/829452_user_512x512.png";
+import { Card, Label, UserInfo, Button, Input } from "./Style";
 
 interface UserProfileProps {
   firstName: string;
@@ -11,24 +10,6 @@ interface UserProfileProps {
   email: string;
   role: string;
 }
-
-
-const Card = styled.div`
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-`;
-
-const Label = styled.p`
-  font-weight: bold;
-`;
-
-const UserInfo = styled.div`
-  margin-bottom: 10px;
-`;
-
 
 const UserProfile: React.FC = () => {
   const [userData, setUserData] = useState<UserProfileProps | null>(null);
@@ -60,7 +41,6 @@ const UserProfile: React.FC = () => {
       axios
         .post("http://192.168.10.141:8080/TAM/user/update", editedData)
         .then((response) => {
-          // Assuming the response indicates success
           setUserData({ ...editedData });
           setEditable(false);
           fetchData();
@@ -83,75 +63,89 @@ const UserProfile: React.FC = () => {
     }
   };
 
-
   return (
     <div>
-    <Card>
-      <div style={{display:"flex",justifyContent:"center"}}>
-      <img src={Icon} alt="test" style={{width:"35%"}}/>
-      </div>
-      <UserInfo>
-        <Label>First Name:</Label>
+      <Card>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img src={Icon} alt="test" style={{ width: "35%" }} />
+        </div>
+        <UserInfo>
+          <Label>First Name:</Label>
+          {editable ? (
+            <Input
+              type="text"
+              name="firstName"
+              value={editedData?.firstName}
+              onChange={handleInputChange}
+            />
+          ) : (
+            <p>{userData?.firstName}</p>
+          )}
+        </UserInfo>
+        <UserInfo>
+          <Label>Last Name:</Label>
+          {editable ? (
+            <Input
+              type="text"
+              name="lastName"
+              value={editedData?.lastName}
+              onChange={handleInputChange}
+            />
+          ) : (
+            <p>{userData?.lastName}</p>
+          )}
+        </UserInfo>
+        <UserInfo>
+          <Label>Email:</Label>
+          {editable ? (
+            <Input
+              type="text"
+              name="email"
+              value={editedData?.email}
+              onChange={handleInputChange}
+            />
+          ) : (
+            <p>{userData?.email}</p>
+          )}
+        </UserInfo>
+        <UserInfo>
+          <Label>Role:</Label>
+          {editable ? (
+            <Input
+              type="text"
+              name="role"
+              value={editedData?.role}
+              onChange={handleInputChange}
+            />
+          ) : (
+            <p>{userData?.role}</p>
+          )}
+        </UserInfo>
         {editable ? (
-          <input
-            type="text"
-            name="firstName"
-            value={editedData?.firstName}
-            onChange={handleInputChange}
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: "20px",
+            }}
+          >
+            <Button onClick={handleSaveClick}>Save</Button>
+            <Button onClick={handleCancelClick}>Cancel</Button>
+          </div>
         ) : (
-          <p>{userData?.firstName}</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Button onClick={handleEditClick}>Edit</Button>
+          </div>
         )}
-      </UserInfo>
-      <UserInfo>
-        <Label>Last Name:</Label>
-        {editable ? (
-          <input
-            type="text"
-            name="lastName"
-            value={editedData?.lastName}
-            onChange={handleInputChange}
-          />
-        ) : (
-          <p>{userData?.lastName}</p>
-        )}
-      </UserInfo>
-      <UserInfo>
-        <Label>Email:</Label>
-        {editable ? (
-          <input
-            type="text"
-            name="email"
-            value={editedData?.email}
-            onChange={handleInputChange}
-          />
-        ) : (
-          <p>{userData?.email}</p>
-        )}
-      </UserInfo>
-      <UserInfo>
-        <Label>Role:</Label>
-        {editable ? (
-          <input
-            type="text"
-            name="role"
-            value={editedData?.role}
-            onChange={handleInputChange}
-          />
-        ) : (
-          <p>{userData?.role}</p>
-        )}
-      </UserInfo>
-      {editable ? (
-        <>
-          <button onClick={handleSaveClick}>Save</button>
-          <button onClick={handleCancelClick}>Cancel</button>
-        </>
-      ) : (
-        <button onClick={handleEditClick}>Edit</button>
-      )}
-    </Card>
-  </div>
+      </Card>
+    </div>
   );
 };
 

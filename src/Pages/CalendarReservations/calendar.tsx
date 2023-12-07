@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import "./calendar.css";
 import CoomingSoon from "./assets/ComingSoon.png";
+import { RootState } from "redux/store";
+import { useSelector } from "react-redux";
 interface MonthOption {
   value: number;
   label: string;
@@ -15,8 +17,10 @@ function MonthTable() {
   const [apartmentData, setApartmentData] = useState<any[]>([]);
 
   //   const [apiResponse, setApiResponse] = useState<any>(null);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?.id;
   const makeApiRequest = () => {
-    const apiUrl = `http://192.168.10.141:8080/TAM/3/reservations/calendar`;
+    const apiUrl = `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar`;
 
     axios
       .get(apiUrl, {
@@ -24,7 +28,7 @@ function MonthTable() {
           fromDate: firstDate,
           toDate: lastDate,
         },
-      })
+      })  
       .then((response: { data: any }) => {
         setApartmentData(response.data);
         console.log(response);
