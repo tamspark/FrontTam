@@ -22,6 +22,7 @@ import Home from "Pages/Home/Home.component";
 import Authenticated from "Pages/Authenticated/Authenticated.page";
 import UserProfile from "Pages/Profile/Profile.component";
 import ChatComponent from "Components/OpenAIAssistant/OpenAIAssistant.component";
+import GradientPage from "Pages/CheckinPage/checkin.component";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -75,6 +76,7 @@ const App: FC<{}> = () => {
               <Route path="/auth/login" element={<Login />} index />
               <Route path="/auth/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
+              <Route path="/auth/kyc" element={<GradientPage/>}/>
               <Route path="*" element={<Navigate to="/auth/login" replace />} />
             </Route>
           )}

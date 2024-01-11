@@ -26,7 +26,7 @@ import {
   UnorderedList,
 } from "./style/ApartmentCard.style";
 import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
-
+import MyComponent from "Components/IOTsection/IOT.component";
 
 
 const ApartmentCard: FC<{}> = () => {
@@ -59,6 +59,7 @@ const ApartmentCard: FC<{}> = () => {
   console.log("apartmentCard", apartmentCardDetails);
 
   return (
+    <>
     <Page>
         <MyCalendar userId={userID} apartamentId={apartmentID}/>
     <Holder>
@@ -168,6 +169,8 @@ const ApartmentCard: FC<{}> = () => {
       )}
     </Holder>
     </Page>
+    <MyComponent id={0}/>
+   </>
   );
 };
 export default ApartmentCard;

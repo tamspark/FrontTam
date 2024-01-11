@@ -15,6 +15,7 @@ import {
   Input,
   UserMessageBubble,
   BotMessageBubble,
+
 } from "./Assistant.style";
 
 interface Message {
@@ -23,7 +24,7 @@ interface Message {
   sender: "user" | "bot";
 }
 
-const ChatComponent: React.FC = () => {
+const ChatComponent2: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: "Hi there!", sender: "bot" },
@@ -73,7 +74,7 @@ useEffect(() => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("http://192.168.10.141:8080/TAM/assistant/thread/host", { newMessage })
+        .post("http://192.168.10.141:8080/TAM/assistant/thread/client", { newMessage })
         .then((response) => {
           const id = response.data.id;
 
@@ -91,7 +92,7 @@ useEffect(() => {
         });
     } else {
       axios
-        .post(`http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/host`, {
+        .post(`http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/client`, {
           content: newMessage,
           role: "user",
         })
@@ -128,7 +129,7 @@ useEffect(() => {
   return (
     <>
       <Header isOpen={isOpen} onClick={handleToggle}>
-        Host Chat
+        Client Chat
       </Header>
       <ChatContainer isOpen={isOpen}>
         {isOpen && (
@@ -167,4 +168,4 @@ useEffect(() => {
   );
 };
 
-export default ChatComponent;
+export default ChatComponent2;

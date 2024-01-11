@@ -15,9 +15,9 @@ export const Content = styled.div`
   justify-content: center;
 
   flex-direction: column;
-
-  width: 100%;
-  max-width: 1440px;
+margin-left:260px;
+  width: 90%;
+  max-width: 1240px;
   padding: 50px;
 
   border: 2px solid gray;

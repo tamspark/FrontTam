@@ -7,6 +7,8 @@ import {
     Label,
     LabelValue
 } from './style/UserInfoBox.style';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 
 const USER_DUMMY_DATA = {
@@ -17,25 +19,30 @@ const USER_DUMMY_DATA = {
 
 const UserInfoBox: FC<{}> = () => {
 
+
+
+    const name=useSelector( (state: RootState) => state.auth.user?.firstName)
+    const surname=useSelector( (state: RootState) => state.auth.user?.lastName)
+    const role=useSelector( (state: RootState) => state.auth.user?.role)
     return (
         <Box>
             <Content>
                 <DetailRow>
                     <Label>Name</Label>
 
-                    <LabelValue>{USER_DUMMY_DATA.name}</LabelValue>
+                    <LabelValue>{name}</LabelValue>
                 </DetailRow>
 
                 <DetailRow>
                     <Label>Surname</Label>
 
-                    <LabelValue>{USER_DUMMY_DATA.surname}</LabelValue>
+                    <LabelValue>{surname}</LabelValue>
                 </DetailRow>
 
                 <DetailRow>
-                    <Label>Property Loaded</Label>
+                    <Label>Role</Label>
 
-                    <LabelValue>{USER_DUMMY_DATA.numberOfPropertiesLoaded}</LabelValue>
+                    <LabelValue>{role}</LabelValue>
                 </DetailRow>
             </Content>
         </Box>

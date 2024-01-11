@@ -13,6 +13,7 @@ z-index: 999;
   color: #000000;
   width: 100%;
   height: 50px;
+  
 `;
 
 export const Nav = styled.nav`
@@ -21,6 +22,7 @@ export const Nav = styled.nav`
   width:100%;
   justify-content: space-between;
   max-width:1440px;
+  justify-content: flex-end;
 `;
 
 export const Ul = styled.ul`

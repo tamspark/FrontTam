@@ -24,6 +24,7 @@ import { AppDispatch } from "../../redux/store";
 //navigation
 import { useNavigate } from "react-router";
 
+
 const ApartmentPage: FC<{}> = () => {
   const navigate = useNavigate();
   const [apartmentName, setApartmentNames] = useState<ApartmentProps[]>([]);
@@ -88,7 +89,7 @@ const ApartmentPage: FC<{}> = () => {
           </ApartmentContentHolder>
         ))
       )}
-      
+ 
     </Container>
    
   );

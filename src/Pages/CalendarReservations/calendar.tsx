@@ -10,8 +10,8 @@ interface MonthOption {
 }
 
 function MonthTable() {
-  const [selectedMonth, setSelectedMonth] = useState<number>(11);
-  const [selectedYear, setSelectedYear] = useState<number>(2023); // Default to a specific year (you can set it to the current year)
+  const [selectedMonth, setSelectedMonth] = useState<number>(1);
+  const [selectedYear, setSelectedYear] = useState<number>(2024); // Default to a specific year (you can set it to the current year)
   const [daysOfMonth, setDaysOfMonth] = useState<any>(31);
   const [dayNames, setDayNames] = useState<string[]>([]);
   const [apartmentData, setApartmentData] = useState<any[]>([]);
@@ -177,6 +177,7 @@ function MonthTable() {
                 <th
                   key={index}
                   style={{
+               
                     color:
                       dayName === "Sa" || dayName === "Su" ? "red" : "inherit",
                   }}
