@@ -1,5 +1,3 @@
-
-
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import SendIcon from "@mui/icons-material/Send";
@@ -15,7 +13,6 @@ import {
   Input,
   UserMessageBubble,
   BotMessageBubble,
-
 } from "./Assistant.style";
 
 interface Message {
@@ -47,16 +44,15 @@ const ChatComponent: React.FC = () => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     scrollToBottomm();
   }, [isOpen]);
-  
+
   const scrollToBottomm = () => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior:"auto" });
+      chatEndRef.current.scrollIntoView({ behavior: "auto" });
     }
   };
-
 
   const [newMessage, setNewMessage] = useState<string>("");
   const [threadId, setThreadId] = useState<string>("");
@@ -74,7 +70,9 @@ useEffect(() => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("http://192.168.10.141:8080/TAM/assistant/thread/host", { newMessage })
+        .post("https://tam-back.onrender.com/TAM/assistant/thread/host", {
+          newMessage,
+        })
         .then((response) => {
           const id = response.data.id;
 
@@ -92,10 +90,13 @@ useEffect(() => {
         });
     } else {
       axios
-        .post(`http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/host`, {
-          content: newMessage,
-          role: "user",
-        })
+        .post(
+          `https://tam-back.onrender.com/TAM/assistant/chat/${threadId}/host`,
+          {
+            content: newMessage,
+            role: "user",
+          }
+        )
         .then((response) => {
           const botResponse: Message = {
             id: messages.length + 2,
@@ -129,8 +130,8 @@ useEffect(() => {
   return (
     <>
       <Header isOpen={isOpen} onClick={handleToggle}>
-      <span style={{  marginLeft: "10px" }}> Host Chat</span>
-        <span onClick={handleToggle} style={{  marginRight: "15px" }}>
+        <span style={{ marginLeft: "10px" }}> Host Chat</span>
+        <span onClick={handleToggle} style={{ marginRight: "15px" }}>
           X
         </span>
       </Header>
@@ -148,7 +149,6 @@ useEffect(() => {
                 </div>
               ))}
               {isTyping && <BotMessageBubble>Typing...</BotMessageBubble>}{" "}
-            
             </MessageContainer>
             <InputContainer>
               <Input

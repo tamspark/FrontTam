@@ -8,14 +8,14 @@ interface User {
   firstName: string | null;
   lastName: string | null;
   role: string | null;
-  registredInSmoobu:boolean;
+  registredInSmoobu: boolean;
 }
 
 export type AuthState = {
   user: User | null;
   isAuthenticated: boolean;
   error: string | null;
-}
+};
 
 const initialState: AuthState = {
   user: null,
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/auth/login",
+        "https://tam-back.onrender.com/TAM/auth/login",
         userCredentials
       );
 
@@ -69,7 +69,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
         throw new Error("User ID not found in user data");
       }
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/auth/logout/${userIdFromLocalStorage}`
+        `https://tam-back.onrender.com/TAM/auth/logout/${userIdFromLocalStorage}`
       );
 
       console.log("Logout response:", response.data);
@@ -105,8 +105,6 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
-      
-
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthenticated = false;
@@ -123,5 +121,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser,updateSmoobuRegistration } = authSlice.actions;
+export const { setUser, clearUser, updateSmoobuRegistration } =
+  authSlice.actions;
 export default authSlice.reducer;

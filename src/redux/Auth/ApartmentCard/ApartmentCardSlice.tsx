@@ -60,7 +60,7 @@ export const fetchApartmentCardDetails = createAsyncThunk<
   async ({ userId, id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/${userId}/apartments/${id}`
+        `https://tam-back.onrender.com/TAM/${userId}/apartments/${id}`
       );
       console.log("userId", userId);
       console.log("id", id);

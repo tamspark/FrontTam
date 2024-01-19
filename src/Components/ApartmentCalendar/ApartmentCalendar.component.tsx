@@ -18,15 +18,13 @@
 //     end: new Date(),
 //   });
 
-
-  
 //   useEffect(() => {
 //     const getReservations = async () => {
 //       try {
 //         if (!userId) return;
 
 //         const response = await axios.get(
-//           `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+//           `https://tam-back.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
 //             visibleRange.start
 //           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
 //             "YYYY-MM-DD"
@@ -78,15 +76,13 @@
 //         defaultView={Views.MONTH}
 //         scrollToTime={new Date(1970, 1, 1, 6)}
 //         onNavigate={(newDate: Date) => handleNavigate(newDate)}
-       
+
 //       />
 //     </div>
 //   );
 // };
 
 // export default MyCalendar;
-
-
 
 import React, { useState, useEffect, FC } from "react";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
@@ -95,18 +91,15 @@ import moment from "moment";
 import axios from "axios";
 import styled from "styled-components";
 
-
-
 const CalendarContainer = styled.div`
   height: 500px;
 
   @media (max-width: 768px) {
     width: calc(100% - 70px);
-    max-width:450px;
-    margin-left:55px;
+    max-width: 450px;
+    margin-left: 55px;
   }
 `;
-
 
 const localizer = momentLocalizer(moment);
 
@@ -118,8 +111,16 @@ interface MyCalendarProps {
 const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
   const [reservations, setReservations] = useState([]);
   const today = new Date();
-  const startOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  const endOfCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const startOfCurrentMonth = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+  );
+  const endOfCurrentMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0
+  );
   const [visibleRange, setVisibleRange] = useState<{ start: Date; end: Date }>({
     start: startOfCurrentMonth,
     end: endOfCurrentMonth,
@@ -131,7 +132,7 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
         if (!userId) return;
 
         const response = await axios.get(
-          `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+          `https://tam-back.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
             visibleRange.start
           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
             "YYYY-MM-DD"
@@ -170,21 +171,21 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
 
   return (
     <CalendarContainer>
-    <Calendar
-      localizer={localizer}
-      events={events}
-      startAccessor="start"
-      endAccessor="end"
-      views={["month", "week", "day", "agenda"]}
-      eventPropGetter={eventStyleGetter}
-      selectable
-      onSelectSlot={(slotInfo) => console.log("Selected:", slotInfo)}
-      onSelectEvent={(event) => console.log("Event selected:", event)}
-      defaultView={Views.MONTH}
-      scrollToTime={new Date(1970, 1, 1, 6)}
-      onNavigate={(newDate) => handleNavigate(newDate)}
-    />
-  </CalendarContainer>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        views={["month", "week", "day", "agenda"]}
+        eventPropGetter={eventStyleGetter}
+        selectable
+        onSelectSlot={(slotInfo) => console.log("Selected:", slotInfo)}
+        onSelectEvent={(event) => console.log("Event selected:", event)}
+        defaultView={Views.MONTH}
+        scrollToTime={new Date(1970, 1, 1, 6)}
+        onNavigate={(newDate) => handleNavigate(newDate)}
+      />
+    </CalendarContainer>
   );
 };
 

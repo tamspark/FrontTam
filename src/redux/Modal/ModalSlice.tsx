@@ -30,12 +30,12 @@ export const openModal = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
+        `https://tam-back.onrender.com/TAM/${userId}/apartmentAvailability`,
         userCredentials
       );
 
       const responseRegData = response.data;
-      console.log("",responseRegData);
+      console.log("", responseRegData);
 
       if (response.status !== 200) {
         return rejectWithValue(responseRegData.error.message);
@@ -60,7 +60,7 @@ export const openRentList = createAsyncThunk<
   async ({ userId, rentListProperties }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
+        `https://tam-back.onrender.com/TAM/${userId}/apartmentAvailability`,
         { params: rentListProperties }
       );
 
@@ -86,7 +86,7 @@ const modalSlice = createSlice({
       state.modal = action.payload;
       state.isAuthenticated = true;
     },
- 
+
     setRentList: (state, action: PayloadAction<Modal>) => {
       console.log(state.modal);
       state.modal = action.payload;
@@ -116,5 +116,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const { setModal,  setRentList } = modalSlice.actions;
+export const { setModal, setRentList } = modalSlice.actions;
 export default modalSlice.reducer;

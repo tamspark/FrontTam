@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Icon from "./assets/829452_user_512x512.png";
 import { Card, Label, UserInfo, Button, Input } from "./Style";
+import { RootState } from "redux/store";
+import { useSelector } from "react-redux";
 
 interface UserProfileProps {
   firstName: string;
@@ -15,6 +17,9 @@ const UserProfile: React.FC = () => {
   const [userData, setUserData] = useState<UserProfileProps | null>(null);
   const [editable, setEditable] = useState(false);
   const [editedData, setEditedData] = useState<UserProfileProps | null>(null);
+  const user = useSelector((state: RootState) => state.auth.user);
+ 
+  const userId = user?.id;
 
   useEffect(() => {
     fetchData();
@@ -22,7 +27,7 @@ const UserProfile: React.FC = () => {
 
   const fetchData = () => {
     axios
-      .get("http://192.168.10.141:8080/TAM/user/3")
+      .get(`https://tam-back.onrender.com/TAM/user/${userId}`)
       .then((response) => {
         setUserData(response.data);
         setEditedData(response.data);
@@ -39,7 +44,7 @@ const UserProfile: React.FC = () => {
   const handleSaveClick = () => {
     if (editedData) {
       axios
-        .post("http://192.168.10.141:8080/TAM/user/update", editedData)
+        .post("https://tam-back.onrender.com/TAM/user/update", editedData)
         .then((response) => {
           setUserData({ ...editedData });
           setEditable(false);

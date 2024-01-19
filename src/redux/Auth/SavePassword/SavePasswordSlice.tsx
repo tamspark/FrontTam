@@ -19,19 +19,17 @@ const initialState: AuthRegPass = {
 export const resetPassword = createAsyncThunk(
   "reset/resetPassword",
   async (newPassword: object, { rejectWithValue }) => {
-  
     const currentUrl = window.location.href;
 
     try {
       const url = new URL(currentUrl);
-  
+
       const pathnameParts = url.pathname.split("/");
       console.log("pathname", pathnameParts);
       const token = pathnameParts[pathnameParts.length - 1];
- 
 
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/savepassword/${token}`,
+        `https://tam-back.onrender.com/TAM/savepassword/${token}`,
 
         newPassword
       );
@@ -40,7 +38,6 @@ export const resetPassword = createAsyncThunk(
 
       if (response.status !== 200) {
         return rejectWithValue(responseData.error.message);
-        
       }
 
       return responseData;

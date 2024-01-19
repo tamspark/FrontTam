@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import styled from "styled-components";
 
-
 interface Conversation {
   id: number;
   guestName: string;
@@ -44,7 +43,6 @@ const GuestName = styled.div`
 `;
 
 const ExistingChat: FC<{}> = () => {
-  
   const email = useSelector((state: RootState) => state.auth.user?.email);
   const messages = useSelector(
     (state: RootState) => state.messages.messages?.total_items
@@ -52,29 +50,23 @@ const ExistingChat: FC<{}> = () => {
   console.log(messages);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedGuest, setSelectedGuest] = useState<string | null>(null);
-  
-
 
   const handleGuestClick = (conversation: any) => {
     // Save selected conversation information in local storage
-    localStorage.setItem('selectedGuest', conversation.guestName);
-    localStorage.setItem('selectedReservationId', conversation.reservationId);
-    
+    localStorage.setItem("selectedGuest", conversation.guestName);
+    localStorage.setItem("selectedReservationId", conversation.reservationId);
+
     setSelectedGuest(conversation.guestName);
 
     window.location.reload();
   };
 
-
-
-
-  
   useEffect(() => {
-    fetch("http://192.168.10.141:8080/TAM/conversation/3")
+    fetch("https://tam-back.onrender.com/TAM/conversation/3")
       .then((response) => response.json())
       .then((data: Conversation[]) => {
         setConversations(data);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching conversations:", error);
@@ -84,7 +76,6 @@ const ExistingChat: FC<{}> = () => {
   return (
     <ExistingChatHolder>
       <UserProfileContainer>
-       
         <UserNameParagraph>{email}</UserNameParagraph>
       </UserProfileContainer>
       <InboxMessages>
@@ -104,7 +95,6 @@ const ExistingChat: FC<{}> = () => {
                 </li>
               ))}
             </ul>
-           
           </div>
         </div>
       </InboxMessages>

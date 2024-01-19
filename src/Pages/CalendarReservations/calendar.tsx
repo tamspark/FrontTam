@@ -20,7 +20,7 @@ function MonthTable() {
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
   const makeApiRequest = () => {
-    const apiUrl = `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar`;
+    const apiUrl = `https://tam-back.onrender.com/TAM/${userId}/reservations/calendar`;
 
     axios
       .get(apiUrl, {
@@ -28,7 +28,7 @@ function MonthTable() {
           fromDate: firstDate,
           toDate: lastDate,
         },
-      })  
+      })
       .then((response: { data: any }) => {
         setApartmentData(response.data);
         console.log(response);
@@ -153,7 +153,7 @@ function MonthTable() {
                 borderRadius: "4px",
                 padding: "8px",
                 border: "1px solid #ccc",
-                width:"100px"
+                width: "100px",
               }}
               type="number"
               value={selectedYear}
@@ -178,7 +178,6 @@ function MonthTable() {
                 <th
                   key={index}
                   style={{
-               
                     color:
                       dayName === "Sa" || dayName === "Su" ? "red" : "inherit",
                   }}
@@ -249,7 +248,6 @@ function MonthTable() {
             ))}
           </tbody>
         </table>{" "}
-       
       </div>
     </div>
   );

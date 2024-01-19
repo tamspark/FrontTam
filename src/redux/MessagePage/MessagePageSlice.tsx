@@ -23,7 +23,7 @@ export type MessageState = {
 };
 const initialState: MessageState = {
   messages: null,
-  selectedGuestId:null,
+  selectedGuestId: null,
   isAuthenticated: false,
   error: null,
 };
@@ -37,7 +37,7 @@ export const sendMessage = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/51902732/message/${userId}`,
+        `https://tam-back.onrender.com/TAM/51902732/message/${userId}`,
         messageProps
       );
 
@@ -60,14 +60,11 @@ export const sendMessage = createAsyncThunk(
 //get api
 
 const getGuestNameFromLocalStorage = () => {
-  return localStorage.getItem('selectedReservationId') || null;
+  return localStorage.getItem("selectedReservationId") || null;
 };
 
-
 const reservationId = getGuestNameFromLocalStorage();
-console.log('Guest Name from local storage:', reservationId);
-
-
+console.log("Guest Name from local storage:", reservationId);
 
 export const fetchMessage = createAsyncThunk<
   MesagePageProps,
@@ -78,7 +75,7 @@ export const fetchMessage = createAsyncThunk<
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `http://192.168.10.141:8080/TAM/${reservationId}/message/${userId}`
+      `https://tam-back.onrender.com/TAM/${reservationId}/message/${userId}`
     );
 
     console.log("res", response);
