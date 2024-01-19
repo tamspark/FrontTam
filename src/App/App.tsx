@@ -79,7 +79,7 @@ const App: FC<{}> = () => {
               <Route path="/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="/kyc" element={<GradientPage/>}/>
-              <Route path="*" element={<Navigate to="/auth/login" replace />} />
+              <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}
         </Routes>
