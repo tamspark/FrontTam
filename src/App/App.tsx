@@ -41,7 +41,7 @@ const App: FC<{}> = () => {
         <Routes>
 
           {isAuthenticated ? (
-            <Route path="/auth" element={<Authenticated />}>
+            <Route path="/" element={<Authenticated />}>
               {verify ? (
                 <>
 
@@ -73,12 +73,12 @@ const App: FC<{}> = () => {
               )}
             </Route>
           ) : (
-            <Route path="/auth" element={<AuthPage />}>
+            <Route path="/" element={<AuthPage />}>
               
-              <Route path="/auth/login" element={<Login />} index />
-              <Route path="/auth/register" element={<Register />} />{" "}
+              <Route path="/login" element={<Login />} index />
+              <Route path="/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
-              <Route path="/auth/kyc" element={<GradientPage/>}/>
+              <Route path="/kyc" element={<GradientPage/>}/>
               <Route path="*" element={<Navigate to="/auth/login" replace />} />
             </Route>
           )}
