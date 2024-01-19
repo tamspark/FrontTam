@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import {
+  ActionTableCell,
   EditButton,
   H2,
   IconLink,
@@ -21,6 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+
 interface RentListProps {
   rentalData: Modal[];
 }
@@ -185,7 +187,16 @@ const RentList: FC<RentListProps> = () => {
     }
   }, [rentList]);
 
+  const handleMatchPrice = (index: number) => {
+    if (result[index] && selectedItem) {
+      const updatedResult = [...result];
+      updatedResult[index].sPrice = selectedItem.price || "N/A";
+      setResult(updatedResult);
+    }
+  };
+
   return (
+   
     <TableAndDatepickerHolder>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer
@@ -195,42 +206,14 @@ const RentList: FC<RentListProps> = () => {
           <DatePicker
             label="Start date"
             onChange={handleStartDateChange}
-            sx={{ margin: "10px  !important" }}
-            // sx={{
-            //   "& .MuiOutlinedInput-root": {
-            //     margin: "10px  !important",
-            //     marginTop: "0 !important",
-            //     "&:hover fieldset": {
-            //       borderColor: "black",
-            //     },
-            //     "&.Mui-focused fieldset": {
-            //       borderColor: "black",
-            //     },
-            //     "& label.Mui-focused": {
-            //       color: "black",
-            //     },
-            //   },
-            // }}
+            sx={{ margin: "10px  !important" ,width:"200px",marginLeft:"50px !important"}}
+           
           />
           <DatePicker
             label="End date"
             onChange={handleEndDateChange}
-            sx={{ margin: "10px  !important" }}
-            // sx={{
-            //   "& .MuiOutlinedInput-root": {
-            //     margin: "10px !important",
-            //     marginTop: "0 !important",
-            //     "&:hover fieldset": {
-            //       borderColor: "black",
-            //     },
-            //     "&.Mui-focused fieldset": {
-            //       borderColor: "black",
-            //     },
-            //     "& label.Mui-focused": {
-            //       color: "black",
-            //     },
-            //   },
-            // }}
+            sx={{ margin: "10px  !important",width:"200px",marginLeft:"50px !important" }}
+           
           />
         </DemoContainer>
       </LocalizationProvider>
@@ -251,18 +234,22 @@ const RentList: FC<RentListProps> = () => {
               <TableRow key={index}>
                 <TableCell>{rental.date}</TableCell>
                 <TableCell>${rental.price}</TableCell>
-                <TableCell>N/A</TableCell>
+                <TableCell>"N/A"  <EditButton onClick={() => handleMatchPrice(index)}>
+                    Match
+                  </EditButton></TableCell>
                 <TableCell>{rental.min_length_of_stay} nights</TableCell>
-                <TableCell>N/A</TableCell>
-                <TableCell>
+                <TableCell>N/A  <EditButton onClick={() => handleMatchPrice(index)}>
+                    Match
+                  </EditButton></TableCell>
+                <ActionTableCell>
                   <EditButton onClick={() => handleEdit(rental)}>
                     Edit
                   </EditButton>
-
+                 
                   <IconLink to="">
-                    <DeleteIcon />
+                    <DeleteIcon sx={{fontSize:"30px"}} />
                   </IconLink>
-                </TableCell>
+                </ActionTableCell>
               </TableRow>
             ))}
           </tbody>
@@ -325,6 +312,8 @@ const RentList: FC<RentListProps> = () => {
         footerContent={<Button onClick={handleSave}>Save</Button>}
       />
     </TableAndDatepickerHolder>
+   
+  
   );
 };
 

@@ -3,8 +3,14 @@ export const Container = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+  }
+  
 `;
 
 export const ApartmentContentHolder = styled.div`
@@ -16,10 +22,13 @@ export const ApartmentContentHolder = styled.div`
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   border: 2px solid white;
-  color: white;
+  color:black;
   font-family: "Poppins";
   background-color:#77b4c1;
   cursor:pointer;
+  &:hover {
+    background-color: #e3edf0;;
+   }
 `;
 export const Icon = styled.div`
   text-align: center;

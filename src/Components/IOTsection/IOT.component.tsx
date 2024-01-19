@@ -18,7 +18,20 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items:center;
   max-width: 300px;
+  padding-top:20px;
+  padding-bottom:20px;
+ min-width:250px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height:fit-content;
+  @media (max-width: 768px) {
+    width: calc(100% - 70px);
+    max-width:450px;
+    margin-left:55px;
+    
+  }
 `;
 
 const Label = styled.label`
@@ -32,7 +45,7 @@ const Field = styled.input`
   border-radius: 4px;
   font-size: 16px;
   outline: none;
-  width: 100%;
+  width: 230px;
 
   &:focus {
     border-color: #007bff;
@@ -45,11 +58,11 @@ const Button = styled.button`
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #007bff;
-  color: white;
+  background-color: lightblue;
+  color: black;
 
   &:hover {
-    background-color: #0056b3;
+   background-color: #e3edf0;;
   }
 
   &:not(:last-child) {
@@ -104,24 +117,25 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
 
   return (
     <Container>
-    <div>
-      <Label>Field 1:</Label>
+     <h2>Connect your device</h2>
+    <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+      <Label style={{alignSelf:"flex-start"}}>Lock ID:</Label>
       <Field
         type="text"
         value={data.field1}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'field1')}
       />
     </div>
-    <div>
-      <Label>Field 2:</Label>
+    <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+      <Label style={{alignSelf:"flex-start"}}>Lock Key:</Label>
       <Field
         type="text"
         value={data.field2}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'field2')}
       />
     </div>
-    <Button onClick={handleSave}>Save</Button>
-    <Button onClick={handleDelete}>Delete</Button>
+    
+    <Button onClick={handleSave}>Connect</Button>
   </Container>
   );
 };

@@ -15,6 +15,7 @@ import {
   Input,
   UserMessageBubble,
   BotMessageBubble,
+
 } from "./Assistant.style";
 
 interface Message {
@@ -128,7 +129,10 @@ useEffect(() => {
   return (
     <>
       <Header isOpen={isOpen} onClick={handleToggle}>
-        Host Chat
+      <span style={{  marginLeft: "10px" }}> Host Chat</span>
+        <span onClick={handleToggle} style={{  marginRight: "15px" }}>
+          X
+        </span>
       </Header>
       <ChatContainer isOpen={isOpen}>
         {isOpen && (

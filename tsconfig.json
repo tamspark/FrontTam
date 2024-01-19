@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": ["node"],
+    "types": ["node", "@types/recharts"],
     "lib": [
       "dom",
       "dom.iterable",

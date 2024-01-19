@@ -6,6 +6,11 @@ export const Card = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
+margin:auto;
+  @media (max-width: 768px) {
+    width: calc(100% - 150px); /* Reduce width by 80px on mobile */
+    margin-left:70px;
+  }
 `;
 
 export const Label = styled.p`
@@ -27,6 +32,9 @@ export const Button = styled.div`
   cursor: pointer;
   text-align: center;
   font-size: 14px;
+  &:hover {
+    background-color: #e3edf0;;
+   }
 `;
 
 export const Input = styled.input`

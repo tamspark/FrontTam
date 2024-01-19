@@ -33,12 +33,10 @@ export const Button = styled.button<ButtonProps>`
   text-align: center;
   height: ${(props: any) => props.h || "100%"};
   width: ${(props: any) => props.w || "100%"};
-  color: ${(props: any) => (props.variant === "primary" ? "white" : "#525b99")};
-  background-color: ${(props: any) =>
-    props.variant === "primary" ? "#525b99" : "snow"};
-  border: ${(props: any) =>
-    props.variant === "primary" ? "none" : "2px solid #525b99"};
-  border-radius: ${(props: any) => props.borderradius};
+  color:black;
+  background-color:white;
+  border: 2px solid gray;
+  border-radius: 5px;
   text-decoration: none;
   font-family: ${(props: any) => props.fontFamily || "Poppins"};
   font-size: ${(props: any) => props.fontSize};
@@ -50,25 +48,11 @@ export const Button = styled.button<ButtonProps>`
   &:active:not(:disabled),
   &:hover {
     outline: 0;
-    color: ${(props: any) =>
-      props.variant === "primary"
-        ? "#525b99"
-        : props.variant === "third"
-        ? "white"
-        : "2px solid #3e4684"};
+    color:black;
 
-    background: ${(props: any) =>
-      props.variant === "primary"
-        ? "white"
-        : props.variant === "third"
-        ? "black"
-        : "white"};
-    border: ${(props: any) =>
-      props.variant === "primary"
-        ? "2px solid #525b99"
-        : props.variant === "third"
-        ? "2px solid black"
-        : "1px solid #3e4684"};
+    background: #e3edf0;;
+     };
+
 
     border-radius: ${(props: any) => props.borderRadius};
     cursor: pointer;
@@ -142,7 +126,7 @@ export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
   width: 60%;
   max-width: 500px;
-  background-color: #f1f7fe;
+  background-color: lightblue;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;

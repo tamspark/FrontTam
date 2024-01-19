@@ -13,7 +13,7 @@ export const LoginParagraph = styled.p`
   text-align: center;
   font-weight: 600;
   font-size: 25px;
-  color: #525b99;
+  color: black;
 `;
 export const LoginButtonHolder = styled.div`
   margin: auto;

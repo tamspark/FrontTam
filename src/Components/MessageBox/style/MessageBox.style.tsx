@@ -2,16 +2,17 @@ import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export const MessageBoxContainer = styled.div`
-  width: 100%;
+  width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #c4c4c4;
+  max-width:1440px;
   
 `;
 export const UserInformationHolder = styled.div`
   width: 100%;
-  height: 100px;
+  height: 70px;
   background-color: #329a93;
   /* border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; */
@@ -52,6 +53,8 @@ export const SendMessagContainer = styled.div`
   background-color: #ffff;
   display: flex;
   justify-content: space-between;
+  // position: fixed;
+  // bottom: 0;
 `;
 export const InputHold = styled.input`
   width: 100%;
@@ -82,11 +85,13 @@ export const SendIcon = styled.div`
   /* border-end-end-radius: 10px;
   border-inline-end-width: 10px;
   border-top-right-radius: 10px; */
+  
 `;
 
 export const ParagraphsHolder = styled.div`
 width: 100%;
 height: 100%;
+
 overflow-y: scroll; /* Enable vertical scrolling */
 /* Hide the scrollbar */
 scrollbar-width: none; /* Firefox */

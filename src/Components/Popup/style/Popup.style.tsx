@@ -24,6 +24,12 @@ export const Modal = styled.div`
   border-radius: 10px;
   width: 100%;
   max-width: 380px;
+  @media (max-width: 767px) {
+    max-width: 80%;
+    left: calc(50% + 25px); 
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 export const ModalHeader = styled.div`
   display: flex;

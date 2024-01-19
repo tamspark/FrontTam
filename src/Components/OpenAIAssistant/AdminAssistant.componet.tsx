@@ -5,8 +5,7 @@ import axios from "axios";
 import SendIcon from "@mui/icons-material/Send";
 
 import {
-  Header,
-  ChatContainer,
+
   ChatIcon,
   ChatToggle,
   MessageContainer,
@@ -15,6 +14,9 @@ import {
   Input,
   UserMessageBubble,
   BotMessageBubble,
+  Header2,
+  ChatContainer2,
+  ChatToggle2,
 
 } from "./Assistant.style";
 
@@ -26,6 +28,7 @@ interface Message {
 
 const ChatComponent2: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [keyboardOpen, setKeyboardOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: "Hi there!", sender: "bot" },
     {
@@ -111,6 +114,23 @@ useEffect(() => {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.clientHeight;
+
+      // If the difference is more than 100 pixels, assume the keyboard is open
+      setKeyboardOpen(bodyHeight - windowHeight > 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMessage(e.target.value);
   };
@@ -128,10 +148,13 @@ useEffect(() => {
   console.log(threadId);
   return (
     <>
-      <Header isOpen={isOpen} onClick={handleToggle}>
-        Client Chat
-      </Header>
-      <ChatContainer isOpen={isOpen}>
+      <Header2 isOpen={isOpen} >
+       <span style={{  marginLeft: "15px" }}> Client Chat</span>
+        <span onClick={handleToggle} style={{  marginRight: "15px" }}>
+          X
+        </span>
+      </Header2>
+      <ChatContainer2 isOpen={isOpen} keyboardOpen={keyboardOpen}>
         {isOpen && (
           <>
             <MessageContainer>
@@ -160,10 +183,11 @@ useEffect(() => {
             </InputContainer>
           </>
         )}
-        <ChatToggle isOpen={isOpen} onClick={handleToggle}>
+       
+      </ChatContainer2>
+      <ChatToggle2 isOpen={isOpen} onClick={handleToggle}>
           <ChatIcon>💬</ChatIcon>
-        </ChatToggle>
-      </ChatContainer>
+        </ChatToggle2>
     </>
   );
 };

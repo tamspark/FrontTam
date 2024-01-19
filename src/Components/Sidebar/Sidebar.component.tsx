@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
@@ -12,30 +12,35 @@ interface SidebarProps {
   toggleSidebar: () => void;
 }
 
-const SidebarContainer = styled.div<{ open: boolean }>`
+const SidebarContainer = styled.div<{ open?: boolean }>`
   position: fixed;
   top: 50px;
-  left: ${({ open }) => (open ? '0' : '0')}; 
-  width: ${({ open }) => (open ? '250px' : '50px')};
+  left: ${({ open }) => (open ? "0" : "0")};
+  width:50px;
   height: 100%;
   background-color: lightblue;
   transition: left 0.3s ease-in-out;
   z-index: 999;
-`;
 
-const SidebarToggle = styled.div<{ open: boolean }>`
-  padding: 10px;
-  color: black;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 600;
-  display: flex;
-  justify-content: flex-start;
-  gap:10px;
-  &:hover {
-    background-color: #73b9cf;
+  @media (max-width: 768px) {
+    left: 0;
+    width: 50px;
   }
 `;
+
+// const SidebarToggle = styled.div<{ open: boolean }>`
+//   padding: 10px;
+//   color: black;
+//   cursor: pointer;
+//   font-size: 20px;
+//   font-weight: 600;
+//   display: flex;
+//   justify-content: flex-start;
+//   gap:10px;
+//   &:hover {
+//     background-color: #73b9cf;
+//   }
+// `;
 
 const SidebarLinks = styled.ul`
   list-style: none;
@@ -54,38 +59,66 @@ const SidebarLink = styled.li`
   display: flex;
     align-items: center;
     gap:10px;
-  &:hover {
-    background-color: #73b9cf;
-  }
+    &:hover {
+      background-color: #e3edf0;;
+     }
 `;
 
-const Sidebar: FC<SidebarProps> = ({ open,toggleSidebar }) => {
+SidebarContainer.defaultProps = {
+  open: false,
+};
 
-    const navigate = useNavigate();
 
-    const goToHome = () => navigate('/auth/home');
-    const goToCalendar = () => navigate('/auth/calendar');
-    const goToMessages = () => navigate('/auth/messagepage');
-    const goToApartments = () => navigate('/auth/apartmentpage');
-    
   
 
+const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []);
+
+  const navigate = useNavigate();
+
+  const goToHome = () => navigate('/auth/home');
+  const goToCalendar = () => navigate('/auth/calendar');
+  const goToMessages = () => navigate('/auth/messagepage');
+  const goToApartments = () => navigate('/auth/apartmentpage');
+
   return (
-    <SidebarContainer open={open}>
-         <SidebarToggle open={open} onClick={toggleSidebar}>
-        <MenuIcon/> {open ? 'Close Menu' : null}
-      </SidebarToggle>
+    <SidebarContainer open={isMobile ? false : open}>
+      {/* {!isMobile && (
+        // <SidebarToggle open={open} onClick={toggleSidebar}>
+        //   <MenuIcon /> {open ? 'Close Menu' : null}
+        // </SidebarToggle>
+      )} */}
       <SidebarLinks>
-      <SidebarLink onClick={goToHome} ><HomeIcon/> {open ? 'Home' : null}</SidebarLink>
-      <SidebarLink onClick={goToCalendar}><CalendarMonthIcon/> {open ? 'Calendar' : null}</SidebarLink>
-      <SidebarLink onClick={goToMessages}><MessageIcon/> {open ? 'Messages' : null}</SidebarLink>
-      <SidebarLink onClick={goToApartments}><BusinessIcon/> {open ? 'Apartments' : null}</SidebarLink>
-        
-        
- 
+        <SidebarLink onClick={goToHome}>
+          <HomeIcon /> 
+        </SidebarLink>
+        <SidebarLink onClick={goToCalendar}>
+          <CalendarMonthIcon /> 
+        </SidebarLink>
+        <SidebarLink onClick={goToMessages}>
+          <MessageIcon /> 
+        </SidebarLink>
+        <SidebarLink onClick={goToApartments}>
+          <BusinessIcon /> 
+        </SidebarLink>
       </SidebarLinks>
     </SidebarContainer>
   );
 };
 
 export default Sidebar;
+

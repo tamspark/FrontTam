@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // Define the styled components for the page and the button
 const PageContainer = styled.div`
   height: 100vh;
-  width:100%;
+  width:100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,22 +17,30 @@ const Button = styled.button`
   padding: 12px 24px;
   font-size: 16px;
   border: none;
+  margin-right:350px;
   border-radius: 6px;
-  background-color: #fff;
+  background-color: lightblue;
   color: #333;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ddd;
+height:90px;
+&:hover {
+  background-color: #e3edf0;;
+ }
+  @media (max-width: 750px) {
+    width: 120px;
+    height:65px;
+    margin-right:200px;
   }
 `;
 
 const GradientPage: React.FC = () => {
   return (
     <PageContainer>
-      <Button>KYC Verification</Button>
+      <Button>Check-in</Button>
+     
       <ChatComponent2/>
+     
     </PageContainer>
   );
 };

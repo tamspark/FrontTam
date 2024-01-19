@@ -23,6 +23,7 @@ import Authenticated from "Pages/Authenticated/Authenticated.page";
 import UserProfile from "Pages/Profile/Profile.component";
 import ChatComponent from "Components/OpenAIAssistant/OpenAIAssistant.component";
 import GradientPage from "Pages/CheckinPage/checkin.component";
+import Example from "Components/Dashboard/Chart/Chart.component";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -53,6 +54,7 @@ const App: FC<{}> = () => {
                   <Route path="userprofile" element={<UserProfile />} />
                   <Route path="resetpassword" element={<ResetPassword/>} />
                   <Route path="chat" element={<ChatComponent/>} />
+                  <Route path="chart" element={<Example data={[]}/>} />
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}

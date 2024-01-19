@@ -34,4 +34,7 @@ export const OpenMessagesButton = styled.button`
   padding: 10px 20px;
   text-transform: uppercase;
   cursor: pointer;
+  &:hover {
+    background-color: #e3edf0;;
+   }
 `;

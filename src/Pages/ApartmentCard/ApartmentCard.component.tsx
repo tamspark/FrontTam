@@ -168,8 +168,9 @@ const ApartmentCard: FC<{}> = () => {
         </CardContainer>
       )}
     </Holder>
-    </Page>
     <MyComponent id={0}/>
+    </Page>
+    
    </>
   );
 };

@@ -13,6 +13,13 @@ export const ModalForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 767px) {
+   
+  
+
+  margin-left: 40px;
+
+  
 `;
 export const ModalContent = styled.div`
   width: 100%;
@@ -23,6 +30,12 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 25px;
+  @media (max-width: 767px) {
+    max-width: 80%;
+    min-width:200px;
+    
+
+  }
 `;
 export const TextfieldDiv = styled.div`
   margin-top: 10px;

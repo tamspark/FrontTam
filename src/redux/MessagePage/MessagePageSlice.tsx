@@ -18,10 +18,12 @@ export interface MesagePageProps {
 export type MessageState = {
   messages: MesagePageProps | null;
   isAuthenticated: boolean;
+  selectedGuestId: string | null;
   error: string | null;
 };
 const initialState: MessageState = {
   messages: null,
+  selectedGuestId:null,
   isAuthenticated: false,
   error: null,
 };
@@ -35,7 +37,7 @@ export const sendMessage = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/48161231/message/${userId}`,
+        `http://192.168.10.141:8080/TAM/51902732/message/${userId}`,
         messageProps
       );
 
@@ -56,6 +58,17 @@ export const sendMessage = createAsyncThunk(
 );
 
 //get api
+
+const getGuestNameFromLocalStorage = () => {
+  return localStorage.getItem('selectedReservationId') || null;
+};
+
+
+const reservationId = getGuestNameFromLocalStorage();
+console.log('Guest Name from local storage:', reservationId);
+
+
+
 export const fetchMessage = createAsyncThunk<
   MesagePageProps,
   { userId: number },
@@ -65,7 +78,7 @@ export const fetchMessage = createAsyncThunk<
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `http://192.168.10.141:8080/TAM/48161231/message/${userId}`
+      `http://192.168.10.141:8080/TAM/${reservationId}/message/${userId}`
     );
 
     console.log("res", response);
@@ -83,6 +96,9 @@ const messagesSlice = createSlice({
     setMessages: (state, action: PayloadAction<MesagePageProps>) => {
       state.messages = action.payload;
       state.isAuthenticated = true;
+    },
+    setSelectedGuestId: (state, action: PayloadAction<string | null>) => {
+      state.selectedGuestId = action.payload;
     },
   },
   extraReducers: (builder) => {

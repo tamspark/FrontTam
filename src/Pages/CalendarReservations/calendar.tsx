@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import "./calendar.css";
-import CoomingSoon from "./assets/ComingSoon.png";
+
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
 interface MonthOption {
@@ -153,6 +153,7 @@ function MonthTable() {
                 borderRadius: "4px",
                 padding: "8px",
                 border: "1px solid #ccc",
+                width:"100px"
               }}
               type="number"
               value={selectedYear}
@@ -210,12 +211,12 @@ function MonthTable() {
                   if (reservation) {
                     if (isStartDateOfReservation(reservation, i + 1)) {
                       cellStyle.background =
-                        "linear-gradient(to bottom right, transparent 50%, #41F793 50%)";
+                        "linear-gradient(to bottom right, transparent 50%, lightblue 50%)";
                     } else if (isEndDateOfReservation(reservation, i + 1)) {
                       cellStyle.background =
-                        "linear-gradient(to top left, transparent 50%, #41F793 50%)";
+                        "linear-gradient(to top left, transparent 50%, lightblue 50%)";
                     } else {
-                      cellStyle.background = "#41F793";
+                      cellStyle.background = "lightblue";
                     }
 
                     if (reservation.blocked_booking) {
@@ -248,9 +249,7 @@ function MonthTable() {
             ))}
           </tbody>
         </table>{" "}
-        <div style={{width:"100%",display:"flex",justifyContent:"center",paddingTop:"20px"}}>
-        <img src={CoomingSoon} alt="photo1" />
-        </div>
+       
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const ExistingChatHolder = styled.div`
-  width: 300px;
+  width: 20%;
+  max-width:300px;
   /* height: fit-content; */
   overflow: hidden;
   background-color: #ffff;

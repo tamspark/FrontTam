@@ -27,7 +27,13 @@ import {
   fetchMessage,
   sendMessage,
 } from "redux/MessagePage/MessagePageSlice";
+
+
+
+
+
 const MessageBox: FC<{}> = () => {
+  const [name,setName]=useState<string>("");
   const [messageDetails, setMessageDetails] = useState<MesagePageProps[]>([]);
   const [writeMessage, setWriteMessage] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
@@ -45,7 +51,7 @@ const MessageBox: FC<{}> = () => {
   // console.log(reservationId);
   const dispatch: AppDispatch = useDispatch();
 
-  //post request
+  
   const messageProps = {
     subject: "Hi",
     messageBody: writeMessage,
@@ -60,7 +66,7 @@ const MessageBox: FC<{}> = () => {
         const response = await dispatch(sendMessage({ userId, messageProps }));
 
         if (sendMessage.fulfilled.match(response)) {
-          // Refetch messages after sending
+        
           const fetchResponse = await dispatch(fetchMessage({ userId }));
           if (fetchMessage.fulfilled.match(fetchResponse)) {
             setMessageDetails([fetchResponse.payload]);
@@ -74,6 +80,15 @@ const MessageBox: FC<{}> = () => {
       console.log("User is not authenticated");
     }
   };
+
+  const getGuestNameFromLocalStorage = () => {
+    return localStorage.getItem('selectedGuest') || null;
+  };
+  
+
+  const guestName = getGuestNameFromLocalStorage();
+  console.log('Guest Name from local storage:', guestName);
+
 
   //get api
   useEffect(() => {
@@ -97,7 +112,7 @@ const MessageBox: FC<{}> = () => {
         <UserInformationHolder>
           <AdminInfoContentHolder>
             <ProfileImage src={AdminLogo} alt="admin-photo" />
-            <AdminNameParagraph>Redis Halili</AdminNameParagraph>
+            <AdminNameParagraph>{guestName}</AdminNameParagraph>
           </AdminInfoContentHolder>
           <ThreeDotsHolder>
             <Icon />
