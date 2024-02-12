@@ -56,7 +56,7 @@ const ResetPassword: FC<{}> = () => {
         )
         .then((response) => {
           console.log("PUT request successful:", response.data);
-          navigate("/auth/login");
+          navigate("/login");
         })
         .catch((error) => {
           console.log("PUT request error:", error);

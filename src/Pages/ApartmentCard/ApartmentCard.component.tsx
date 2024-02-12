@@ -159,10 +159,10 @@ const ApartmentCard: FC<{}> = () => {
           </DivsContentHolder>
           <IconContainer>
             <IconHold>
-              <RentLink to="/auth/rentlist">EDIT PRICE</RentLink>
+              <RentLink to="/rentlist">EDIT PRICE</RentLink>
             </IconHold>
             <IconHold>
-              <RentLink to="/auth/modal">ADD RENT DATE</RentLink>
+              <RentLink to="/modal">ADD PRICE</RentLink>
             </IconHold>
           </IconContainer>
         </CardContainer>

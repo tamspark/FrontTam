@@ -65,7 +65,7 @@ const ApartmentPage: FC<{}> = () => {
 
   const handleApartmentClick = (apartment: ApartmentProps) => {
     console.log(apartment.id);
-    navigate(`/auth/apartmentcard/${apartment.id}`);
+    navigate(`/apartmentcard/${apartment.id}`);
   };
 
 

@@ -18,7 +18,7 @@ const UserProfile: React.FC = () => {
   const [editable, setEditable] = useState(false);
   const [editedData, setEditedData] = useState<UserProfileProps | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
- 
+
   const userId = user?.id;
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const UserProfile: React.FC = () => {
 
   const fetchData = () => {
     axios
-      .get(`https://tam-back.onrender.com/TAM/user/${userId}`)
+      .get(`http://192.168.10.141:8080/TAM/user/${userId}`)
       .then((response) => {
         setUserData(response.data);
         setEditedData(response.data);
@@ -44,7 +44,7 @@ const UserProfile: React.FC = () => {
   const handleSaveClick = () => {
     if (editedData) {
       axios
-        .post("https://tam-back.onrender.com/TAM/user/update", editedData)
+        .post("http://192.168.10.141:8080/TAM/user/update", editedData)
         .then((response) => {
           setUserData({ ...editedData });
           setEditable(false);

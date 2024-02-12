@@ -54,7 +54,7 @@ const Register: FC<{}> = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("https://tam-back.onrender.com/TAM/role")
+      .get<DropdownItem[]>("http://192.168.10.141:8080/TAM/role")
       .then((res) => {
         setRoles(res.data);
         console.log(res.data);
@@ -230,7 +230,7 @@ const Register: FC<{}> = () => {
         </ButtonContainer>
         <RegisterDontHaveAccountHold>
           <RegParagraph>Already have an account?</RegParagraph>
-          <LoginLink to="/auth/login">
+          <LoginLink to="/login">
             <RegParagraph>Login!</RegParagraph>
           </LoginLink>
         </RegisterDontHaveAccountHold>

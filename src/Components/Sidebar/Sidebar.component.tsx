@@ -90,10 +90,10 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
 
   const navigate = useNavigate();
 
-  const goToHome = () => navigate('/auth/home');
-  const goToCalendar = () => navigate('/auth/calendar');
-  const goToMessages = () => navigate('/auth/messagepage');
-  const goToApartments = () => navigate('/auth/apartmentpage');
+  const goToHome = () => navigate('/home');
+  const goToCalendar = () => navigate('/calendar');
+  const goToMessages = () => navigate('/messagepage');
+  const goToApartments = () => navigate('/apartmentpage');
 
   return (
     <SidebarContainer open={isMobile ? false : open}>

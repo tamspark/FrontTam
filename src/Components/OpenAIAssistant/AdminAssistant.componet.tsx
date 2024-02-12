@@ -72,7 +72,7 @@ const ChatComponent2: React.FC = () => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("https://tam-back.onrender.com/TAM/assistant/thread/client", {
+        .post("http://192.168.10.141:8080/TAM/assistant/thread/client", {
           newMessage,
         })
         .then((response) => {
@@ -93,7 +93,7 @@ const ChatComponent2: React.FC = () => {
     } else {
       axios
         .post(
-          `https://tam-back.onrender.com/TAM/assistant/chat/${threadId}/client`,
+          `http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/client`,
           {
             content: newMessage,
             role: "user",

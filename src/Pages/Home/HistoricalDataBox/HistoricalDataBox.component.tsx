@@ -15,7 +15,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const HistoricalDataBox: FC<{}> = () => {
   const navigate = useNavigate();
 
-  const goToHistoricalHandler = () => navigate("/auth/calendar");
+  const goToHistoricalHandler = () => navigate("/calendar");
 
   return (
     <Box>

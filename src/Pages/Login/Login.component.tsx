@@ -126,7 +126,7 @@ const Login: FC<{}> = () => {
         </LoginButtonHolder>
         <DontHaveAccountHold>
           <Paragraph>You don't have an account?</Paragraph>
-          <RegisterLink to="/auth/register">
+          <RegisterLink to="/register">
             <Paragraph>Register!</Paragraph>
           </RegisterLink>
         </DontHaveAccountHold>

@@ -14,7 +14,7 @@ const MessagesBox: FC<{}> = () => {
   const [userHasNewMessages, setUserHasNewMessages] = useState(false); // to do check with the backend for new messages
   const navigate = useNavigate();
 
-  const newMessagesHandler = () => navigate('/auth/messagepage');
+  const newMessagesHandler = () => navigate('/messagepage');
 
   const newMessagesText = userHasNewMessages
     ? "You have new messages inbox."

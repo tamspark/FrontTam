@@ -45,7 +45,7 @@ const Verification: FC<{}> = () => {
     console.log(postData);
     try {
       const response = await axios.post(
-        "https://tam-back.onrender.com/TAM/smoobuAccount",
+        "http://192.168.10.141:8080/TAM/smoobuAccount",
         postData
       );
 
@@ -53,7 +53,7 @@ const Verification: FC<{}> = () => {
       const isRegisteredInSmoobu = response.data.registredInSmoobu;
 
       dispatch(updateSmoobuRegistration(isRegisteredInSmoobu));
-      navigate("/auth/apartmentpage");
+      navigate("/apartmentpage");
     } catch (error) {
       console.error("POST request error:", error);
     }

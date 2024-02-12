@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
  
-  const goToProfile = () => navigate('/auth/userprofile');
+  const goToProfile = () => navigate('/userprofile');
 
   return (
     <Styled.Header>

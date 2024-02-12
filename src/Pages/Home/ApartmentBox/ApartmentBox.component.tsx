@@ -17,19 +17,19 @@ const ApartmentBox: FC<{}> = () => {
 
     const navigate = useNavigate();
 
-    const goToAparmentHandler = () => navigate('/auth/apartmentpage');
+    const goToAparmentHandler = () => navigate('/apartmentpage');
 
     return (
         <Box>
             <Content>
 
                 <ApartmentIcon style={{fontSize:60}}/>
-                <ApartmentText>Manage here your apartments</ApartmentText>
+                <ApartmentText>Manage here your Properties</ApartmentText>
 
                 <GoToApartmentsButton
                     onClick={goToAparmentHandler}
                 >
-                    Go to apartments
+                    Go to properties
                 </GoToApartmentsButton>
             </Content>
         </Box>

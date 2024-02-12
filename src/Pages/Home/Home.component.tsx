@@ -24,7 +24,6 @@ import styled from "styled-components";
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
 
-
 const Test = styled.div`
   width: 25%;
   height: 100%;
@@ -35,7 +34,6 @@ const Test = styled.div`
   @media (max-width: 1050px) {
     width: 100%;
   }
-  
 `;
 
 const Testim = styled.div`
@@ -47,21 +45,17 @@ const Testim = styled.div`
   align-items: center;
   @media (max-width: 1050px) {
     width: 300px;
-    
   }
-  
 `;
 const TestimHolder = styled.div`
-width:95%;
-display: flex;
+  width: 95%;
+  display: flex;
 
-
-align-items: center;
-@media (max-width: 1050px) {
-  width: 100%;
-  display:block;
-}
-  
+  align-items: center;
+  @media (max-width: 1050px) {
+    width: 100%;
+    display: block;
+  }
 `;
 
 const Dropdown = styled.select`
@@ -88,24 +82,23 @@ interface ApiResponse {
   occupancyRevenueReport: OccupancyRevenueData[];
 }
 
-
-
 const Home: FC<{}> = () => {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [selectedOption, setSelectedOption] = useState<string>("plusthreemonths");
+  const [selectedOption, setSelectedOption] =
+    useState<string>("plusthreemonths");
   const userId = user?.id;
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `https://tam-back.onrender.com/TAM/dashboard/${userId}/${selectedOption}`
+          `http://192.168.10.141:8080/TAM/dashboard/${userId}/${selectedOption}`
         );
         setData(response.data);
-        console.log(data)
+        console.log(data);
       } catch (error) {
         setError("An error occurred while fetching data.");
       } finally {
@@ -114,9 +107,11 @@ const Home: FC<{}> = () => {
     };
 
     fetchData();
-  }, [userId,selectedOption]);
+  }, [userId, selectedOption]);
 
-  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDropdownChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedOption(event.target.value);
   };
 
@@ -128,27 +123,32 @@ const Home: FC<{}> = () => {
     return <div>Error: {error}</div>;
   }
 
-  const chartData = data?.occupancyRevenueReport.map(item => ({
-    name: item.month,
-    revenue: item.data.revenue,
-    occupancy: item.data.occupancy,
-  })) || [];
-  console.log('Chart Data:', chartData);
+  const chartData =
+    data?.occupancyRevenueReport.map((item) => ({
+      name: item.month,
+      revenue: item.data.revenue,
+      occupancy: item.data.occupancy,
+    })) || [];
+  console.log("Chart Data:", chartData);
   return (
-   
     <Page>
       <Content>
-     
         <TopBox>
-           <Test>
-           <Dropdown value={selectedOption} onChange={handleDropdownChange}>
-          <option value="thismonth">This Month</option>
-          <option value="nextmonth">Next Month</option>
-          <option value="plusthreemonths">Next three months</option>
-        </Dropdown>
+          <Test>
+            <Dropdown value={selectedOption} onChange={handleDropdownChange}>
+              <option value="thismonth">This Month</option>
+              <option value="nextmonth">Next Month</option>
+              <option value="plusthreemonths">Next three months</option>
+            </Dropdown>
             <h2>Nights/Portal</h2>
-            <PieChartComponent data={Object.entries(data?.nightsPortalReport || {}).map(([name, value]) => ({ name  , value })) || []}/>
-            </Test>
+            <PieChartComponent
+              data={
+                Object.entries(data?.nightsPortalReport || {}).map(
+                  ([name, value]) => ({ name, value })
+                ) || []
+              }
+            />
+          </Test>
           <Test>
             <h2>Occupancy</h2>
             <HalfCircleChart percentage={data?.occupancyPercentage || 0} />
@@ -157,7 +157,7 @@ const Home: FC<{}> = () => {
           <Testim>
             <h2>Occupancy & Revenue</h2>
             <TestimHolder>
-            <Example data={chartData}/>
+              <Example data={chartData} />
             </TestimHolder>
           </Testim>
         </TopBox>
@@ -170,11 +170,9 @@ const Home: FC<{}> = () => {
           <MessagesBox />
           <HistoricalDataBox />
         </BottomBox>
-       
       </Content>
-     <Footer/>
+      <Footer />
     </Page>
-    
   );
 };
 

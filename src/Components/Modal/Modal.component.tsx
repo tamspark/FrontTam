@@ -84,7 +84,7 @@ const Modall: FC<{}> = () => {
 
         if (openModal.fulfilled.match(response)) {
           setShowRentList(true);
-          navigate("/auth/rentlist");
+          navigate("/rentlist");
         }
       } catch (error) {
         console.log("Error in handleModalClick:", error);
@@ -98,7 +98,7 @@ const Modall: FC<{}> = () => {
     <>
       <ModalForm>
         <ModalContent>
-          <ModalParagraph>ADD RENT DATE </ModalParagraph>
+          <ModalParagraph>EDIT THE PRICE FOR TIMEFRAME </ModalParagraph>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker
