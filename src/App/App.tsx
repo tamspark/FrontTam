@@ -24,6 +24,9 @@ import UserProfile from "Pages/Profile/Profile.component";
 import ChatComponent from "Components/OpenAIAssistant/OpenAIAssistant.component";
 import GradientPage from "Pages/CheckinPage/checkin.component";
 import Example from "Components/Dashboard/Chart/Chart.component";
+import GetSuggestedPrice from "Components/GetSuggestedPrice/GetSuggestedPrice.component";
+import AddOption from "Components/AddOptions/AddOptions.component";
+import YourComponent from "Components/MinStayLogic/ShowMinStay.component";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -55,11 +58,14 @@ const App: FC<{}> = () => {
                   <Route path="resetpassword" element={<ResetPassword/>} />
                   <Route path="chat" element={<ChatComponent/>} />
                   <Route path="chart" element={<Example data={[]}/>} />
+                  <Route path="minstay" element={<YourComponent/>} />
+                  <Route path="/add/:apartmentId" element={<AddOption />}  />
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}
                   />
                   <Route path="messagepage" element={<MessagePage />} />
+                  <Route path="form" element={<GetSuggestedPrice/>} />
                   <Route
                     path="*"
                     element={<Navigate to="home" replace />}
@@ -76,9 +82,10 @@ const App: FC<{}> = () => {
             <Route path="/" element={<AuthPage />}>
               
               <Route path="/login" element={<Login />} index />
+              
               <Route path="/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
-              <Route path="/kyc" element={<GradientPage/>}/>
+              <Route path="/kyc/:token" element={<GradientPage/>}/>
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}

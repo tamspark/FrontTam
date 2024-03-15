@@ -62,6 +62,7 @@ export const TableCell = styled.td`
   font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
+ 
 `;
 export const ActionTableCell = styled.td`
   border: 1px solid #dddddd;

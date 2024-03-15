@@ -70,7 +70,7 @@ const ChatComponent: React.FC = () => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("http://192.168.10.141:8080/TAM/assistant/thread/host", {
+        .post("http://192.168.10.210:8080/TAM/assistant/thread/host", {
           newMessage,
         })
         .then((response) => {
@@ -91,7 +91,7 @@ const ChatComponent: React.FC = () => {
     } else {
       axios
         .post(
-          `http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/host`,
+          `http://192.168.10.210:8080/TAM/assistant/chat/${threadId}/host`,
           {
             content: newMessage,
             role: "user",

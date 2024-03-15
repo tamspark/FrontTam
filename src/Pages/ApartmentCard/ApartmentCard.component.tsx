@@ -27,6 +27,7 @@ import {
 } from "./style/ApartmentCard.style";
 import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 import MyComponent from "Components/IOTsection/IOT.component";
+import AddUrl from "Components/AddOptions/AddUrl.component";
 
 
 const ApartmentCard: FC<{}> = () => {
@@ -67,7 +68,8 @@ const ApartmentCard: FC<{}> = () => {
       {apartmentCardDetails && (
         <CardContainer>
           <ApartmentName>{apartmentCardDetails.name}</ApartmentName>
-
+          <ApartmentName><AddUrl/></ApartmentName>
+          
           <DivsContentHolder>
             <Div>
               <Paragraphs>
@@ -164,11 +166,16 @@ const ApartmentCard: FC<{}> = () => {
             <IconHold>
               <RentLink to="/modal">ADD PRICE</RentLink>
             </IconHold>
+            <IconHold>
+              <RentLink to={`/add/${apartmentId}`}>SEE AMENITIES</RentLink>
+            </IconHold>
+            
           </IconContainer>
         </CardContainer>
       )}
     </Holder>
     <MyComponent id={0}/>
+   
     </Page>
     
    </>

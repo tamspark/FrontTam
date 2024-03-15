@@ -1,9 +1,10 @@
 import ChatComponent2 from 'Components/OpenAIAssistant/AdminAssistant.componet';
+import axios from 'axios';
 
 import React from 'react';
 import styled from 'styled-components';
 
-// Define the styled components for the page and the button
+
 const PageContainer = styled.div`
   height: 100vh;
   width:100vw;
@@ -34,10 +35,43 @@ height:90px;
   }
 `;
 
+
+
 const GradientPage: React.FC = () => {
+
+  const currentURL = window.location.href;
+
+
+const numbers = currentURL.match(/\d+$/);
+
+if (numbers) {
+    
+    const numbersString = numbers[0];
+
+
+    localStorage.setItem('bookingApartmentId', numbersString);
+
+    console.log('Apartment id:', numbersString);
+} else {
+    console.log('No numbers found in the URL.');
+}
+
+const checkIn = async () => {
+  try {
+    const requestBody = {
+      reservationId: 55784576,
+      guestName: "Redis"
+    };
+    await axios.post("http://192.168.10.210:8080/TAM/meeting/generateJitsiMeetLink", requestBody);
+    console.log("API call successful");
+  } catch (error) {
+    console.error("Error calling API:", error);
+  }
+};
+
   return (
     <PageContainer>
-      <Button>Check-in</Button>
+      <Button onClick={checkIn}>Check-in</Button>
      
       <ChatComponent2/>
      

@@ -22,6 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import axios from "axios";
 
 interface RentListProps {
   rentalData: Modal[];
@@ -62,10 +63,10 @@ const RentList: FC<RentListProps> = () => {
       setEndDate(`${year}-${month}-${day}`);
     }
   }
-  
+
   // Calculate the start and end dates for the current month
   const today = new Date();
-  const currentMonth = today.getMonth() + 1; 
+  const currentMonth = today.getMonth() + 1;
   const currentYear = today.getFullYear();
   const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
   const startOfMonth = `${currentYear}-${currentMonth
@@ -76,20 +77,22 @@ const RentList: FC<RentListProps> = () => {
     .padStart(2, "0")}-${lastDayOfMonth.getDate()}`;
 
   const dispatch: AppDispatch = useDispatch();
+
   const handleSave = async () => {
     if (!userId || !selectedItem) {
       console.error("User is not authenticated or no item is selected");
       return;
     }
 
-    //post request
     const userCredentials = {
       apartments: [apartmentIdFromStore],
       operations: [
         {
           dates: [selectedItem?.date],
           daily_price: parseFloat(selectedItem.price),
+          suggestedPrice: parseFloat(selectedItem.suggestedPrice),
           min_length_of_stay: parseInt(selectedItem.min_length_of_stay),
+          suggestedMinimumStay: parseInt(selectedItem.suggestedMinimumStay),
         },
       ],
     };
@@ -150,7 +153,6 @@ const RentList: FC<RentListProps> = () => {
     }
   }, [dispatch, userId, endDate, startDate]);
 
-  
   useEffect(() => {
     setStartDate(startOfMonth);
     setEndDate(endOfMonth);
@@ -168,12 +170,15 @@ const RentList: FC<RentListProps> = () => {
               if (Object.prototype.hasOwnProperty.call(innerObject, dateKey)) {
                 const dateData = innerObject[dateKey];
                 const price = dateData.price;
+                const suggestedMinimumStay = dateData.suggestedMinimumStay;
                 const min_length_of_stay = dateData.min_length_of_stay;
-
+                const suggestedPrice = dateData.suggestedPrice;
                 const data = {
                   date: dateKey,
                   price: price,
                   min_length_of_stay: min_length_of_stay,
+                  suggestedPrice: suggestedPrice,
+                  suggestedMinimumStay: suggestedMinimumStay,
                 };
 
                 updatedResult.push(data);
@@ -187,16 +192,69 @@ const RentList: FC<RentListProps> = () => {
     }
   }, [rentList]);
 
-  const handleMatchPrice = (index: number) => {
-    if (result[index] && selectedItem) {
-      const updatedResult = [...result];
-      updatedResult[index].sPrice = selectedItem.price || "N/A";
-      setResult(updatedResult);
+  const handleMatchPrice = async (rental: any) => {
+    const userCredentialss = {
+      apartments: [1993841],
+      operations: [
+        {
+          dates: [rental.date],
+          daily_price: rental.suggestedPrice,
+          suggestedPrice: rental.suggestedPrice,
+          min_length_of_stay: rental.min_length_of_stay,
+          suggestedMinimumStay: rental.suggestedMinimumStay,
+        },
+      ],
+    };
+
+    try {
+      const response = await axios.post(
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        userCredentialss
+      );
+
+      if (response.status === 200) {
+        await fetchData();
+        console.log("Update successful", response.data);
+      } else {
+        console.error("Update failed", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error in handleMatchPrice:", error);
+    }
+  };
+
+  const handleMinStay = async (rental: any) => {
+    const userCredentialss = {
+      apartments: [1993841],
+      operations: [
+        {
+          dates: [rental.date],
+          daily_price: rental.price,
+          suggestedPrice: rental.suggestedPrice,
+          min_length_of_stay: rental.suggestedMinimumStay,
+          suggestedMinimumStay: rental.suggestedMinimumStay,
+        },
+      ],
+    };
+
+    try {
+      const response = await axios.post(
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        userCredentialss
+      );
+
+      if (response.status === 200) {
+        await fetchData();
+        console.log("Update successful", response.data);
+      } else {
+        console.error("Update failed", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error in handleMatchPrice:", error);
     }
   };
 
   return (
-   
     <TableAndDatepickerHolder>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer
@@ -206,14 +264,20 @@ const RentList: FC<RentListProps> = () => {
           <DatePicker
             label="Start date"
             onChange={handleStartDateChange}
-            sx={{ margin: "10px  !important" ,width:"200px",marginLeft:"50px !important"}}
-           
+            sx={{
+              margin: "10px  !important",
+              width: "200px",
+              marginLeft: "50px !important",
+            }}
           />
           <DatePicker
             label="End date"
             onChange={handleEndDateChange}
-            sx={{ margin: "10px  !important",width:"200px",marginLeft:"50px !important" }}
-           
+            sx={{
+              margin: "10px  !important",
+              width: "200px",
+              marginLeft: "50px !important",
+            }}
           />
         </DemoContainer>
       </LocalizationProvider>
@@ -234,20 +298,26 @@ const RentList: FC<RentListProps> = () => {
               <TableRow key={index}>
                 <TableCell>{rental.date}</TableCell>
                 <TableCell>${rental.price}</TableCell>
-                <TableCell>"N/A"  <EditButton onClick={() => handleMatchPrice(index)}>
+                <TableCell>
+                  ${rental.suggestedPrice}{" "}
+                  <EditButton onClick={() => handleMatchPrice(rental)}>
                     Match
-                  </EditButton></TableCell>
+                  </EditButton>
+                </TableCell>
                 <TableCell>{rental.min_length_of_stay} nights</TableCell>
-                <TableCell>N/A  <EditButton onClick={() => handleMatchPrice(index)}>
+                <TableCell>
+                  {rental.suggestedMinimumStay}{" "}
+                  <EditButton onClick={() => handleMinStay(rental)}>
                     Match
-                  </EditButton></TableCell>
+                  </EditButton>
+                </TableCell>
                 <ActionTableCell>
                   <EditButton onClick={() => handleEdit(rental)}>
                     Edit
                   </EditButton>
-                 
+
                   <IconLink to="">
-                    <DeleteIcon sx={{fontSize:"30px"}} />
+                    <DeleteIcon sx={{ fontSize: "30px" }} />
                   </IconLink>
                 </ActionTableCell>
               </TableRow>
@@ -312,8 +382,6 @@ const RentList: FC<RentListProps> = () => {
         footerContent={<Button onClick={handleSave}>Save</Button>}
       />
     </TableAndDatepickerHolder>
-   
-  
   );
 };
 
