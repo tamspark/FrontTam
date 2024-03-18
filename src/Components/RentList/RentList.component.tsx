@@ -194,7 +194,7 @@ const RentList: FC<RentListProps> = () => {
 
   const handleMatchPrice = async (rental: any) => {
     const userCredentialss = {
-      apartments: [1993841],
+      apartments: [2031134],
       operations: [
         {
           dates: [rental.date],
@@ -225,7 +225,7 @@ const RentList: FC<RentListProps> = () => {
 
   const handleMinStay = async (rental: any) => {
     const userCredentialss = {
-      apartments: [1993841],
+      apartments: [2031134],
       operations: [
         {
           dates: [rental.date],
