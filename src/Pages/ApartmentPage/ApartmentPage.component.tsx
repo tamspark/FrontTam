@@ -23,6 +23,7 @@ import { AppDispatch } from "../../redux/store";
 
 //navigation
 import { useNavigate } from "react-router";
+import { Button } from "@mui/material";
 
 
 const ApartmentPage: FC<{}> = () => {
@@ -68,11 +69,21 @@ const ApartmentPage: FC<{}> = () => {
     navigate(`/apartmentcard/${apartment.id}`);
   };
 
+  const handleRules = () => {
+    
+    navigate(`/minstay`);
+  };
 
 
 
   return (
+    <>
+    <div style={{marginTop:"70px"}}>
+    <Button onClick={handleRules}>See the rules</Button>
+   
+  </div>
     <Container>
+     
       {error ? (
         <ErrorMessage>{error}</ErrorMessage>
       ) : (
@@ -91,7 +102,7 @@ const ApartmentPage: FC<{}> = () => {
       )}
  
     </Container>
-   
+    </>
   );
 };
 

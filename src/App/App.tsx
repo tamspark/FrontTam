@@ -80,12 +80,12 @@ const App: FC<{}> = () => {
             </Route>
           ) : (
             <Route path="/" element={<AuthPage />}>
-              
+              <Route path="/" element={<Login />} index />
               <Route path="/login" element={<Login />} index />
               
               <Route path="/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
-              <Route path="/kyc/:token" element={<GradientPage/>}/>
+              <Route path="/kyc/:token/:token/:token" element={<GradientPage/>}/>
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}

@@ -22,8 +22,8 @@ const StyledWrapper = styled(Box)`
   color: skyblue;
   border-radius: 23px;
   padding: 30px 40px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -63,10 +63,8 @@ const AddUrl: React.FC = () => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-   
   };
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-   
     setUrl(event.target.value);
   };
 
@@ -74,11 +72,11 @@ const AddUrl: React.FC = () => {
     try {
       const requestBody = {
         optionName: name,
-        link:url,
-        apartmentId:2028236
+        link: url,
+        apartmentId: 2028236,
       };
       await axios.post(
-        "http://192.168.10.210:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        "https://tambackend.onrender.com/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
         requestBody
       );
       console.log("POST request successful");
@@ -99,7 +97,7 @@ const AddUrl: React.FC = () => {
           <InputBox>
             <StyledTextField
               type="text"
-              placeholder="Type here"
+              placeholder="Video Name"
               value={name}
               onChange={handleNameChange}
               required
@@ -108,7 +106,7 @@ const AddUrl: React.FC = () => {
           <InputBox>
             <StyledTextField
               type="url"
-              placeholder="Type here"
+              placeholder="Video URL"
               value={url}
               onChange={handleUrlChange}
               required

@@ -13,6 +13,8 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import AddOptionForm from "./AddOptionForm.component";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 interface ApartmentOption {
   optionId: number;
@@ -26,14 +28,19 @@ interface AddUrlOption {
   optionName: string;
 }
 
-
 const AccessibleTable: React.FC = () => {
-  const [apartmentOptionsWithCategories, setApartmentOptionsWithCategories] = useState<
-    { category: { id: number; categoryName: string }; apartmentOptions: ApartmentOption[] }[]
-  >([]);
+  const [apartmentOptionsWithCategories, setApartmentOptionsWithCategories] =
+    useState<
+      {
+        category: { id: number; categoryName: string };
+        apartmentOptions: ApartmentOption[];
+      }[]
+    >([]);
   // const [apartmentOptions, setApartmentOptions] = useState<ApartmentOption[]>(
   //   []
   // );
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?.id;
   const [urlData, setUrlData] = useState<AddUrlOption[]>([]);
   const [apartmentId, setApartmentId] = useState<number | null>(null);
   const [reload, setReload] = useState<boolean>(false);
@@ -45,24 +52,26 @@ const AccessibleTable: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.10.210:8080/TAM/2/apartments/getallApartmentOptions/${idFromUrl}`
+          `https://tambackend.onrender.com/TAM/${userId}/apartments/getallApartmentOptions/${idFromUrl}`
         );
-        setApartmentOptionsWithCategories(response.data.apartmentOptionsWithCategories);
+        setApartmentOptionsWithCategories(
+          response.data.apartmentOptionsWithCategories
+        );
         setApartmentId(response.data.apartmentId);
-        console.log(response.data)
+        console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `http://192.168.10.210:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/${idFromUrl}`
+          `https://tambackend.onrender.com/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/${idFromUrl}`
         );
-        setUrlData(response2.data|| []);
+        setUrlData(response2.data || []);
         console.log(urlData);
-        console.log(response2.data)
+        console.log(response2.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [location.pathname, reload]);
+  }, [location.pathname, reload, userId]);
 
   const handleDeleteClick = async (optionId: number) => {
     try {
@@ -74,7 +83,7 @@ const AccessibleTable: React.FC = () => {
 
         // Send DELETE request with apartmentId and optionId in the body
         await axios.delete(
-          "http://192.168.10.210:8080/TAM/2/apartments/deleteApartmentOption/delete",
+          `https://tambackend.onrender.com/TAM/${userId}/apartments/deleteApartmentOption/delete`,
           { data: requestBody }
         );
         console.log("DELETE request successful");
@@ -96,7 +105,7 @@ const AccessibleTable: React.FC = () => {
         };
 
         await axios.post(
-          "http://192.168.10.210:8080/TAM/2/apartments/apartmentOption/saveOrUpdate",
+          `https://tambackend.onrender.com/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
           requestBody
         );
         console.log("POST request successful");
@@ -114,30 +123,35 @@ const AccessibleTable: React.FC = () => {
   };
 
   return (
-    <div style={{height: "100vh",
-      marginTop: "100px"}}>
-        <div
-         style={{display:"flex", justifyContent:"center", alignItems:"center",marginTop:"70px"}}
-         >
+    <div style={{ height: "100vh", marginTop: "100px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "70px",
+        }}
+      >
         <AddOptionForm />
-        </div>
+      </div>
       {apartmentOptionsWithCategories.map((categoryGroup) => (
         <div key={categoryGroup.category.id}>
           <TableContainer
             component={Paper}
             sx={{
-             
-    maxWidth: "1300px",
-    marginLeft: "50px",
-    // maxHeight: "70%",
-    marginTop: "50px"
+              maxWidth: "1300px",
+              marginLeft: "50px",
+              // maxHeight: "70%",
+              marginTop: "50px",
             }}
           >
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <caption>{categoryGroup.category.categoryName}</caption>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ fontSize: "25px" }}>{categoryGroup.category.categoryName}</TableCell>
+                  <TableCell sx={{ fontSize: "25px" }}>
+                    {categoryGroup.category.categoryName}
+                  </TableCell>
                   <TableCell sx={{ fontSize: "25px" }} align="right">
                     Status
                   </TableCell>
@@ -173,43 +187,42 @@ const AccessibleTable: React.FC = () => {
               </TableBody>
             </Table>
           </TableContainer>
-         
         </div>
       ))}
-     
-       <TableContainer  component={Paper}
-            sx={{
-             
-    maxWidth: "1300px",
-    marginLeft: "50px",
-    // maxHeight: "70%",
-    marginTop: "50px"
-            }}>
-            <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            <TableRow>
+
+      <TableContainer
+        component={Paper}
+        sx={{
+          maxWidth: "1300px",
+          marginLeft: "50px",
+          // maxHeight: "70%",
+          marginTop: "50px",
+        }}
+      >
+        <Table sx={{ minWidth: 650 }} aria-label="caption table">
+          <TableRow>
             <TableCell sx={{ fontSize: "25px" }}>Links</TableCell>
             <TableCell> </TableCell>
+          </TableRow>
+
+          {urlData.map((option) => (
+            <TableRow key={option.id}>
+              <TableCell
+                onClick={() => openUrlInNewTab(option.link)}
+                style={{
+                  cursor: "pointer",
+                  color: "#566367",
+                  fontSize: "18px",
+                  fontFamily: "serif",
+                }}
+              >
+                {option.optionName}
+              </TableCell>
+              <TableCell> </TableCell>
             </TableRow>
-            
-            {urlData.map((option) => (
-              <TableRow key={option.id}>
-                <TableCell
-                  onClick={() => openUrlInNewTab(option.link)}
-                  style={{
-                    cursor: "pointer",
-                    color: "#566367",
-                    fontSize: "18px",
-                    fontFamily: "serif",
-                  }}
-                >
-                  {option.optionName}
-                </TableCell>
-                <TableCell> </TableCell>
-              </TableRow>
-            ))}
-            </Table>
-          </TableContainer>
-         
+          ))}
+        </Table>
+      </TableContainer>
     </div>
   );
 };

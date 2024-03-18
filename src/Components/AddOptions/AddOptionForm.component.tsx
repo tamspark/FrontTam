@@ -22,8 +22,8 @@ const StyledWrapper = styled(Box)`
   color: skyblue;
   border-radius: 23px;
   padding: 30px 40px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -68,12 +68,12 @@ const AddOptionForm: React.FC = () => {
     try {
       const requestBody = {
         description: description,
-        apartmentOptionCategory:{
-          id:14
-       }
+        apartmentOptionCategory: {
+          id: 14,
+        },
       };
       await axios.post(
-        "http://192.168.10.210:8080/TAM/apartmentOption/saveOrUpdateApartmentOption",
+        "https://tambackend.onrender.com/TAM/apartmentOption/saveOrUpdateApartmentOption",
         requestBody
       );
       console.log("POST request successful");
