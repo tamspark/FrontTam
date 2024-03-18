@@ -29,7 +29,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `https://tambackend.onrender.com/TAM/minStay/getMinS/1aysByUser/${userId}`
+          `https://tambackend.onrender.com/TAM/minStay/getMinStaysByUser/${userId}`
         );
         setMinStays(response.data);
       } catch (error) {
