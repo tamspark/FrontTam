@@ -194,14 +194,14 @@ const RentList: FC<RentListProps> = () => {
 
   const handleMatchPrice = async (rental: any) => {
     const userCredentialss = {
-      apartments: [2031134],
+      apartments: [apartmentIdFromStore],
       operations: [
         {
           dates: [rental.date],
           daily_price: rental.suggestedPrice,
-          suggestedPrice: rental.suggestedPrice,
+          // suggestedPrice: rental.suggestedPrice,
           min_length_of_stay: rental.min_length_of_stay,
-          suggestedMinimumStay: rental.suggestedMinimumStay,
+          // suggestedMinimumStay: rental.suggestedMinimumStay,
         },
       ],
     };
@@ -225,14 +225,14 @@ const RentList: FC<RentListProps> = () => {
 
   const handleMinStay = async (rental: any) => {
     const userCredentialss = {
-      apartments: [2031134],
+      apartments: [apartmentIdFromStore],
       operations: [
         {
           dates: [rental.date],
           daily_price: rental.price,
-          suggestedPrice: rental.suggestedPrice,
+          // suggestedPrice: rental.suggestedPrice,
           min_length_of_stay: rental.suggestedMinimumStay,
-          suggestedMinimumStay: rental.suggestedMinimumStay,
+          // suggestedMinimumStay: rental.suggestedMinimumStay,
         },
       ],
     };
